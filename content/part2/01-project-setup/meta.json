@@ -1,0 +1,10 @@
+{
+  "slug": "01-project-setup",
+  "title": "WPILib Project Structure",
+  "description": "Set up your first WPILib Kotlin project and understand the file layout",
+  "order": 1,
+  "requiredLevel": 5,
+  "xpReward": 75,
+  "estimatedMinutes": 15,
+  "tags": ["wpilib", "project-setup"]
+}

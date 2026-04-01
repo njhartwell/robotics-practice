@@ -1,0 +1,10 @@
+{
+  "slug": "01-hello-kotlin",
+  "title": "Hello, Kotlin!",
+  "description": "Write your first Kotlin program and learn about fun main()",
+  "order": 1,
+  "requiredLevel": 0,
+  "xpReward": 50,
+  "estimatedMinutes": 5,
+  "tags": ["basics", "hello-world"]
+}

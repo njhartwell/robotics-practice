@@ -1,0 +1,14 @@
+{
+  "id": "01-hello-kotlin/ex-01",
+  "lessonSlug": "01-hello-kotlin",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Print Hello World",
+  "instructions": "Complete the program to print \"Hello, World!\" to the console.",
+  "hint": "Use the println() function with a string argument.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    // Print \"Hello, World!\" here\n    \n}",
+  "solutionCode": "fun main() {\n    println(\"Hello, World!\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Hello, World!"
+}
