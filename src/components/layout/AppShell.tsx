@@ -3,12 +3,26 @@
 import { ProgressProvider } from "@/lib/progress/ProgressProvider";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
+import type { LessonMeta } from "@/lib/progress/types";
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+interface AppShellProps {
+  children: React.ReactNode;
+  playgroundLessons: LessonMeta[];
+  ideLessons: LessonMeta[];
+}
+
+export function AppShell({
+  children,
+  playgroundLessons,
+  ideLessons,
+}: AppShellProps) {
   return (
     <ProgressProvider>
       <div className="flex h-screen overflow-hidden">
-        <Sidebar />
+        <Sidebar
+          playgroundLessons={playgroundLessons}
+          ideLessons={ideLessons}
+        />
         <div className="flex-1 flex flex-col overflow-hidden">
           <TopBar />
           <main className="flex-1 overflow-y-auto p-6">{children}</main>

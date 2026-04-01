@@ -6,6 +6,7 @@ import { calculateXpAward } from "@/lib/gamification/xp";
 import { validateFillInTheBlank } from "@/lib/content/exercise-validator";
 import type { FillInTheBlankExercise as FITBType } from "@/lib/progress/types";
 import { XpToast } from "@/components/gamification/XpToast";
+import { InstructionText } from "./InstructionText";
 import { CheckCircle, XCircle } from "lucide-react";
 
 interface FillInTheBlankExerciseProps {
@@ -58,7 +59,7 @@ export function FillInTheBlankExercise({
             </span>
           )}
         </div>
-        <p className="text-sm text-muted mt-1 whitespace-pre-line">{exercise.instructions}</p>
+        <InstructionText text={exercise.instructions} />
       </div>
 
       <div className="p-4">

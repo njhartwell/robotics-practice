@@ -4,11 +4,11 @@
   "type": "code-completion",
   "order": 2,
   "title": "Team Greeting",
-  "instructions": "Print your FRC team number. Make the output say exactly: \"Team 4488\"",
-  "hint": "Use println() with the exact string \"Team 4488\".",
+  "instructions": "Print your FRC team number. Make the output say exactly: \"Team 4215\"",
+  "hint": "Use println() with the exact string \"Team 4215\".",
   "xpReward": 15,
   "starterCode": "fun main() {\n    // Print your team number\n    \n}",
-  "solutionCode": "fun main() {\n    println(\"Team 4488\")\n}",
+  "solutionCode": "fun main() {\n    println(\"Team 4215\")\n}",
   "validationMode": "output",
-  "expectedOutput": "Team 4488"
+  "expectedOutput": "Team 4215"
 }

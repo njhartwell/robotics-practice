@@ -8,8 +8,8 @@ Use `val` (short for **value**) to declare a variable that **cannot be reassigne
 
 ```kotlin
 fun main() {
-    val teamNumber = 4488
-    val teamName = "RoboRavens"
+    val teamNumber = 4215
+    val teamName = "Tribots"
     println(teamNumber)
     println(teamName)
 }
@@ -18,7 +18,7 @@ fun main() {
 Once you assign a value to a `val`, you cannot change it:
 
 ```kotlin
-val teamNumber = 4488
+val teamNumber = 4215
 teamNumber = 9999  // ERROR! Val cannot be reassigned
 ```
 
@@ -53,7 +53,7 @@ A motor speed, a score counter, or a sensor reading that updates each loop cycle
 Kotlin is smart enough to figure out the type of a variable from the value you assign. This is called **type inference**.
 
 ```kotlin
-val teamNumber = 4488       // Kotlin infers Int
+val teamNumber = 4215       // Kotlin infers Int
 val robotName = "Shredder"  // Kotlin infers String
 val motorSpeed = 0.75       // Kotlin infers Double
 val isEnabled = true        // Kotlin infers Boolean
@@ -66,7 +66,7 @@ You do not need to write the type yourself unless you want to be explicit.
 Sometimes you want to declare the type yourself for clarity, or declare a variable without giving it a value right away.
 
 ```kotlin
-val teamNumber: Int = 4488
+val teamNumber: Int = 4215
 val robotName: String = "Shredder"
 var motorSpeed: Double = 0.0
 var isEnabled: Boolean = false
@@ -80,7 +80,7 @@ One of Kotlin's nicest features is **string templates**. Instead of clunky strin
 
 ```kotlin
 fun main() {
-    val team = 4488
+    val team = 4215
     val alliance = "Red"
     println("Team $team is on the $alliance alliance")
 }
@@ -88,7 +88,7 @@ fun main() {
 
 Output:
 ```
-Team 4488 is on the Red alliance
+Team 4215 is on the Red alliance
 ```
 
 For expressions more complex than a single variable name, wrap them in curly braces:
@@ -126,7 +126,7 @@ The fix is simple: if the value needs to change, use `var` instead.
 In Kotlin, variable names use **camelCase** by convention: the first word is lowercase, and each subsequent word starts with an uppercase letter.
 
 ```kotlin
-val teamNumber = 4488
+val teamNumber = 4215
 var currentMotorSpeed = 0.0
 val maxAutonomousTime = 15
 ```
@@ -135,7 +135,7 @@ For true compile-time constants (values known before the program runs), you can 
 
 ```kotlin
 const val MAX_MOTOR_SPEED = 1.0
-const val TEAM_NUMBER = 4488
+const val TEAM_NUMBER = 4215
 ```
 
 Notice that constants use **UPPER_SNAKE_CASE**. You will see this pattern often in FRC codebases for things like port numbers and physical measurements.

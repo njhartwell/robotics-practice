@@ -10,6 +10,6 @@
   "starterCode": "fun greet(name: String): String {\n    // Return a greeting like \"Hello, Alice!\"\n    return \"\"\n}",
   "solutionCode": "fun greet(name: String): String {\n    return \"Hello, $name!\"\n}",
   "validationMode": "output",
-  "expectedOutput": "Hello, Team 4488!\nHello, Team 254!",
-  "hiddenPostamble": "fun main() {\n    println(greet(\"Team 4488\"))\n    println(greet(\"Team 254\"))\n}"
+  "expectedOutput": "Hello, Team 4215!\nHello, Team 254!",
+  "hiddenPostamble": "fun main() {\n    println(greet(\"Team 4215\"))\n    println(greet(\"Team 254\"))\n}"
 }

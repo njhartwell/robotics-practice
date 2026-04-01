@@ -7,6 +7,7 @@ import { useProgress } from "@/lib/progress/useProgress";
 import { calculateXpAward } from "@/lib/gamification/xp";
 import type { CodeExercise as CodeExerciseType } from "@/lib/progress/types";
 import { XpToast } from "@/components/gamification/XpToast";
+import { InstructionText } from "./InstructionText";
 import { CheckCircle, XCircle, Lightbulb } from "lucide-react";
 
 interface CodeExerciseProps {
@@ -67,7 +68,7 @@ export function CodeExercise({ exercise }: CodeExerciseProps) {
             </span>
           )}
         </div>
-        <p className="text-sm text-muted mt-1 whitespace-pre-line">{exercise.instructions}</p>
+        <InstructionText text={exercise.instructions} />
       </div>
 
       <div className="p-4">

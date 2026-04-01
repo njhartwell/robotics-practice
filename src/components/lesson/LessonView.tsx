@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useProgress } from "@/lib/progress/useProgress";
 import { XpToast } from "@/components/gamification/XpToast";
 import { LevelUpModal } from "@/components/gamification/LevelUpModal";
@@ -12,25 +12,36 @@ import { ChevronLeft, CheckCircle } from "lucide-react";
 interface LessonViewProps {
   lesson: LessonMeta;
   exercises: Exercise[];
-  children: React.ReactNode; // Server-rendered MDX content
+  children: React.ReactNode;
 }
 
 export function LessonView({ lesson, exercises, children }: LessonViewProps) {
-  const { progress, awardXp, completeLesson, startLesson } = useProgress();
+  const { progress, isLoaded, awardXp, completeLesson, startLesson } =
+    useProgress();
   const [lessonXpAwarded, setLessonXpAwarded] = useState<number | null>(null);
   const [levelUp, setLevelUp] = useState<number | null>(null);
-  const [prevLevel, setPrevLevel] = useState(progress.profile.currentLevel);
+  // Track the level after initial load so we don't fire on page reload
+  const prevLevelRef = useRef<number | null>(null);
 
   useEffect(() => {
     startLesson(lesson.slug, lesson.part);
   }, [lesson.slug, lesson.part, startLesson]);
 
+  // Initialize prevLevel only after progress is loaded from storage
   useEffect(() => {
-    if (progress.profile.currentLevel > prevLevel) {
+    if (isLoaded && prevLevelRef.current === null) {
+      prevLevelRef.current = progress.profile.currentLevel;
+    }
+  }, [isLoaded, progress.profile.currentLevel]);
+
+  // Detect level up only after initial load is settled
+  useEffect(() => {
+    if (!isLoaded || prevLevelRef.current === null) return;
+    if (progress.profile.currentLevel > prevLevelRef.current) {
       setLevelUp(progress.profile.currentLevel);
     }
-    setPrevLevel(progress.profile.currentLevel);
-  }, [progress.profile.currentLevel, prevLevel]);
+    prevLevelRef.current = progress.profile.currentLevel;
+  }, [isLoaded, progress.profile.currentLevel]);
 
   const lessonProgress = progress.lessons[lesson.slug];
   const allCompleted =
@@ -63,7 +74,6 @@ export function LessonView({ lesson, exercises, children }: LessonViewProps) {
         <p className="text-muted mt-1">{lesson.description}</p>
       </div>
 
-      {/* MDX content with exercises rendered inline via <Exercise> components */}
       <div className="prose prose-sm max-w-none">{children}</div>
 
       {isLessonDone && (

@@ -7,6 +7,7 @@ import {
 } from "@/lib/content/fs-loader";
 import { IdeProjectView } from "@/components/part2/IdeProjectView";
 import { buildMdxComponents } from "@/lib/content/mdx-components";
+import remarkGfm from "remark-gfm";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
@@ -44,6 +45,7 @@ export default async function IdeProjectLessonPage({ params }: PageProps) {
     const { content } = await compileMDX({
       source: mdxSource,
       components: mdxComponents,
+      options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
     });
     mdxContent = content;
   } else {

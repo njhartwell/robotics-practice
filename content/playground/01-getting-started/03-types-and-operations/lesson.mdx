@@ -8,16 +8,16 @@ Kotlin has four types you will use constantly:
 
 | Type | What it holds | Examples |
 |------|--------------|----------|
-| `Int` | Whole numbers | `4488`, `0`, `-3` |
+| `Int` | Whole numbers | `4215`, `0`, `-3` |
 | `Double` | Decimal numbers | `0.75`, `3.14`, `-1.0` |
-| `String` | Text | `"RoboRavens"`, `"Red Alliance"` |
+| `String` | Text | `"Tribots"`, `"Red Alliance"` |
 | `Boolean` | True or false | `true`, `false` |
 
 ```kotlin
 fun main() {
-    val teamNumber: Int = 4488
+    val teamNumber: Int = 4215
     val motorSpeed: Double = 0.75
-    val teamName: String = "RoboRavens"
+    val teamName: String = "Tribots"
     val isEnabled: Boolean = true
 
     println(teamNumber)
@@ -51,9 +51,9 @@ fun main() {
     val truncated: Int = pi.toInt()
     println(truncated)  // 3 (decimal part is dropped, not rounded)
 
-    val number: Int = 4488
+    val number: Int = 4215
     val asText: String = number.toString()
-    println("Team " + asText)  // Team 4488
+    println("Team " + asText)  // Team 4215
 }
 ```
 
@@ -67,7 +67,7 @@ Booleans are the foundation of decision-making in your code. You create boolean 
 
 | Operator | Meaning | Example | Result |
 |----------|---------|---------|--------|
-| `==` | Equal to | `4488 == 4488` | `true` |
+| `==` | Equal to | `4215 == 4215` | `true` |
 | `!=` | Not equal to | `10 != 5` | `true` |
 | `<` | Less than | `3 < 7` | `true` |
 | `>` | Greater than | `3 > 7` | `false` |
@@ -111,14 +111,14 @@ fun main() {
 You have two ways to combine strings with other values. **Concatenation** uses the `+` operator:
 
 ```kotlin
-val team = 4488
+val team = 4215
 println("Team " + team + " is ready")
 ```
 
 **String templates** use `$` and are almost always cleaner:
 
 ```kotlin
-val team = 4488
+val team = 4215
 println("Team $team is ready")
 ```
 
@@ -126,7 +126,7 @@ Both produce the same output, but string templates are preferred in Kotlin becau
 
 ```kotlin
 fun main() {
-    val red1 = 4488
+    val red1 = 4215
     val red2 = 1234
     val red3 = 5678
 

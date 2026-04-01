@@ -4,11 +4,11 @@
   "type": "code-completion",
   "order": 1,
   "title": "Declare and Print a val",
-  "instructions": "Declare an immutable variable called `teamName` with the value \"RoboRavens\", then print it using println().",
-  "hint": "Use `val teamName = \"RoboRavens\"` and then `println(teamName)`.",
+  "instructions": "Declare an immutable variable called `teamName` with the value \"Tribots\", then print it using println().",
+  "hint": "Use `val teamName = \"Tribots\"` and then `println(teamName)`.",
   "xpReward": 15,
   "starterCode": "fun main() {\n    // Declare teamName here\n    \n    println(teamName)\n}",
-  "solutionCode": "fun main() {\n    val teamName = \"RoboRavens\"\n    println(teamName)\n}",
+  "solutionCode": "fun main() {\n    val teamName = \"Tribots\"\n    println(teamName)\n}",
   "validationMode": "output",
-  "expectedOutput": "RoboRavens"
+  "expectedOutput": "Tribots"
 }

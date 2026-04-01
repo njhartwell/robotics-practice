@@ -8,6 +8,7 @@ import {
 } from "@/lib/content/fs-loader";
 import { LessonView } from "@/components/lesson/LessonView";
 import { buildMdxComponents } from "@/lib/content/mdx-components";
+import remarkGfm from "remark-gfm";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
@@ -49,6 +50,7 @@ export default async function PlaygroundLessonPage({ params }: PageProps) {
     const { content } = await compileMDX({
       source: mdxSource,
       components: mdxComponents,
+      options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
     });
     mdxContent = content;
   } else {

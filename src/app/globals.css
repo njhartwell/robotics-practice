@@ -46,6 +46,12 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Disable ligatures in all code contexts — beginners need to see !=, <=, etc. literally */
+code, pre, .font-mono, [class*="mono"] {
+  font-variant-ligatures: none;
+  -webkit-font-variant-ligatures: none;
+}
+
 /* Prose typography for MDX lesson content */
 .prose {
   line-height: 1.75;
@@ -107,6 +113,7 @@ body {
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-ligatures: none;
 }
 
 .prose pre {
@@ -115,6 +122,7 @@ body {
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
+  font-variant-ligatures: none;
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
   font-size: 0.875rem;
@@ -151,4 +159,28 @@ body {
   border-color: var(--border);
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.prose thead th {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.prose tbody td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: none;
 }

@@ -7,6 +7,7 @@ import { validateMultipleChoice } from "@/lib/content/exercise-validator";
 import type { MultipleChoiceExercise as MCExerciseType } from "@/lib/progress/types";
 import { XpToast } from "@/components/gamification/XpToast";
 import { CheckCircle, XCircle } from "lucide-react";
+import { InstructionText } from "./InstructionText";
 import { cn } from "@/lib/utils";
 
 interface MultipleChoiceExerciseProps {
@@ -59,7 +60,7 @@ export function MultipleChoiceExercise({
             </span>
           )}
         </div>
-        <p className="text-sm text-muted mt-1 whitespace-pre-line">{exercise.instructions}</p>
+        <InstructionText text={exercise.instructions} />
       </div>
 
       <div className="p-4 space-y-2">
