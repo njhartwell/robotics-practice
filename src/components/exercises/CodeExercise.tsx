@@ -23,7 +23,7 @@ export function CodeExercise({ exercise }: CodeExerciseProps) {
   const exerciseProgress = lessonProgress?.exercises[exercise.id];
   const alreadyCompleted = exerciseProgress?.completed ?? false;
 
-  const handleOutput = useCallback(
+  const handleExecutionEnd = useCallback(
     (output: string) => {
       if (exercise.validationMode === "output" && exercise.expectedOutput) {
         if (validateOutput(output, exercise.expectedOutput)) {
@@ -74,7 +74,7 @@ export function CodeExercise({ exercise }: CodeExerciseProps) {
         <KotlinPlayground
           code={exercise.starterCode}
           exerciseId={exercise.id}
-          onOutput={handleOutput}
+          onExecutionEnd={handleExecutionEnd}
           onTestPassed={handleTestPassed}
           onTestFailed={handleTestFailed}
           targetPlatform={exercise.validationMode === "test" ? "junit" : "jvm"}

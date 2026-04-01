@@ -6,7 +6,7 @@ interface KotlinPlaygroundProps {
   code: string;
   exerciseId: string;
   theme?: "darcula" | "default";
-  onOutput?: (output: string) => void;
+  onExecutionEnd?: (output: string) => void;
   onTestPassed?: () => void;
   onTestFailed?: (error: string) => void;
   targetPlatform?: "jvm" | "junit";
@@ -17,7 +17,7 @@ export function KotlinPlayground({
   code,
   exerciseId,
   theme = "darcula",
-  onOutput,
+  onExecutionEnd,
   onTestPassed,
   onTestFailed,
   targetPlatform = "jvm",
@@ -25,9 +25,8 @@ export function KotlinPlayground({
 }: KotlinPlaygroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
-  // Use refs so the MutationObserver closure always sees current callbacks
-  const onOutputRef = useRef(onOutput);
-  onOutputRef.current = onOutput;
+  const onExecutionEndRef = useRef(onExecutionEnd);
+  onExecutionEndRef.current = onExecutionEnd;
 
   useEffect(() => {
     if (!containerRef.current || initialized.current) return;
@@ -37,36 +36,50 @@ export function KotlinPlayground({
       const playground = module.default || module;
       if (!containerRef.current) return;
 
+      // Track whether the playground is currently executing code.
+      // onRun fires when execution starts; we then watch for the
+      // loader element to disappear, which signals completion.
+      let running = false;
+
       playground(containerRef.current, {
         onTestPassed: () => onTestPassed?.(),
         onTestFailed: (error: string) => onTestFailed?.(error),
+        onRun: () => {
+          running = true;
+        },
         callback: (_targetNode: HTMLElement, mountNode: HTMLElement) => {
           if (!mountNode) return;
 
-          // The playground renders execution output into .standard-output
-          // spans inside a .code-output div. We use a MutationObserver to
-          // detect when output appears after the user clicks "Run".
           let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
           const observer = new MutationObserver(() => {
-            // Debounce: the playground may update the DOM multiple times
-            // during a single render cycle.
+            if (!running) return;
+
+            // Debounce DOM updates — the playground may mutate
+            // several times during a single execution cycle.
             if (debounceTimer) clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
-              const outputEl = mountNode.querySelector(".code-output");
-              if (!outputEl) return;
+              // Still loading — wait for it to finish
+              if (mountNode.querySelector(".loader")) return;
 
-              // Collect text from standard-output spans (ignoring error output)
-              const stdSpans = outputEl.querySelectorAll(".standard-output");
-              if (stdSpans.length > 0) {
-                const text = Array.from(stdSpans)
-                  .map((span) => span.textContent ?? "")
-                  .join("");
-                if (text.trim()) {
-                  onOutputRef.current?.(text);
-                }
+              // Execution is done (loader gone). Read the output.
+              const outputEl = mountNode.querySelector(".code-output");
+              if (!outputEl) {
+                // Console never opened — empty execution (e.g. compile error
+                // with no output). Report empty output.
+                running = false;
+                onExecutionEndRef.current?.("");
+                return;
               }
-            }, 100);
+
+              const stdSpans = outputEl.querySelectorAll(".standard-output");
+              const text = Array.from(stdSpans)
+                .map((span) => span.textContent ?? "")
+                .join("");
+
+              running = false;
+              onExecutionEndRef.current?.(text);
+            }, 150);
           });
 
           observer.observe(mountNode, {
