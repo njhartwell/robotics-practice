@@ -1,0 +1,14 @@
+{
+  "id": "03-types-and-operations/ex-04",
+  "lessonSlug": "03-types-and-operations",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Boolean Expressions",
+  "instructions": "Two variables are declared: `score` (42) and `threshold` (30). Create a Boolean variable called `qualified` that is `true` when `score` is greater than or equal to `threshold`, then print it. The output must be exactly:\n\ntrue",
+  "hint": "Use the >= operator to compare the two values: val qualified = score >= threshold",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val score = 42\n    val threshold = 30\n    // Create a Boolean called qualified and print it\n    \n}",
+  "solutionCode": "fun main() {\n    val score = 42\n    val threshold = 30\n    val qualified = score >= threshold\n    println(qualified)\n}",
+  "validationMode": "output",
+  "expectedOutput": "true"
+}

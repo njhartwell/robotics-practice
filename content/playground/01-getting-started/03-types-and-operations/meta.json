@@ -1,0 +1,14 @@
+{
+  "slug": "03-types-and-operations",
+  "section": "getting-started",
+  "sectionTitle": "Getting Started",
+  "sectionOrder": 1,
+  "title": "Types and Operations",
+  "description": "Learn about Int, Double, String, Boolean and type conversion",
+  "order": 3,
+  "requiredLevel": 0,
+  "xpReward": 50,
+  "estimatedMinutes": 10,
+  "exerciseCount": 5,
+  "tags": ["basics", "types"]
+}

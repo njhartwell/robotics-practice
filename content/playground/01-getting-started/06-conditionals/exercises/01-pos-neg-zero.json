@@ -1,0 +1,15 @@
+{
+  "id": "06-conditionals/ex-01",
+  "lessonSlug": "06-conditionals",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Positive, Negative, or Zero",
+  "instructions": "Complete the function to check if a motor power value is positive, negative, or zero. Print \"Positive\" if the number is greater than 0, \"Negative\" if less than 0, or \"Zero\" if exactly 0.",
+  "hint": "Use if / else if / else to check the three cases. Compare with > 0, < 0, and the else case for zero.",
+  "xpReward": 15,
+  "starterCode": "fun checkPower(power: Int) {\n    // Print \"Positive\", \"Negative\", or \"Zero\"\n    // based on the value of power\n}",
+  "solutionCode": "fun checkPower(power: Int) {\n    if (power > 0) {\n        println(\"Positive\")\n    } else if (power < 0) {\n        println(\"Negative\")\n    } else {\n        println(\"Zero\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Positive\nNegative\nZero",
+  "hiddenPostamble": "fun main() {\n    checkPower(75)\n    checkPower(-30)\n    checkPower(0)\n}"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "06-conditionals",
+  "section": "getting-started",
+  "sectionTitle": "Getting Started",
+  "sectionOrder": 1,
+  "title": "Conditional Statements",
+  "description": "Make decisions with if/else and when expressions",
+  "order": 6,
+  "requiredLevel": 0,
+  "xpReward": 60,
+  "estimatedMinutes": 12,
+  "exerciseCount": 6,
+  "tags": ["basics", "conditionals", "if-else", "when"]
+}

@@ -7,8 +7,8 @@ import { Home, BookOpen, Wrench, User } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: Home },
-  { href: "/part1", label: "Kotlin Basics", icon: BookOpen },
-  { href: "/part2", label: "FRC Projects", icon: Wrench },
+  { href: "/playground", label: "Kotlin Playground", icon: BookOpen },
+  { href: "/ide-projects", label: "IDE Projects", icon: Wrench },
   { href: "/profile", label: "Profile", icon: User },
 ];
 
@@ -16,7 +16,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-surface border-r border-border min-h-screen p-4 hidden md:block">
+    <aside className="w-64 bg-surface border-r border-border p-4 hidden md:block overflow-y-auto">
       <div className="mb-8">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-2xl">🤖</span>

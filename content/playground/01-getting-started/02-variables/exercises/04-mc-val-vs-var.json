@@ -1,0 +1,17 @@
+{
+  "id": "02-variables/ex-04",
+  "lessonSlug": "02-variables",
+  "type": "multiple-choice",
+  "order": 4,
+  "title": "val vs var",
+  "instructions": "Which of the following statements about `val` and `var` is correct?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "val and var are interchangeable; there is no difference" },
+    { "id": "b", "text": "val declares a variable that can be reassigned; var declares one that cannot" },
+    { "id": "c", "text": "val declares a variable that cannot be reassigned; var declares one that can" },
+    { "id": "d", "text": "var is not valid Kotlin syntax" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "`val` (value) creates an immutable binding -- once assigned, it cannot point to a different value. `var` (variable) creates a mutable binding that can be reassigned. Prefer `val` whenever possible to keep your code predictable."
+}

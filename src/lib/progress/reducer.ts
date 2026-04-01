@@ -44,7 +44,7 @@ export function progressReducer(
       const { lessonSlug, exerciseId } = action.payload;
       const existingLesson = state.lessons[lessonSlug] ?? {
         lessonSlug,
-        part: "part1" as Part,
+        part: "playground" as Part,
         started: true,
         startedAt: new Date().toISOString(),
         completed: false,
@@ -86,7 +86,7 @@ export function progressReducer(
       const { lessonSlug } = action.payload;
       const lesson = state.lessons[lessonSlug] ?? {
         lessonSlug,
-        part: "part1" as Part,
+        part: "playground" as Part,
         started: true,
         completed: false,
         exercises: {},

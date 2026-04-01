@@ -1,12 +1,15 @@
 import type { LessonMeta, Part } from "@/lib/progress/types";
 
-// Static curriculum definition — imported by pages at build time.
-// In the future, this could be generated from scanning content/ directories.
+// Static curriculum definition — will be replaced by fs-loader scanning
+// content/ directories once we have more lessons.
 
 export const CURRICULUM: LessonMeta[] = [
   {
     slug: "01-hello-kotlin",
-    part: "part1",
+    part: "playground",
+    section: "getting-started",
+    sectionTitle: "Getting Started",
+    sectionOrder: 1,
     title: "Hello, Kotlin!",
     description: "Write your first Kotlin program and learn about fun main()",
     order: 1,
@@ -18,7 +21,10 @@ export const CURRICULUM: LessonMeta[] = [
   },
   {
     slug: "02-variables",
-    part: "part1",
+    part: "playground",
+    section: "getting-started",
+    sectionTitle: "Getting Started",
+    sectionOrder: 1,
     title: "Variables: val vs var",
     description:
       "Learn to declare variables and understand mutability in Kotlin",
@@ -31,7 +37,10 @@ export const CURRICULUM: LessonMeta[] = [
   },
   {
     slug: "01-project-setup",
-    part: "part2",
+    part: "ide-projects",
+    section: "wpilib-basics",
+    sectionTitle: "WPILib Basics",
+    sectionOrder: 1,
     title: "WPILib Project Structure",
     description:
       "Set up your first WPILib Kotlin project and understand the file layout",
@@ -46,7 +55,7 @@ export const CURRICULUM: LessonMeta[] = [
 
 export function getLessonsForPart(part: Part): LessonMeta[] {
   return CURRICULUM.filter((l) => l.part === part).sort(
-    (a, b) => a.order - b.order
+    (a, b) => a.sectionOrder - b.sectionOrder || a.order - b.order
   );
 }
 

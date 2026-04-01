@@ -1,0 +1,14 @@
+{
+  "id": "01-hello-kotlin/ex-04",
+  "lessonSlug": "01-hello-kotlin",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Two-Line Output",
+  "instructions": "Write a program that prints the following two lines of output (exactly as shown):\n\nRobot initialized\nReady for match",
+  "hint": "Use two println() calls, one for each line.",
+  "xpReward": 20,
+  "starterCode": "fun main() {\n    \n}",
+  "solutionCode": "fun main() {\n    println(\"Robot initialized\")\n    println(\"Ready for match\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Robot initialized\nReady for match"
+}

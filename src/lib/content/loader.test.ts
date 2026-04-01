@@ -6,6 +6,9 @@ describe("parseLessonMeta", () => {
   it("parses a valid meta.json object", () => {
     const raw = {
       slug: "01-hello-kotlin",
+      section: "getting-started",
+      sectionTitle: "Getting Started",
+      sectionOrder: 1,
       title: "Hello Kotlin",
       description: "Your first Kotlin program",
       order: 1,
@@ -15,10 +18,13 @@ describe("parseLessonMeta", () => {
       tags: ["basics"],
     };
 
-    const result = parseLessonMeta(raw, "part1");
+    const result = parseLessonMeta(raw, "playground");
     expect(result).toEqual({
       slug: "01-hello-kotlin",
-      part: "part1",
+      part: "playground",
+      section: "getting-started",
+      sectionTitle: "Getting Started",
+      sectionOrder: 1,
       title: "Hello Kotlin",
       description: "Your first Kotlin program",
       order: 1,
@@ -33,6 +39,9 @@ describe("parseLessonMeta", () => {
   it("defaults exerciseCount to 0", () => {
     const raw = {
       slug: "01-hello-kotlin",
+      section: "getting-started",
+      sectionTitle: "Getting Started",
+      sectionOrder: 1,
       title: "Hello Kotlin",
       description: "Test",
       order: 1,
@@ -42,71 +51,48 @@ describe("parseLessonMeta", () => {
       tags: [],
     };
 
-    const result = parseLessonMeta(raw, "part1");
+    const result = parseLessonMeta(raw, "playground");
     expect(result.exerciseCount).toBe(0);
   });
 });
 
+function makeMeta(overrides: Partial<LessonMeta>): LessonMeta {
+  return {
+    slug: "test",
+    part: "playground",
+    section: "test-section",
+    sectionTitle: "Test",
+    sectionOrder: 1,
+    title: "",
+    description: "",
+    order: 1,
+    requiredLevel: 0,
+    xpReward: 0,
+    estimatedMinutes: 0,
+    exerciseCount: 0,
+    tags: [],
+    ...overrides,
+  };
+}
+
 describe("sortLessons", () => {
-  it("sorts lessons by order ascending", () => {
+  it("sorts lessons by sectionOrder then order ascending", () => {
     const lessons: LessonMeta[] = [
-      {
-        slug: "02-variables",
-        part: "part1",
-        title: "Variables",
-        description: "",
-        order: 2,
-        requiredLevel: 0,
-        xpReward: 50,
-        estimatedMinutes: 5,
-        exerciseCount: 0,
-        tags: [],
-      },
-      {
-        slug: "01-hello",
-        part: "part1",
-        title: "Hello",
-        description: "",
-        order: 1,
-        requiredLevel: 0,
-        xpReward: 50,
-        estimatedMinutes: 5,
-        exerciseCount: 0,
-        tags: [],
-      },
+      makeMeta({ slug: "02-variables", sectionOrder: 1, order: 2 }),
+      makeMeta({ slug: "01-hello", sectionOrder: 1, order: 1 }),
+      makeMeta({ slug: "07-while", sectionOrder: 2, order: 1 }),
     ];
 
     const sorted = sortLessons(lessons);
     expect(sorted[0].slug).toBe("01-hello");
     expect(sorted[1].slug).toBe("02-variables");
+    expect(sorted[2].slug).toBe("07-while");
   });
 
   it("does not mutate original array", () => {
     const lessons: LessonMeta[] = [
-      {
-        slug: "02",
-        part: "part1",
-        title: "",
-        description: "",
-        order: 2,
-        requiredLevel: 0,
-        xpReward: 0,
-        estimatedMinutes: 0,
-        exerciseCount: 0,
-        tags: [],
-      },
-      {
-        slug: "01",
-        part: "part1",
-        title: "",
-        description: "",
-        order: 1,
-        requiredLevel: 0,
-        xpReward: 0,
-        estimatedMinutes: 0,
-        exerciseCount: 0,
-        tags: [],
-      },
+      makeMeta({ slug: "02", order: 2 }),
+      makeMeta({ slug: "01", order: 1 }),
     ];
 
     sortLessons(lessons);

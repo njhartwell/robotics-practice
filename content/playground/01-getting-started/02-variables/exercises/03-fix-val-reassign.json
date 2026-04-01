@@ -1,0 +1,14 @@
+{
+  "id": "02-variables/ex-03",
+  "lessonSlug": "02-variables",
+  "type": "fix-the-bug",
+  "order": 3,
+  "title": "Fix the val Reassignment",
+  "instructions": "This program tries to update a motor speed, but it won't compile. Find and fix the bug so the program runs and prints the updated speed.",
+  "hint": "A `val` cannot be reassigned. Change it to `var` if the value needs to change.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val motorSpeed = 0.0\n    println(\"Initial speed: $motorSpeed\")\n    motorSpeed = 0.75\n    println(\"Updated speed: $motorSpeed\")\n}",
+  "solutionCode": "fun main() {\n    var motorSpeed = 0.0\n    println(\"Initial speed: $motorSpeed\")\n    motorSpeed = 0.75\n    println(\"Updated speed: $motorSpeed\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Initial speed: 0.0\nUpdated speed: 0.75"
+}

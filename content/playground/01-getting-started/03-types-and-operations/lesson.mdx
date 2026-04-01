@@ -1,0 +1,141 @@
+# Types and Operations
+
+Every value in Kotlin has a **type**. Types tell Kotlin what kind of data you are working with and what operations are allowed. Understanding types is essential for writing robot code -- you need integers for port numbers, doubles for motor speeds, strings for logging, and booleans for sensor states.
+
+## Basic Types
+
+Kotlin has four types you will use constantly:
+
+| Type | What it holds | Examples |
+|------|--------------|----------|
+| `Int` | Whole numbers | `4488`, `0`, `-3` |
+| `Double` | Decimal numbers | `0.75`, `3.14`, `-1.0` |
+| `String` | Text | `"RoboRavens"`, `"Red Alliance"` |
+| `Boolean` | True or false | `true`, `false` |
+
+```kotlin
+fun main() {
+    val teamNumber: Int = 4488
+    val motorSpeed: Double = 0.75
+    val teamName: String = "RoboRavens"
+    val isEnabled: Boolean = true
+
+    println(teamNumber)
+    println(motorSpeed)
+    println(teamName)
+    println(isEnabled)
+}
+```
+
+Remember from the previous lesson that Kotlin can **infer** types, so you often do not need to write them explicitly. But knowing the types helps you understand what operations are available.
+
+<Exercise id="01" />
+
+## Type Conversion
+
+Sometimes you need to convert a value from one type to another. Kotlin does **not** convert types automatically -- you must be explicit.
+
+Common conversion functions:
+
+- `.toInt()` -- converts to Int (truncates decimals)
+- `.toDouble()` -- converts to Double
+- `.toString()` -- converts to String
+
+```kotlin
+fun main() {
+    val wholePart: Int = 3
+    val asDouble: Double = wholePart.toDouble()
+    println(asDouble)  // 3.0
+
+    val pi: Double = 3.14
+    val truncated: Int = pi.toInt()
+    println(truncated)  // 3 (decimal part is dropped, not rounded)
+
+    val number: Int = 4488
+    val asText: String = number.toString()
+    println("Team " + asText)  // Team 4488
+}
+```
+
+This is especially important in FRC code. Motor controllers often expect `Double` values between -1.0 and 1.0, but your joystick math might produce an `Int`. Converting explicitly prevents subtle bugs.
+
+<Exercise id="02" />
+
+## Boolean Expressions
+
+Booleans are the foundation of decision-making in your code. You create boolean values using **comparison operators**:
+
+| Operator | Meaning | Example | Result |
+|----------|---------|---------|--------|
+| `==` | Equal to | `4488 == 4488` | `true` |
+| `!=` | Not equal to | `10 != 5` | `true` |
+| `<` | Less than | `3 < 7` | `true` |
+| `>` | Greater than | `3 > 7` | `false` |
+| `<=` | Less or equal | `5 <= 5` | `true` |
+| `>=` | Greater or equal | `10 >= 20` | `false` |
+
+```kotlin
+fun main() {
+    val score = 42
+    val threshold = 30
+
+    val qualified = score >= threshold
+    println("Qualified: $qualified")  // Qualified: true
+
+    val isHighScore = score > 100
+    println("High score: $isHighScore")  // High score: false
+}
+```
+
+You can also combine booleans using **logical operators**:
+
+- `&&` -- AND (both must be true)
+- `||` -- OR (at least one must be true)
+- `!` -- NOT (flips true to false and vice versa)
+
+```kotlin
+fun main() {
+    val hasAutonomous = true
+    val hasTeleop = true
+    val isReady = hasAutonomous && hasTeleop
+    println("Match ready: $isReady")  // Match ready: true
+}
+```
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+## String Concatenation vs Templates
+
+You have two ways to combine strings with other values. **Concatenation** uses the `+` operator:
+
+```kotlin
+val team = 4488
+println("Team " + team + " is ready")
+```
+
+**String templates** use `$` and are almost always cleaner:
+
+```kotlin
+val team = 4488
+println("Team $team is ready")
+```
+
+Both produce the same output, but string templates are preferred in Kotlin because they are easier to read and less error-prone. Use concatenation only when you have a specific reason (such as building a string across multiple statements).
+
+```kotlin
+fun main() {
+    val red1 = 4488
+    val red2 = 1234
+    val red3 = 5678
+
+    // String template -- clean and readable
+    println("Red Alliance: $red1, $red2, $red3")
+
+    // Concatenation -- harder to read
+    println("Red Alliance: " + red1 + ", " + red2 + ", " + red3)
+}
+```
+
+<Exercise id="05" />

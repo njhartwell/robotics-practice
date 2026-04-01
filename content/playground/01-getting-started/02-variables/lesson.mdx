@@ -1,0 +1,145 @@
+# Variables: val vs var
+
+Variables let you store values and refer to them by name. In FRC code, you use variables for everything from team numbers and motor speeds to sensor readings and match timers. Kotlin gives you two keywords for declaring variables, and choosing the right one matters.
+
+## Declaring Variables with `val`
+
+Use `val` (short for **value**) to declare a variable that **cannot be reassigned** after it is set. This is called an **immutable** variable.
+
+```kotlin
+fun main() {
+    val teamNumber = 4488
+    val teamName = "RoboRavens"
+    println(teamNumber)
+    println(teamName)
+}
+```
+
+Once you assign a value to a `val`, you cannot change it:
+
+```kotlin
+val teamNumber = 4488
+teamNumber = 9999  // ERROR! Val cannot be reassigned
+```
+
+Prefer `val` whenever possible. Immutable variables are easier to reason about and less likely to cause bugs -- especially in robot code where timing and state matter.
+
+<Exercise id="01" />
+
+## Declaring Variables with `var`
+
+Use `var` (short for **variable**) when you need a value that **can change** over time.
+
+```kotlin
+fun main() {
+    var matchCount = 0
+    println("Matches played: $matchCount")
+
+    matchCount = matchCount + 1
+    println("Matches played: $matchCount")
+}
+```
+
+Output:
+```
+Matches played: 0
+Matches played: 1
+```
+
+A motor speed, a score counter, or a sensor reading that updates each loop cycle -- those are good candidates for `var`.
+
+## Type Inference
+
+Kotlin is smart enough to figure out the type of a variable from the value you assign. This is called **type inference**.
+
+```kotlin
+val teamNumber = 4488       // Kotlin infers Int
+val robotName = "Shredder"  // Kotlin infers String
+val motorSpeed = 0.75       // Kotlin infers Double
+val isEnabled = true        // Kotlin infers Boolean
+```
+
+You do not need to write the type yourself unless you want to be explicit.
+
+## Explicit Type Annotations
+
+Sometimes you want to declare the type yourself for clarity, or declare a variable without giving it a value right away.
+
+```kotlin
+val teamNumber: Int = 4488
+val robotName: String = "Shredder"
+var motorSpeed: Double = 0.0
+var isEnabled: Boolean = false
+```
+
+The type annotation goes after the variable name, separated by a colon.
+
+## String Templates
+
+One of Kotlin's nicest features is **string templates**. Instead of clunky string concatenation, you can embed variables directly in a string using the `$` sign.
+
+```kotlin
+fun main() {
+    val team = 4488
+    val alliance = "Red"
+    println("Team $team is on the $alliance alliance")
+}
+```
+
+Output:
+```
+Team 4488 is on the Red alliance
+```
+
+For expressions more complex than a single variable name, wrap them in curly braces:
+
+```kotlin
+fun main() {
+    val matchesWon = 7
+    val matchesPlayed = 10
+    println("Win rate: ${matchesWon * 100 / matchesPlayed}%")
+}
+```
+
+Output:
+```
+Win rate: 70%
+```
+
+<Exercise id="02" />
+
+## Fixing Common Mistakes
+
+A very common beginner mistake is trying to reassign a `val`. Kotlin will refuse to compile the code and tell you exactly what went wrong.
+
+```kotlin
+val maxSpeed = 1.0
+maxSpeed = 0.5  // Error: Val cannot be reassigned
+```
+
+The fix is simple: if the value needs to change, use `var` instead.
+
+<Exercise id="03" />
+
+## Constants and Naming Conventions
+
+In Kotlin, variable names use **camelCase** by convention: the first word is lowercase, and each subsequent word starts with an uppercase letter.
+
+```kotlin
+val teamNumber = 4488
+var currentMotorSpeed = 0.0
+val maxAutonomousTime = 15
+```
+
+For true compile-time constants (values known before the program runs), you can use `const val` at the top level of a file:
+
+```kotlin
+const val MAX_MOTOR_SPEED = 1.0
+const val TEAM_NUMBER = 4488
+```
+
+Notice that constants use **UPPER_SNAKE_CASE**. You will see this pattern often in FRC codebases for things like port numbers and physical measurements.
+
+<Exercise id="04" />
+
+<Exercise id="05" />

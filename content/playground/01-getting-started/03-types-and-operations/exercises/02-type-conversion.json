@@ -1,0 +1,14 @@
+{
+  "id": "03-types-and-operations/ex-02",
+  "lessonSlug": "03-types-and-operations",
+  "type": "code-completion",
+  "order": 2,
+  "title": "Convert Int to Double",
+  "instructions": "A motor controller expects a Double, but you have an Int. Convert the `speed` variable to a Double and print the result. The output must be exactly:\n\n1.0",
+  "hint": "Use the .toDouble() function on the Int variable.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val speed: Int = 1\n    // Convert speed to a Double and print it\n    \n}",
+  "solutionCode": "fun main() {\n    val speed: Int = 1\n    println(speed.toDouble())\n}",
+  "validationMode": "output",
+  "expectedOutput": "1.0"
+}

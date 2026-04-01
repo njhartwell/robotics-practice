@@ -1,0 +1,12 @@
+{
+  "id": "02-variables/ex-05",
+  "lessonSlug": "02-variables",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Mutable Keyword",
+  "instructions": "What keyword do you use in Kotlin to declare a variable that CAN be reassigned later?",
+  "xpReward": 10,
+  "prompt": "The keyword _____ declares a mutable variable in Kotlin.",
+  "acceptedAnswers": ["var"],
+  "explanation": "`var` (short for variable) declares a mutable variable that can be reassigned. `val` (short for value) declares an immutable variable that cannot."
+}

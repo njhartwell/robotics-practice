@@ -1,0 +1,95 @@
+# Hello, Kotlin!
+
+Welcome to your first Kotlin lesson! In this lesson you will write your very first Kotlin program, learn how to display text on the screen, and pick up a few habits that will serve you well as you build robot code later on.
+
+## What is Kotlin?
+
+Kotlin is a modern programming language that runs on the Java Virtual Machine (JVM). It was created by JetBrains and is now one of the most popular languages for Android development and server-side applications. Many FRC teams choose Kotlin because it is concise, expressive, and fully interoperable with the Java-based WPILib that powers FIRST robots.
+
+If you have seen Java before, Kotlin will feel familiar but with far less boilerplate. If Kotlin is your first language, you are starting with a great one.
+
+## The Entry Point: `fun main()`
+
+Every Kotlin program needs a starting point. That starting point is a function called `main`. When you run your program, Kotlin looks for `main` and begins executing the code inside it.
+
+```kotlin
+fun main() {
+    // Your code goes here
+}
+```
+
+- `fun` is the keyword that declares a function.
+- `main` is the special name Kotlin looks for when the program starts.
+- The curly braces `{ }` contain the body of the function -- the instructions that will run.
+
+## Printing to the Console
+
+To display text you use `println()` or `print()`.
+
+```kotlin
+fun main() {
+    println("Hello, World!")
+}
+```
+
+`println` (short for "print line") outputs the text **and then moves the cursor to the next line**. `print` outputs the text but keeps the cursor on the **same line**.
+
+```kotlin
+fun main() {
+    print("Match ")
+    print("1")
+    println(" complete!")   // prints "Match 1 complete!" then moves to the next line
+    println("Ready for match 2.")
+}
+```
+
+Output:
+```
+Match 1 complete!
+Ready for match 2.
+```
+
+Notice how the three calls on the first line joined together because `print` does not add a line break.
+
+<Exercise id="01" />
+
+## String Literals
+
+The text inside double quotes is called a **string literal**. Strings can contain letters, numbers, spaces, punctuation -- almost anything.
+
+```kotlin
+println("Team 4488 scored 42 points!")
+```
+
+You will use strings constantly -- for logging sensor values, displaying match data, and debugging your robot code.
+
+<Exercise id="02" />
+
+## Comments
+
+Comments let you leave notes in your code that Kotlin ignores when running the program. They are essential for explaining *why* your code does something, especially on a team where multiple students work on the same codebase.
+
+```kotlin
+// This is a single-line comment
+
+/*
+   This is a multi-line comment.
+   Use it when you need to explain
+   something in more detail.
+*/
+
+fun main() {
+    // Print the alliance color for this match
+    println("Red Alliance")
+}
+```
+
+Use single-line comments (`//`) for short notes. Use multi-line comments (`/* */`) when you need several lines of explanation.
+
+<Exercise id="03" />
+
+## Putting It All Together
+
+You now know how to create a `main` function, print output with `println` and `print`, write string literals, and add comments. That is everything you need to write simple Kotlin programs. In the next exercise you will combine `println` calls to produce multi-line output.
+
+<Exercise id="04" />

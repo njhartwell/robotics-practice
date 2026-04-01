@@ -1,0 +1,113 @@
+# Conditional Statements
+
+Robots need to make decisions. Is the ball detected? Are we on the red alliance? Is the motor running too fast? Conditionals let your code choose different paths based on conditions.
+
+## if / else if / else
+
+The most basic decision structure:
+
+```kotlin
+fun main() {
+    val batteryVoltage = 11.5
+
+    if (batteryVoltage < 10.0) {
+        println("Battery critical!")
+    } else if (batteryVoltage < 12.0) {
+        println("Battery low")
+    } else {
+        println("Battery OK")
+    }
+}
+```
+
+## Comparison Operators
+
+Use these to compare values:
+
+| Operator | Meaning |
+|----------|---------|
+| `==` | Equal to |
+| `!=` | Not equal to |
+| `<` | Less than |
+| `>` | Greater than |
+| `<=` | Less than or equal |
+| `>=` | Greater than or equal |
+
+## Logical Operators
+
+Combine conditions with `&&` (and), `||` (or), and `!` (not):
+
+```kotlin
+fun main() {
+    val speed = 0.75
+    val isEnabled = true
+
+    if (isEnabled && speed > 0.5) {
+        println("Robot moving fast!")
+    }
+
+    if (!isEnabled || speed == 0.0) {
+        println("Robot is stopped")
+    }
+}
+```
+
+## if as an Expression
+
+In Kotlin, `if` can return a value -- this is a powerful feature not found in Java:
+
+```kotlin
+fun main() {
+    val score = 45
+    val rank = if (score >= 50) "Gold" else if (score >= 30) "Silver" else "Bronze"
+    println(rank) // Silver
+}
+```
+
+## when Expression
+
+Kotlin's `when` is like a supercharged switch statement:
+
+```kotlin
+fun main() {
+    val allianceColor = "red"
+
+    when (allianceColor) {
+        "red" -> println("You are on the Red Alliance!")
+        "blue" -> println("You are on the Blue Alliance!")
+        else -> println("Unknown alliance")
+    }
+}
+```
+
+`when` can also check ranges and conditions:
+
+```kotlin
+fun main() {
+    val matchScore = 85
+
+    val result = when {
+        matchScore >= 100 -> "Dominant victory"
+        matchScore >= 70 -> "Solid win"
+        matchScore >= 40 -> "Close match"
+        else -> "Tough loss"
+    }
+    println(result)
+}
+```
+
+## FRC Decision Making
+
+Conditionals are everywhere in robot code -- checking sensor readings, selecting autonomous routines, and controlling mechanisms based on game state.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />
+
+<Exercise id="06" />

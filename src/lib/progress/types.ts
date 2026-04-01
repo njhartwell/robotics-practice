@@ -1,4 +1,4 @@
-export type Part = "part1" | "part2";
+export type Part = "playground" | "ide-projects";
 
 export type ExerciseType =
   | "code-completion"
@@ -10,6 +10,9 @@ export type ExerciseType =
 export interface LessonMeta {
   slug: string;
   part: Part;
+  section: string;
+  sectionTitle: string;
+  sectionOrder: number;
   title: string;
   description: string;
   order: number;

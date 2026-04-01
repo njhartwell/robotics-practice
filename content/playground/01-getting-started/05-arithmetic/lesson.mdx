@@ -1,0 +1,88 @@
+# Calculating with Numbers
+
+Robots run on math. From calculating motor speeds to tracking distances, arithmetic is at the heart of every FRC program.
+
+## Basic Operators
+
+Kotlin supports the standard arithmetic operators:
+
+```kotlin
+fun main() {
+    val teamNumber = 4488
+    val matchesPlayed = 12
+    val matchesWon = 9
+
+    println(teamNumber + 100)      // Addition: 4588
+    println(matchesPlayed - matchesWon) // Subtraction: 3
+    println(matchesWon * 3)        // Multiplication: 27
+    println(matchesPlayed / 4)     // Division: 3
+    println(matchesPlayed % 5)     // Remainder: 2
+}
+```
+
+## Integer Division -- Watch Out!
+
+When you divide two integers, Kotlin performs **integer division** -- it drops the decimal part:
+
+```kotlin
+fun main() {
+    println(5 / 2)   // Prints: 2  (not 2.5!)
+    println(7 / 3)   // Prints: 2  (not 2.33!)
+}
+```
+
+This is a common source of bugs. If you need a decimal result, convert to `Double` first:
+
+```kotlin
+fun main() {
+    println(5.toDouble() / 2)  // Prints: 2.5
+    println(5.0 / 2)           // Also prints: 2.5
+}
+```
+
+## Operator Precedence (PEMDAS)
+
+Kotlin follows standard math precedence -- multiplication and division happen before addition and subtraction:
+
+```kotlin
+fun main() {
+    println(2 + 3 * 4)     // 14, not 20
+    println((2 + 3) * 4)   // 20 -- parentheses first
+}
+```
+
+## Augmented Assignment
+
+Instead of writing `x = x + 1`, you can use shorthand operators:
+
+```kotlin
+fun main() {
+    var score = 0
+    score += 5    // score is now 5
+    score -= 2    // score is now 3
+    score *= 4    // score is now 12
+    score /= 3   // score is now 4
+    println(score)
+}
+```
+
+## FRC Examples
+
+Arithmetic shows up constantly in robot code. Calculating wheel speeds, converting encoder ticks to distances, finding the angle to a target -- it all uses these operators:
+
+```kotlin
+fun ticksToInches(ticks: Int, ticksPerRevolution: Int, wheelDiameter: Double): Double {
+    val revolutions = ticks.toDouble() / ticksPerRevolution
+    return revolutions * wheelDiameter * 3.14159
+}
+```
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

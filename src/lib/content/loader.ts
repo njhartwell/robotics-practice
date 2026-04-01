@@ -7,6 +7,9 @@ export function parseLessonMeta(
   return {
     slug: raw.slug as string,
     part,
+    section: raw.section as string,
+    sectionTitle: raw.sectionTitle as string,
+    sectionOrder: raw.sectionOrder as number,
     title: raw.title as string,
     description: raw.description as string,
     order: raw.order as number,
@@ -19,7 +22,9 @@ export function parseLessonMeta(
 }
 
 export function sortLessons(lessons: LessonMeta[]): LessonMeta[] {
-  return [...lessons].sort((a, b) => a.order - b.order);
+  return [...lessons].sort(
+    (a, b) => a.sectionOrder - b.sectionOrder || a.order - b.order
+  );
 }
 
 export function getExercisesForLesson(exercises: Exercise[]): Exercise[] {

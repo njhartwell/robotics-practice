@@ -1,0 +1,17 @@
+{
+  "id": "03-types-and-operations/ex-03",
+  "lessonSlug": "03-types-and-operations",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Type is 3.14?",
+  "instructions": "What type does Kotlin infer for the variable in this code?\n\n```kotlin\nval pi = 3.14\n```",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Int" },
+    { "id": "b", "text": "Float" },
+    { "id": "c", "text": "Double" },
+    { "id": "d", "text": "String" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "When you write a decimal number like 3.14 without any suffix, Kotlin infers the type as Double. To get a Float, you would need to add the f suffix: 3.14f."
+}

@@ -1,0 +1,57 @@
+# Reading Input
+
+In real-world programs, you often need to get data from a user. Kotlin provides the `readLine()` function for reading console input:
+
+```kotlin
+fun main() {
+    print("Enter your team number: ")
+    val teamNumber = readLine()
+    println("Go team $teamNumber!")
+}
+```
+
+However, `readLine()` requires an interactive console, which our playground doesn't support. Instead, we'll use a pattern that's actually **better** for writing real software: **functions with parameters**.
+
+## Functions That Take Input
+
+Instead of reading from the console, we write functions that accept parameters:
+
+```kotlin
+fun greet(teamName: String): String {
+    return "Go, $teamName!"
+}
+
+fun main() {
+    println(greet("Shockwave"))
+    println(greet("Cheesy Poofs"))
+}
+```
+
+The function `greet` takes a `String` parameter and returns a `String` result. This is more testable and reusable than reading directly from the console -- your robot code works the same way, receiving sensor values as inputs to functions.
+
+## Converting Strings to Numbers
+
+When real programs read input, it arrives as text. You can convert strings to numbers:
+
+```kotlin
+fun processMatchNumber(input: String): Int {
+    val matchNum = input.toInt()
+    return matchNum * 2
+}
+```
+
+Common conversions: `.toInt()`, `.toDouble()`, `.toLong()`, and `.toBoolean()`.
+
+## Why Functions Are Better Than readLine()
+
+In FRC, your robot code doesn't ask the driver to type numbers into a console. Instead, it receives values from sensors, controllers, and the driver station -- all as **function parameters**. Learning to write functions that take input and return output is exactly how professional software works.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+Now let's combine what you've learned -- writing a function that takes multiple parameters and formats them into a result.
+
+<Exercise id="04" />

@@ -58,7 +58,7 @@ export function FillInTheBlankExercise({
             </span>
           )}
         </div>
-        <p className="text-sm text-muted mt-1">{exercise.instructions}</p>
+        <p className="text-sm text-muted mt-1 whitespace-pre-line">{exercise.instructions}</p>
       </div>
 
       <div className="p-4">

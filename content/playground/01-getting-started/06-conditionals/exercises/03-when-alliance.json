@@ -1,0 +1,15 @@
+{
+  "id": "06-conditionals/ex-03",
+  "lessonSlug": "06-conditionals",
+  "type": "code-completion",
+  "order": 3,
+  "title": "Alliance Color with when",
+  "instructions": "Complete the `when` expression to print the correct message for each alliance color:\n- \"red\" -> print \"Go Red Alliance!\"\n- \"blue\" -> print \"Go Blue Alliance!\"\n- anything else -> print \"Unknown alliance\"",
+  "hint": "Use the when (value) { \"match\" -> action } syntax. Don't forget the else -> branch.",
+  "xpReward": 15,
+  "starterCode": "fun announceAlliance(color: String) {\n    when (color) {\n        // Add cases for \"red\", \"blue\", and a default\n    }\n}",
+  "solutionCode": "fun announceAlliance(color: String) {\n    when (color) {\n        \"red\" -> println(\"Go Red Alliance!\")\n        \"blue\" -> println(\"Go Blue Alliance!\")\n        else -> println(\"Unknown alliance\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Go Red Alliance!\nGo Blue Alliance!\nUnknown alliance",
+  "hiddenPostamble": "fun main() {\n    announceAlliance(\"red\")\n    announceAlliance(\"blue\")\n    announceAlliance(\"green\")\n}"
+}

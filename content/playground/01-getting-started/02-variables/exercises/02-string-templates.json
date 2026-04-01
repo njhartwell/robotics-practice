@@ -1,0 +1,14 @@
+{
+  "id": "02-variables/ex-02",
+  "lessonSlug": "02-variables",
+  "type": "code-completion",
+  "order": 2,
+  "title": "Use String Templates",
+  "instructions": "Two variables are already declared: `team` and `score`. Use a string template to print exactly:\n\nTeam 4488 scored 42 points",
+  "hint": "Use println(\"Team $team scored $score points\") to embed the variables in the string.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val team = 4488\n    val score = 42\n    // Use a string template to print: Team 4488 scored 42 points\n    \n}",
+  "solutionCode": "fun main() {\n    val team = 4488\n    val score = 42\n    println(\"Team $team scored $score points\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Team 4488 scored 42 points"
+}

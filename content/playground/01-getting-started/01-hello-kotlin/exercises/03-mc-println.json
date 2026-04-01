@@ -1,0 +1,17 @@
+{
+  "id": "01-hello-kotlin/ex-03",
+  "lessonSlug": "01-hello-kotlin",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "print vs println",
+  "instructions": "What is the difference between `print()` and `println()`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "There is no difference" },
+    { "id": "b", "text": "println adds a newline at the end, print does not" },
+    { "id": "c", "text": "print adds a newline at the end, println does not" },
+    { "id": "d", "text": "println can only print strings, print can print any type" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "println (print line) outputs text and then moves the cursor to the next line. print outputs text but keeps the cursor on the same line, so the next print or println call continues from there."
+}

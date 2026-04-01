@@ -1,0 +1,12 @@
+{
+  "id": "03-types-and-operations/ex-05",
+  "lessonSlug": "03-types-and-operations",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "String to Int",
+  "instructions": "What function do you call on a String to convert it to an Int?",
+  "xpReward": 10,
+  "prompt": "To convert a String to an Int, call _____() on the String.",
+  "acceptedAnswers": ["toInt", ".toInt"],
+  "explanation": "The toInt() function parses a String and returns its integer value. For example, \"42\".toInt() returns the Int 42. If the string is not a valid number, it will throw an exception."
+}

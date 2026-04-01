@@ -1,0 +1,15 @@
+{
+  "id": "06-conditionals/ex-06",
+  "lessonSlug": "06-conditionals",
+  "type": "write-from-scratch",
+  "order": 6,
+  "title": "Classify Robot Speed",
+  "instructions": "Write a function called `classifySpeed` that takes a `speed` parameter of type `Double` and returns a `String` describing the speed:\n\n- speed == 0.0 -> return \"Stopped\"\n- speed <= 0.3 -> return \"Slow\"\n- speed <= 0.7 -> return \"Medium\"\n- speed > 0.7 -> return \"Fast\"\n\nUse if/else if/else or a when expression -- your choice!",
+  "hint": "Check the conditions in order. You can use when with conditions: when { speed == 0.0 -> \"Stopped\" ... }",
+  "xpReward": 15,
+  "starterCode": "fun classifySpeed(speed: Double): String {\n    // Return \"Stopped\", \"Slow\", \"Medium\", or \"Fast\"\n    return \"\"\n}",
+  "solutionCode": "fun classifySpeed(speed: Double): String {\n    return when {\n        speed == 0.0 -> \"Stopped\"\n        speed <= 0.3 -> \"Slow\"\n        speed <= 0.7 -> \"Medium\"\n        else -> \"Fast\"\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Stopped\nSlow\nMedium\nFast",
+  "hiddenPostamble": "fun main() {\n    println(classifySpeed(0.0))\n    println(classifySpeed(0.2))\n    println(classifySpeed(0.5))\n    println(classifySpeed(0.9))\n}"
+}

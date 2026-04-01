@@ -11,8 +11,8 @@ import { Home, BookOpen, Wrench, User } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: Home },
-  { href: "/part1", label: "Kotlin Basics", icon: BookOpen },
-  { href: "/part2", label: "FRC Projects", icon: Wrench },
+  { href: "/playground", label: "Kotlin Basics", icon: BookOpen },
+  { href: "/ide-projects", label: "FRC Projects", icon: Wrench },
   { href: "/profile", label: "Profile", icon: User },
 ];
 

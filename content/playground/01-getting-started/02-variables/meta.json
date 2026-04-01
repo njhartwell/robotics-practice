@@ -1,0 +1,14 @@
+{
+  "slug": "02-variables",
+  "section": "getting-started",
+  "sectionTitle": "Getting Started",
+  "sectionOrder": 1,
+  "title": "Variables: val vs var",
+  "description": "Learn to declare variables and understand mutability in Kotlin",
+  "order": 2,
+  "requiredLevel": 0,
+  "xpReward": 50,
+  "estimatedMinutes": 8,
+  "exerciseCount": 5,
+  "tags": ["basics", "variables", "mutability"]
+}

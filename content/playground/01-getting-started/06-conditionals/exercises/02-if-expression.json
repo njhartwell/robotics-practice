@@ -1,0 +1,14 @@
+{
+  "id": "06-conditionals/ex-02",
+  "lessonSlug": "06-conditionals",
+  "type": "code-completion",
+  "order": 2,
+  "title": "If as an Expression",
+  "instructions": "Complete the code to use `if` as an expression. Assign `status` the value \"Match Won\" if `ourScore` is greater than `theirScore`, or \"Match Lost\" otherwise. Use a single-line if/else expression.",
+  "hint": "Use the pattern: val status = if (condition) \"value1\" else \"value2\"",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val ourScore = 85\n    val theirScore = 72\n\n    // Use if as an expression to assign status\n    val status = TODO()\n\n    println(status)\n}",
+  "solutionCode": "fun main() {\n    val ourScore = 85\n    val theirScore = 72\n\n    val status = if (ourScore > theirScore) \"Match Won\" else \"Match Lost\"\n\n    println(status)\n}",
+  "validationMode": "output",
+  "expectedOutput": "Match Won"
+}

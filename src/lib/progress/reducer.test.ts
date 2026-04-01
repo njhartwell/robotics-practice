@@ -59,7 +59,7 @@ describe("progressReducer", () => {
       const state = createDefaultProgress();
       state.lessons["01-hello"] = {
         lessonSlug: "01-hello",
-        part: "part1",
+        part: "playground",
         started: true,
         completed: false,
         exercises: {},
@@ -79,7 +79,7 @@ describe("progressReducer", () => {
       const state = createDefaultProgress();
       state.lessons["01-hello"] = {
         lessonSlug: "01-hello",
-        part: "part1",
+        part: "playground",
         started: true,
         completed: false,
         exercises: {
@@ -104,7 +104,7 @@ describe("progressReducer", () => {
       const state = createDefaultProgress();
       state.lessons["01-hello"] = {
         lessonSlug: "01-hello",
-        part: "part1",
+        part: "playground",
         started: true,
         completed: false,
         exercises: {},
@@ -138,7 +138,7 @@ describe("progressReducer", () => {
       const state = createDefaultProgress();
       state.lessons["01-hello"] = {
         lessonSlug: "01-hello",
-        part: "part1",
+        part: "playground",
         started: true,
         completed: false,
         exercises: {},
@@ -158,7 +158,7 @@ describe("progressReducer", () => {
       const state = createDefaultProgress();
       state.lessons["01-hello"] = {
         lessonSlug: "01-hello",
-        part: "part1",
+        part: "playground",
         started: true,
         completed: false,
         exercises: {},
@@ -180,7 +180,7 @@ describe("progressReducer", () => {
 
       const action: ProgressAction = {
         type: "START_LESSON",
-        payload: { lessonSlug: "01-hello", part: "part1" },
+        payload: { lessonSlug: "01-hello", part: "playground" },
       };
 
       const next = progressReducer(state, action);

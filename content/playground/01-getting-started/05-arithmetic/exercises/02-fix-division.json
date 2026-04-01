@@ -1,0 +1,14 @@
+{
+  "id": "05-arithmetic/ex-02",
+  "lessonSlug": "05-arithmetic",
+  "type": "fix-the-bug",
+  "order": 2,
+  "title": "Fix the Division Bug",
+  "instructions": "This program is supposed to calculate the average score from 3 qualification matches, but it's printing `26` instead of `26.666666666666668`. Fix the bug so it produces the correct decimal result.\n\nHint: Integer division drops the decimal part!",
+  "hint": "Convert one of the values to Double before dividing. You can use .toDouble() on the numerator.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val match1 = 30\n    val match2 = 25\n    val match3 = 25\n    val total = match1 + match2 + match3\n\n    val average = total / 3\n    println(average)\n}",
+  "solutionCode": "fun main() {\n    val match1 = 30\n    val match2 = 25\n    val match3 = 25\n    val total = match1 + match2 + match3\n\n    val average = total.toDouble() / 3\n    println(average)\n}",
+  "validationMode": "output",
+  "expectedOutput": "26.666666666666668"
+}

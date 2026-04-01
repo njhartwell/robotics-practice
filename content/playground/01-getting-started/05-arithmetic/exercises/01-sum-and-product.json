@@ -1,0 +1,14 @@
+{
+  "id": "05-arithmetic/ex-01",
+  "lessonSlug": "05-arithmetic",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Sum and Product",
+  "instructions": "Complete the program to calculate and print the sum and product of two match scores. Print the sum on the first line and the product on the second line.",
+  "hint": "Use + for addition and * for multiplication.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    val redScore = 85\n    val blueScore = 72\n\n    // Calculate and print the sum of both scores\n    println(TODO())\n    // Calculate and print the product of both scores\n    println(TODO())\n}",
+  "solutionCode": "fun main() {\n    val redScore = 85\n    val blueScore = 72\n\n    println(redScore + blueScore)\n    println(redScore * blueScore)\n}",
+  "validationMode": "output",
+  "expectedOutput": "157\n6120"
+}

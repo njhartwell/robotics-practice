@@ -1,0 +1,15 @@
+{
+  "id": "04-reading-input/ex-02",
+  "lessonSlug": "04-reading-input",
+  "type": "code-completion",
+  "order": 2,
+  "title": "Double a Number",
+  "instructions": "Complete the `doubleNumber` function so it returns the input number multiplied by 2.",
+  "hint": "Multiply the parameter `n` by 2 and return the result.",
+  "xpReward": 15,
+  "starterCode": "fun doubleNumber(n: Int): Int {\n    // Return n multiplied by 2\n    return TODO()\n}",
+  "solutionCode": "fun doubleNumber(n: Int): Int {\n    return n * 2\n}",
+  "validationMode": "output",
+  "expectedOutput": "10\n48\n0",
+  "hiddenPostamble": "fun main() {\n    println(doubleNumber(5))\n    println(doubleNumber(24))\n    println(doubleNumber(0))\n}"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "05-arithmetic",
+  "section": "getting-started",
+  "sectionTitle": "Getting Started",
+  "sectionOrder": 1,
+  "title": "Calculating with Numbers",
+  "description": "Arithmetic operations, integer division, and operator precedence",
+  "order": 5,
+  "requiredLevel": 0,
+  "xpReward": 50,
+  "estimatedMinutes": 10,
+  "exerciseCount": 5,
+  "tags": ["basics", "arithmetic", "math"]
+}

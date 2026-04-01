@@ -1,0 +1,14 @@
+{
+  "id": "03-types-and-operations/ex-01",
+  "lessonSlug": "03-types-and-operations",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Declare Different Types",
+  "instructions": "Declare four variables and print each one on its own line. The output must be exactly:\n\n4488\n0.75\nRoboRavens\ntrue",
+  "hint": "Declare an Int, a Double, a String, and a Boolean, then use println() for each.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    // Declare an Int called teamNumber with value 4488\n    \n    // Declare a Double called motorSpeed with value 0.75\n    \n    // Declare a String called teamName with value \"RoboRavens\"\n    \n    // Declare a Boolean called isEnabled with value true\n    \n    println(teamNumber)\n    println(motorSpeed)\n    println(teamName)\n    println(isEnabled)\n}",
+  "solutionCode": "fun main() {\n    val teamNumber = 4488\n    val motorSpeed = 0.75\n    val teamName = \"RoboRavens\"\n    val isEnabled = true\n\n    println(teamNumber)\n    println(motorSpeed)\n    println(teamName)\n    println(isEnabled)\n}",
+  "validationMode": "output",
+  "expectedOutput": "4488\n0.75\nRoboRavens\ntrue"
+}

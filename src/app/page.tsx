@@ -75,11 +75,11 @@ export default function Dashboard() {
 
       {/* Quick Links */}
       <div className="grid md:grid-cols-2 gap-4">
-        <Link href="/part1">
+        <Link href="/playground">
           <div className="bg-surface border border-border rounded-xl p-6 hover:shadow-md hover:border-primary/30 transition-all">
             <div className="flex items-center gap-3 mb-3">
               <BookOpen size={24} className="text-primary" />
-              <h2 className="text-xl font-bold">Part 1: Kotlin Basics</h2>
+              <h2 className="text-xl font-bold">Kotlin Playground</h2>
             </div>
             <p className="text-muted text-sm">
               Learn Kotlin fundamentals with interactive browser-based
@@ -87,11 +87,11 @@ export default function Dashboard() {
             </p>
           </div>
         </Link>
-        <Link href="/part2">
+        <Link href="/ide-projects">
           <div className="bg-surface border border-border rounded-xl p-6 hover:shadow-md hover:border-primary/30 transition-all">
             <div className="flex items-center gap-3 mb-3">
               <Wrench size={24} className="text-primary" />
-              <h2 className="text-xl font-bold">Part 2: FRC Projects</h2>
+              <h2 className="text-xl font-bold">IDE Projects</h2>
             </div>
             <p className="text-muted text-sm">
               Build real WPILib robot code in IntelliJ with guided projects and

@@ -1,0 +1,15 @@
+{
+  "id": "06-conditionals/ex-04",
+  "lessonSlug": "06-conditionals",
+  "type": "fix-the-bug",
+  "order": 4,
+  "title": "Fix the Scoring Logic",
+  "instructions": "This function should classify match scores into tiers, but the conditions are in the wrong order. A score of 90 should print \"Excellent\" but instead prints \"Good\". Fix the order of the conditions so all tiers work correctly.\n\nTiers: >= 80 is \"Excellent\", >= 60 is \"Good\", >= 40 is \"Average\", below 40 is \"Needs Improvement\".",
+  "hint": "When using if/else if chains, check the largest values first. If you check >= 40 before >= 80, the >= 40 branch will catch everything 40 and above.",
+  "xpReward": 15,
+  "starterCode": "fun classifyScore(score: Int) {\n    if (score >= 40) {\n        println(\"Average\")\n    } else if (score >= 60) {\n        println(\"Good\")\n    } else if (score >= 80) {\n        println(\"Excellent\")\n    } else {\n        println(\"Needs Improvement\")\n    }\n}",
+  "solutionCode": "fun classifyScore(score: Int) {\n    if (score >= 80) {\n        println(\"Excellent\")\n    } else if (score >= 60) {\n        println(\"Good\")\n    } else if (score >= 40) {\n        println(\"Average\")\n    } else {\n        println(\"Needs Improvement\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Excellent\nGood\nAverage\nNeeds Improvement",
+  "hiddenPostamble": "fun main() {\n    classifyScore(90)\n    classifyScore(65)\n    classifyScore(45)\n    classifyScore(20)\n}"
+}

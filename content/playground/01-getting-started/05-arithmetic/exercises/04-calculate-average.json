@@ -1,0 +1,15 @@
+{
+  "id": "05-arithmetic/ex-04",
+  "lessonSlug": "05-arithmetic",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Calculate Match Average",
+  "instructions": "Write a function called `averageScore` that takes three `Int` parameters (`score1`, `score2`, `score3`) and returns their average as a `Double`.\n\nRemember to handle integer division correctly!",
+  "hint": "Add the three scores together, convert to Double with .toDouble(), then divide by 3.",
+  "xpReward": 15,
+  "starterCode": "fun averageScore(score1: Int, score2: Int, score3: Int): Double {\n    // Return the average of the three scores as a Double\n    return 0.0\n}",
+  "solutionCode": "fun averageScore(score1: Int, score2: Int, score3: Int): Double {\n    return (score1 + score2 + score3).toDouble() / 3\n}",
+  "validationMode": "output",
+  "expectedOutput": "76.66666666666667\n50.0",
+  "hiddenPostamble": "fun main() {\n    println(averageScore(80, 75, 75))\n    println(averageScore(60, 40, 50))\n}"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "06-conditionals/ex-05",
+  "lessonSlug": "06-conditionals",
+  "type": "multiple-choice",
+  "order": 5,
+  "title": "Understanding when",
+  "instructions": "What does the `when` expression in Kotlin replace from other languages like Java?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The for loop" },
+    { "id": "b", "text": "The switch statement" },
+    { "id": "c", "text": "The try/catch block" },
+    { "id": "d", "text": "The while loop" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Kotlin's `when` expression replaces the switch statement found in languages like Java and C++. It's more powerful than switch because it can match ranges, types, and arbitrary conditions -- not just constant values."
+}
