@@ -1,111 +1,73 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useCallback } from "react";
+import { CodeEditor } from "./CodeEditor";
+import { runKotlin } from "@/lib/kotlin-api";
+import { Play, Loader2 } from "lucide-react";
 
 interface KotlinPlaygroundProps {
   code: string;
   exerciseId: string;
-  theme?: "darcula" | "default";
-  onExecutionEnd?: (output: string) => void;
-  onTestPassed?: () => void;
-  onTestFailed?: (error: string) => void;
-  targetPlatform?: "jvm" | "junit";
   hiddenDependency?: string;
+  onExecutionEnd?: (output: string) => void;
 }
 
 export function KotlinPlayground({
   code,
   exerciseId,
-  theme = "darcula",
-  onExecutionEnd,
-  onTestPassed,
-  onTestFailed,
-  targetPlatform = "jvm",
   hiddenDependency,
+  onExecutionEnd,
 }: KotlinPlaygroundProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const initialized = useRef(false);
-  const onExecutionEndRef = useRef(onExecutionEnd);
-  onExecutionEndRef.current = onExecutionEnd;
+  const [currentCode, setCurrentCode] = useState(code);
+  const [output, setOutput] = useState<string | null>(null);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [isRunning, setIsRunning] = useState(false);
 
-  useEffect(() => {
-    if (!containerRef.current || initialized.current) return;
-    initialized.current = true;
+  const handleRun = useCallback(async () => {
+    setIsRunning(true);
+    setOutput(null);
+    setErrors([]);
 
-    import("kotlin-playground").then((module) => {
-      const playground = module.default || module;
-      if (!containerRef.current) return;
+    const result = await runKotlin(currentCode, hiddenDependency);
 
-      // Track whether the playground is currently executing code.
-      // onRun fires when execution starts; we then watch for the
-      // loader element to disappear, which signals completion.
-      let running = false;
+    setOutput(result.output);
+    setErrors(result.errors);
+    setIsRunning(false);
 
-      playground(containerRef.current, {
-        onTestPassed: () => onTestPassed?.(),
-        onTestFailed: (error: string) => onTestFailed?.(error),
-        onRun: () => {
-          running = true;
-        },
-        callback: (_targetNode: HTMLElement, mountNode: HTMLElement) => {
-          if (!mountNode) return;
-
-          let debounceTimer: ReturnType<typeof setTimeout> | null = null;
-
-          const observer = new MutationObserver(() => {
-            if (!running) return;
-
-            // Debounce DOM updates — the playground may mutate
-            // several times during a single execution cycle.
-            if (debounceTimer) clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-              // Still loading — wait for it to finish
-              if (mountNode.querySelector(".loader")) return;
-
-              // Execution is done (loader gone). Read the output.
-              const outputEl = mountNode.querySelector(".code-output");
-              if (!outputEl) {
-                // Console never opened — empty execution (e.g. compile error
-                // with no output). Report empty output.
-                running = false;
-                onExecutionEndRef.current?.("");
-                return;
-              }
-
-              const stdSpans = outputEl.querySelectorAll(".standard-output");
-              const text = Array.from(stdSpans)
-                .map((span) => span.textContent ?? "")
-                .join("");
-
-              running = false;
-              onExecutionEndRef.current?.(text);
-            }, 150);
-          });
-
-          observer.observe(mountNode, {
-            childList: true,
-            subtree: true,
-            characterData: true,
-          });
-        },
-      });
-    });
-  }, [onTestPassed, onTestFailed]);
+    onExecutionEnd?.(result.output);
+  }, [currentCode, hiddenDependency, onExecutionEnd]);
 
   return (
-    <div ref={containerRef} key={exerciseId}>
-      <code
-        data-autocomplete="true"
-        data-highlight-only="false"
-        data-target-platform={targetPlatform}
-        data-theme={theme}
-      >
-        {code}
-      </code>
-      {hiddenDependency && (
-        <textarea className="hidden-dependency" style={{ display: "none" }}>
-          {hiddenDependency}
-        </textarea>
+    <div className="rounded-lg overflow-hidden border border-border">
+      <div className="relative">
+        <CodeEditor value={currentCode} onChange={setCurrentCode} />
+        <button
+          onClick={handleRun}
+          disabled={isRunning}
+          className="absolute top-2 right-2 p-1.5 rounded bg-success text-white hover:bg-success/90 disabled:opacity-50 transition-colors"
+          title="Run (Ctrl+Enter)"
+        >
+          {isRunning ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Play size={16} fill="white" />
+          )}
+        </button>
+      </div>
+
+      {/* Output panel */}
+      {(output !== null || errors.length > 0) && (
+        <div className="border-t border-border bg-[#1e293b] p-3 text-sm font-mono max-h-48 overflow-y-auto">
+          {errors.length > 0 ? (
+            <div className="text-red-400 whitespace-pre-wrap">
+              {errors.join("\n")}
+            </div>
+          ) : (
+            <div className="text-green-300 whitespace-pre-wrap">
+              {output || "(no output)"}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

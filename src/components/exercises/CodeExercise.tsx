@@ -43,19 +43,7 @@ export function CodeExercise({ exercise }: CodeExerciseProps) {
     [exercise, exerciseProgress, awardXp, completeExercise]
   );
 
-  const handleTestPassed = useCallback(() => {
-    setResult("success");
-    const xp = calculateXpAward(exercise.xpReward, exerciseProgress);
-    if (xp > 0) {
-      awardXp(xp, `exercise:${exercise.id}`);
-      setXpAwarded(xp);
-    }
-    completeExercise(exercise.lessonSlug, exercise.id);
-  }, [exercise, exerciseProgress, awardXp, completeExercise]);
-
-  const handleTestFailed = useCallback((error: string) => {
-    setResult("failure");
-  }, []);
+  const hiddenCode = exercise.hiddenPostamble || exercise.testCode;
 
   return (
     <div className="my-6 border border-border rounded-xl overflow-hidden bg-surface">
@@ -71,19 +59,13 @@ export function CodeExercise({ exercise }: CodeExerciseProps) {
         <InstructionText text={exercise.instructions} />
       </div>
 
-      <div className="p-4">
-        <KotlinPlayground
-          code={exercise.starterCode}
-          exerciseId={exercise.id}
-          onExecutionEnd={handleExecutionEnd}
-          onTestPassed={handleTestPassed}
-          onTestFailed={handleTestFailed}
-          targetPlatform={exercise.validationMode === "test" ? "junit" : "jvm"}
-          hiddenDependency={exercise.testCode}
-        />
-      </div>
+      <KotlinPlayground
+        code={exercise.starterCode}
+        exerciseId={exercise.id}
+        hiddenDependency={hiddenCode}
+        onExecutionEnd={handleExecutionEnd}
+      />
 
-      {/* Result feedback */}
       {result && (
         <div
           className={`px-4 py-3 border-t ${
@@ -107,7 +89,6 @@ export function CodeExercise({ exercise }: CodeExerciseProps) {
         </div>
       )}
 
-      {/* Hint */}
       {exercise.hint && (
         <div className="px-4 py-2 border-t border-border">
           <button
