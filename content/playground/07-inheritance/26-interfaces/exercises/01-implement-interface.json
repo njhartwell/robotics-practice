@@ -1,0 +1,14 @@
+{
+  "id": "26-interfaces/ex-01",
+  "lessonSlug": "26-interfaces",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Implement Controllable",
+  "instructions": "Complete the `Motor` class so it implements the `Controllable` interface.\n\nThe `Motor` class should:\n1. Implement the `Controllable` interface\n2. Have a `var isRunning: Boolean` property that starts as `false`\n3. `enable()` should set `isRunning` to `true`\n4. `disable()` should set `isRunning` to `false`\n\nThe `Controllable` interface is already written for you. Do not change it.",
+  "hint": "Use `: Controllable` after the class name. Then use `override fun enable()` and `override fun disable()` to implement both methods.",
+  "xpReward": 15,
+  "starterCode": "interface Controllable {\n    fun enable()\n    fun disable()\n}\n\nclass Motor(val name: String) {\n    // Add isRunning property\n\n    // Implement enable() and disable()\n}",
+  "solutionCode": "interface Controllable {\n    fun enable()\n    fun disable()\n}\n\nclass Motor(val name: String) : Controllable {\n    var isRunning = false\n\n    override fun enable() {\n        isRunning = true\n    }\n\n    override fun disable() {\n        isRunning = false\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testInitialState() {\n        val motor = Motor(\"Left\")\n        Assert.assertFalse(motor.isRunning)\n    }\n\n    @Test\n    fun testEnable() {\n        val motor = Motor(\"Left\")\n        motor.enable()\n        Assert.assertTrue(motor.isRunning)\n    }\n\n    @Test\n    fun testDisable() {\n        val motor = Motor(\"Left\")\n        motor.enable()\n        motor.disable()\n        Assert.assertFalse(motor.isRunning)\n    }\n\n    @Test\n    fun testIsControllable() {\n        val motor = Motor(\"Left\")\n        Assert.assertTrue(motor is Controllable)\n    }\n}"
+}

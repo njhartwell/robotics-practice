@@ -1,0 +1,17 @@
+{
+  "id": "30-higher-order-functions/ex-03",
+  "lessonSlug": "30-higher-order-functions",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Is a Higher-Order Function?",
+  "instructions": "What is a higher-order function?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "A function that is declared at the top of a file" },
+    { "id": "b", "text": "A function that takes another function as a parameter or returns one" },
+    { "id": "c", "text": "A function that calls itself" },
+    { "id": "d", "text": "A function that has more than three parameters" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "A higher-order function is a function that takes another function as a parameter or returns a function as its result. This lets you write flexible, reusable code by passing in behavior as an argument. Examples include `repeatAction(times, action)` where `action` is a lambda."
+}

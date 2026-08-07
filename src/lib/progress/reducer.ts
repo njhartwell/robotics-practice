@@ -92,6 +92,8 @@ export function progressReducer(
         exercises: {},
       };
 
+      if (lesson.completed) return state;
+
       return {
         ...state,
         profile: {

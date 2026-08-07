@@ -1,0 +1,17 @@
+{
+  "id": "23-sets/ex-03",
+  "lessonSlug": "23-sets",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Duplicate in a Set",
+  "instructions": "What happens when you add a duplicate element to a mutable set using `.add()`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The program crashes with an error" },
+    { "id": "b", "text": "The duplicate is added, making two copies" },
+    { "id": "c", "text": "It is ignored and the size stays the same" },
+    { "id": "d", "text": "It replaces the original element" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "Sets only keep unique elements. When you try to add an element that is already in the set, the `.add()` call is ignored and the set stays the same. The `.add()` method returns `false` to let you know nothing was added."
+}

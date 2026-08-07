@@ -1,0 +1,14 @@
+{
+  "id": "41-generic-functions/ex-01",
+  "lessonSlug": "41-generic-functions",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Generic Swap",
+  "instructions": "Complete the generic `swap` function. It takes two parameters `a` and `b` of the same type `T` and returns a `Pair<T, T>` with the values swapped.\n\nFor example, `swap(1, 2)` should return `Pair(2, 1)`.",
+  "hint": "Return `Pair(b, a)` to swap the two values.",
+  "xpReward": 15,
+  "starterCode": "fun <T> swap(a: T, b: T): Pair<T, T> {\n    // Return a Pair with a and b swapped\n}",
+  "solutionCode": "fun <T> swap(a: T, b: T): Pair<T, T> {\n    return Pair(b, a)\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSwapInts() {\n        Assert.assertEquals(Pair(2, 1), swap(1, 2))\n    }\n\n    @Test\n    fun testSwapStrings() {\n        Assert.assertEquals(Pair(\"Blue\", \"Red\"), swap(\"Red\", \"Blue\"))\n    }\n\n    @Test\n    fun testSwapDoubles() {\n        val result = swap(3.14, 2.72)\n        Assert.assertEquals(2.72, result.first, 0.001)\n        Assert.assertEquals(3.14, result.second, 0.001)\n    }\n\n    @Test\n    fun testSwapSameValues() {\n        Assert.assertEquals(Pair(42, 42), swap(42, 42))\n    }\n}"
+}

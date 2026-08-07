@@ -1,0 +1,17 @@
+{
+  "id": "07-while-loops/ex-03",
+  "lessonSlug": "07-while-loops",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Forgetting the Counter",
+  "instructions": "What happens if you forget to update the counter variable inside a `while` loop?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The loop runs exactly once" },
+    { "id": "b", "text": "The loop never runs" },
+    { "id": "c", "text": "The loop runs forever (infinite loop)" },
+    { "id": "d", "text": "The compiler shows an error" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "If the counter never changes, the loop's condition stays true forever. This creates an infinite loop — the program gets stuck repeating the same code and never moves on. Always make sure something inside your loop will eventually make the condition false."
+}

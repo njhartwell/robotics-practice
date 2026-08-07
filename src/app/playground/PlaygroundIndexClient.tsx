@@ -2,6 +2,12 @@
 
 import { LessonCard } from "@/components/lesson/LessonCard";
 import type { LessonMeta } from "@/lib/progress/types";
+import {
+  getCurriculumTrack,
+  orderLessonsByTrack,
+  type CurriculumTrack,
+} from "@/lib/content/curriculum-track";
+import { buildPreviousLessonMap } from "@/lib/progress/lesson-access";
 
 function groupBySection(
   lessons: LessonMeta[]
@@ -34,7 +40,30 @@ export function PlaygroundIndexClient({
 }: {
   lessons: LessonMeta[];
 }) {
-  const sections = groupBySection(lessons);
+  const previousLessons = buildPreviousLessonMap(orderLessonsByTrack(lessons));
+  const tracks: {
+    id: CurriculumTrack;
+    title: string;
+    description: string;
+    lessons: LessonMeta[];
+  }[] = [
+    {
+      id: "core",
+      title: "Core Kotlin for FRC",
+      description:
+        "The recommended path for a new programmer. Finish this before starting the robot projects.",
+      lessons: lessons.filter((lesson) => getCurriculumTrack(lesson) === "core"),
+    },
+    {
+      id: "further",
+      title: "Further Kotlin",
+      description:
+        "Optional topics to deepen your Kotlin skills after the core path.",
+      lessons: lessons.filter(
+        (lesson) => getCurriculumTrack(lesson) === "further"
+      ),
+    },
+  ];
 
   return (
     <div className="max-w-3xl mx-auto space-y-8">
@@ -45,15 +74,33 @@ export function PlaygroundIndexClient({
           browser.
         </p>
       </div>
-      {sections.map((section) => (
-        <div key={section.section}>
-          <h2 className="text-lg font-semibold mb-3">{section.sectionTitle}</h2>
-          <div className="space-y-3">
-            {section.lessons.map((lesson) => (
-              <LessonCard key={lesson.slug} lesson={lesson} />
+      {tracks.map((track) => (
+        <section key={track.id} aria-labelledby={`${track.id}-track`}>
+          <div className="mb-4">
+            <h2 id={`${track.id}-track`} className="text-xl font-bold">
+              {track.title}
+            </h2>
+            <p className="mt-1 text-sm text-muted">{track.description}</p>
+          </div>
+          <div className="space-y-7">
+            {groupBySection(track.lessons).map((section) => (
+              <div key={section.section}>
+                <h3 className="mb-3 text-base font-semibold text-muted">
+                  {section.sectionTitle}
+                </h3>
+                <div className="space-y-3">
+                  {section.lessons.map((lesson) => (
+                    <LessonCard
+                      key={lesson.slug}
+                      lesson={lesson}
+                      previousLessonSlug={previousLessons.get(lesson.slug)}
+                    />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
-        </div>
+        </section>
       ))}
     </div>
   );

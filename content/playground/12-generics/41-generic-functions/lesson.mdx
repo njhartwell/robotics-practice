@@ -1,0 +1,202 @@
+# Generic Functions
+
+In the previous lesson you learned how to make a class generic. But what if you need a single function to work with different types? You do not always need a whole class. Sometimes a generic function is all you need.
+
+## What Is a Generic Function?
+
+A generic function has its own type parameter. You place `<T>` right before the function name:
+
+```kotlin
+fun <T> printItem(item: T) {
+    println("Item: $item")
+}
+
+fun main() {
+    printItem(42)           // Item: 42
+    printItem("Tribots")    // Item: Tribots
+    printItem(3.14)         // Item: 3.14
+}
+```
+
+Output:
+```
+Item: 42
+Item: Tribots
+Item: 3.14
+```
+
+The `<T>` before `printItem` tells Kotlin that this function has a type parameter. The parameter `item: T` can be any type. Each time you call the function, `T` becomes whatever type you pass in.
+
+## Syntax Breakdown
+
+Here is the structure of a generic function:
+
+```kotlin
+fun <T> functionName(param: T): T {
+    // function body
+}
+```
+
+- `fun` -- declares a function.
+- `<T>` -- the type parameter, placed between `fun` and the function name.
+- `param: T` -- the parameter uses the type `T`.
+- `: T` after the parentheses -- the return type is also `T`.
+
+The type parameter can appear in the parameter list, the return type, or both.
+
+## Type Inference in Generic Functions
+
+Kotlin figures out the type from the arguments you pass in. You almost never need to write the type explicitly:
+
+```kotlin
+fun <T> wrapInList(item: T): List<T> {
+    return listOf(item)
+}
+
+fun main() {
+    val intList = wrapInList(42)         // Kotlin infers T = Int
+    val stringList = wrapInList("4215")  // Kotlin infers T = String
+
+    println(intList)    // [42]
+    println(stringList) // [4215]
+}
+```
+
+Output:
+```
+[42]
+[4215]
+```
+
+When you call `wrapInList(42)`, Kotlin sees that `42` is an `Int`. It fills in `T = Int` automatically. This is **type inference** -- Kotlin figures out the type from the values you provide.
+
+You can also write the type explicitly if you want to be clear:
+
+```kotlin
+val intList = wrapInList<Int>(42)
+```
+
+Both ways work. Most Kotlin programmers let the compiler infer the type because it keeps the code shorter.
+
+## Generic Functions with Multiple Type Parameters
+
+A function can have more than one type parameter, separated by commas:
+
+```kotlin
+fun <A, B> makePair(first: A, second: B): Pair<A, B> {
+    return Pair(first, second)
+}
+
+fun main() {
+    val result = makePair("Match", 7)
+    println(result) // (Match, 7)
+}
+```
+
+Output:
+```
+(Match, 7)
+```
+
+Here `A` is `String` and `B` is `Int`. Kotlin infers both types from the arguments.
+
+## Type Constraints
+
+Sometimes you need `T` to be a specific kind of type. For example, what if you want a function that finds the largest value in a list? Not every type can be compared. Strings and numbers can, but a random class might not.
+
+You can add a **type constraint** using a colon after `T`:
+
+```kotlin
+fun <T : Comparable<T>> findMax(list: List<T>): T {
+    var max = list[0]
+    for (item in list) {
+        if (item > max) {
+            max = item
+        }
+    }
+    return max
+}
+
+fun main() {
+    println(findMax(listOf(45, 92, 67, 81)))       // 92
+    println(findMax(listOf("apple", "cherry", "banana"))) // cherry
+}
+```
+
+Output:
+```
+92
+cherry
+```
+
+Let's break down `<T : Comparable<T>>`:
+
+- `T : Comparable<T>` means "T must implement the `Comparable` interface."
+- `Comparable` is a built-in Kotlin interface that lets values be compared using `<`, `>`, `<=`, and `>=`.
+- `Int`, `Double`, `String`, and many other types implement `Comparable`.
+- If you try to call `findMax` with a type that is not comparable, the compiler will give you an error.
+
+This is like saying: "This function works with any type, but that type must know how to compare itself to other values of the same type."
+
+## A Practical FRC Example
+
+Imagine Team 4215 tracks the best performance across different metrics. Sometimes you want the highest match score (`Int`). Other times you want the fastest lap time (`Double`). A generic function with a constraint handles both:
+
+```kotlin
+fun <T : Comparable<T>> findBest(
+    performances: List<T>,
+    higherIsBetter: Boolean = true
+): T {
+    return if (higherIsBetter) {
+        performances.max()
+    } else {
+        performances.min()
+    }
+}
+
+fun main() {
+    val matchScores = listOf(85, 92, 78, 95, 88)
+    println("Best score: ${findBest(matchScores)}")
+
+    val lapTimes = listOf(12.5, 11.8, 13.2, 11.3)
+    println("Best lap: ${findBest(lapTimes, higherIsBetter = false)}")
+}
+```
+
+Output:
+```
+Best score: 95
+Best lap: 11.3
+```
+
+One function handles both `Int` scores and `Double` lap times. The constraint `T : Comparable<T>` makes sure you can only use types that support comparison.
+
+## Generic Functions You Already Know
+
+Many built-in Kotlin functions are generic. Here are a few you have used before:
+
+- `listOf<T>(vararg elements: T): List<T>` -- creates a list of any type.
+- `mapOf<K, V>(vararg pairs: Pair<K, V>): Map<K, V>` -- creates a map with any key and value types.
+- `println(message: Any?)` -- prints any type (uses `Any?`, which is similar in spirit).
+
+Every time you call `listOf(1, 2, 3)`, Kotlin uses type inference to determine that `T` is `Int`. You have been using generic functions all along!
+
+## When to Use Generic Functions
+
+Use a generic function when:
+- The function logic does not depend on the specific type.
+- You want the same function to work with `Int`, `String`, `Double`, or other types.
+- You want type safety (the compiler checks the types for you).
+
+Use a type constraint when:
+- The function needs to do something type-specific, like comparing values.
+
+You are doing amazing! These concepts will make your code flexible and safe. Time to practice writing your own generic functions.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

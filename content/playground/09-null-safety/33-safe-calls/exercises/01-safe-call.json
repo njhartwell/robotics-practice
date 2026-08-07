@@ -1,0 +1,14 @@
+{
+  "id": "33-safe-calls/ex-01",
+  "lessonSlug": "33-safe-calls",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Safe Call on a Nullable String",
+  "instructions": "Complete the function `safeLength` that takes a nullable `String?` parameter called `text` and returns an `Int?`.\n\nUse the safe call operator (`?.`) to return the length of the string. If `text` is null, the function should return null.\n\nFor example:\n- `safeLength(\"Tribots\")` returns `7`\n- `safeLength(null)` returns `null`",
+  "hint": "Use `text?.length` to safely get the length. If text is null, `?.` will return null instead of crashing.",
+  "xpReward": 15,
+  "starterCode": "fun safeLength(text: String?): Int? {\n    // Use the safe call operator to return the length\n    return null\n}",
+  "solutionCode": "fun safeLength(text: String?): Int? {\n    return text?.length\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithString() {\n        Assert.assertEquals(7, safeLength(\"Tribots\"))\n    }\n\n    @Test\n    fun testWithNull() {\n        Assert.assertNull(safeLength(null))\n    }\n\n    @Test\n    fun testWithEmptyString() {\n        Assert.assertEquals(0, safeLength(\"\"))\n    }\n\n    @Test\n    fun testWithTeamNumber() {\n        Assert.assertEquals(4, safeLength(\"4215\"))\n    }\n}"
+}

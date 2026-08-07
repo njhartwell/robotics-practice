@@ -1,0 +1,17 @@
+{
+  "id": "22-maps/ex-03",
+  "lessonSlug": "22-maps",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Missing Key",
+  "instructions": "What happens when you access a key that does not exist in a map using `[]`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The program crashes with an error" },
+    { "id": "b", "text": "It returns 0" },
+    { "id": "c", "text": "It returns null" },
+    { "id": "d", "text": "It returns an empty string" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "When you use `[]` to access a key that is not in the map, Kotlin returns `null`. This means \"no value.\" If you want the program to crash with a clear error instead, use `.getValue()`."
+}

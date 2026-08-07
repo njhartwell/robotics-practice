@@ -1,0 +1,14 @@
+{
+  "slug": "15-classes",
+  "section": "oop-basics",
+  "sectionTitle": "Object-Oriented Programming",
+  "sectionOrder": 4,
+  "title": "Classes and Objects",
+  "description": "Create your own types with classes",
+  "order": 15,
+  "requiredLevel": 2,
+  "xpReward": 70,
+  "estimatedMinutes": 15,
+  "exerciseCount": 5,
+  "tags": ["oop", "classes", "objects", "instances"]
+}

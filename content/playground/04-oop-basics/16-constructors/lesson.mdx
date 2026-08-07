@@ -1,0 +1,125 @@
+# Constructors
+
+In the last lesson, you created your first classes. You built objects and set their properties one by one. But what if you want to set up an object right when you create it? That is what **constructors** are for.
+
+## Primary Constructor
+
+A **constructor** is a special part of a class that runs when you create a new object. In Kotlin, you write it right in the class header:
+
+```kotlin
+fun main() {
+    val motor = Motor("Left Drive", 0.75)
+    println(motor.name)
+    println(motor.speed)
+}
+
+class Motor(val name: String, val speed: Double)
+```
+
+The part inside the parentheses after the class name is called the **primary constructor**. It lists the information you need to provide when creating an object.
+
+When you write `Motor("Left Drive", 0.75)`, Kotlin creates a new `Motor` and fills in `name` and `speed` automatically.
+
+## `val` vs `var` in Constructors
+
+You can use `val` or `var` for constructor parameters, and the difference matters:
+
+- `val` means the property is **read-only**. You cannot change it after creating the object.
+- `var` means the property is **mutable**. You can change it later.
+
+```kotlin
+fun main() {
+    val motor = Motor("Arm", 0.5)
+    // motor.name = "Wrist"  // ERROR — name is val (read-only)
+    motor.speed = 0.8         // OK — speed is var (mutable)
+    println("${motor.name}: ${motor.speed}")
+}
+
+class Motor(val name: String, var speed: Double)
+```
+
+Use `val` when a property should never change (like a motor's name). Use `var` when the property needs to change over time (like a motor's speed).
+
+## The `init` Block
+
+Sometimes you need to run code right when an object is created. You can do this with an `init` block:
+
+```kotlin
+fun main() {
+    val sensor = Sensor("Gyro", 0)
+}
+
+class Sensor(val name: String, val port: Int) {
+    init {
+        println("Sensor $name connected on port $port")
+    }
+}
+```
+
+The `init` block runs every time you create a new `Sensor`. This is useful for setup tasks like printing a message, checking that values are valid, or initializing other properties.
+
+You can have more than one `init` block. They run in order from top to bottom.
+
+## Default Parameter Values
+
+You can give constructor parameters **default values**. If the caller does not provide a value, Kotlin uses the default:
+
+```kotlin
+fun main() {
+    val intake = Mechanism("Intake")
+    val shooter = Mechanism("Shooter", true)
+
+    println("${intake.name}, enabled: ${intake.enabled}")
+    println("${shooter.name}, enabled: ${shooter.enabled}")
+}
+
+class Mechanism(val name: String, var enabled: Boolean = false)
+```
+
+Here, `enabled` defaults to `false`. You only need to pass it if you want a different value. This keeps your code shorter when most objects use the same setting.
+
+## Named Arguments
+
+When a class has several parameters, it can be hard to remember the order. Kotlin lets you use **named arguments** to make it clear:
+
+```kotlin
+fun main() {
+    val config = DriveConfig(
+        maxSpeed = 0.8,
+        teamNumber = 4215,
+        driveType = "tank"
+    )
+    println("Team ${config.teamNumber}: ${config.driveType} drive at ${config.maxSpeed}")
+}
+
+class DriveConfig(
+    val teamNumber: Int,
+    val driveType: String,
+    val maxSpeed: Double = 1.0
+)
+```
+
+With named arguments, the order does not matter. You can write them in any order and the code stays easy to read.
+
+## Putting It Together
+
+Constructors make your classes much easier to use. Instead of creating an object and then setting each property, you pass everything at once:
+
+```kotlin
+fun main() {
+    val tribots = Team(4215, "Tribots", "FRC")
+    println("${tribots.name} (#${tribots.number}) — ${tribots.league}")
+}
+
+class Team(val number: Int, val name: String, val league: String)
+```
+
+This is how most Kotlin classes are written. You will see this pattern everywhere in FRC robot code.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

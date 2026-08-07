@@ -1,0 +1,17 @@
+{
+  "id": "41-generic-functions/ex-03",
+  "lessonSlug": "41-generic-functions",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Type Inference",
+  "instructions": "When you call `listOf(1, 2, 3)`, how does Kotlin know it creates a `List<Int>`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "You must always write listOf<Int>(1, 2, 3) or it will not compile" },
+    { "id": "b", "text": "Kotlin defaults to Int for all numbers" },
+    { "id": "c", "text": "Type inference -- Kotlin figures out the type from the values you provide" },
+    { "id": "d", "text": "listOf only works with Int values" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "Kotlin uses type inference to figure out that the values `1`, `2`, and `3` are all `Int` values. From this, it determines that `T` must be `Int`, so the result is `List<Int>`. You do not need to write the type explicitly. Type inference works with any type -- if you wrote `listOf(\"a\", \"b\")`, Kotlin would infer `List<String>`."
+}

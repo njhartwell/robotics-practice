@@ -1,0 +1,14 @@
+{
+  "id": "27-abstract-classes/ex-04",
+  "lessonSlug": "27-abstract-classes",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Abstract Class with Interface",
+  "instructions": "Complete the code so that `RobotArm` extends the abstract class `Mechanism` and implements the `Controllable` interface.\n\n`RobotArm` should:\n1. Pass \"Arm\" as the name to `Mechanism`\n2. Override `performAction()` to print \"Arm moving to position\"\n3. Implement `enable()` to set `isEnabled` to `true`\n4. Implement `disable()` to set `isEnabled` to `false`",
+  "hint": "Use `: Mechanism(\"Arm\"), Controllable` to extend the abstract class and implement the interface at the same time. Then override all three methods.",
+  "xpReward": 15,
+  "starterCode": "interface Controllable {\n    fun enable()\n    fun disable()\n}\n\nabstract class Mechanism(val name: String) {\n    abstract fun performAction()\n}\n\n// Complete RobotArm: extend Mechanism and implement Controllable\nclass RobotArm : TODO() {\n    var isEnabled = false\n\n    // Override performAction to print \"Arm moving to position\"\n\n    // Implement enable and disable\n}",
+  "solutionCode": "interface Controllable {\n    fun enable()\n    fun disable()\n}\n\nabstract class Mechanism(val name: String) {\n    abstract fun performAction()\n}\n\nclass RobotArm : Mechanism(\"Arm\"), Controllable {\n    var isEnabled = false\n\n    override fun performAction() {\n        println(\"Arm moving to position\")\n    }\n\n    override fun enable() {\n        isEnabled = true\n    }\n\n    override fun disable() {\n        isEnabled = false\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testName() {\n        val arm = RobotArm()\n        Assert.assertEquals(\"Arm\", arm.name)\n    }\n\n    @Test\n    fun testPerformAction() {\n        val arm = RobotArm()\n        val output = captureOutput { arm.performAction() }\n        Assert.assertEquals(\"Arm moving to position\", output.trim())\n    }\n\n    @Test\n    fun testEnable() {\n        val arm = RobotArm()\n        arm.enable()\n        Assert.assertTrue(arm.isEnabled)\n    }\n\n    @Test\n    fun testDisable() {\n        val arm = RobotArm()\n        arm.enable()\n        arm.disable()\n        Assert.assertFalse(arm.isEnabled)\n    }\n\n    @Test\n    fun testIsMechanism() {\n        val arm = RobotArm()\n        Assert.assertTrue(arm is Mechanism)\n    }\n\n    @Test\n    fun testIsControllable() {\n        val arm = RobotArm()\n        Assert.assertTrue(arm is Controllable)\n    }\n}\n\nfun captureOutput(block: () -> Unit): String {\n    val stream = java.io.ByteArrayOutputStream()\n    val ps = java.io.PrintStream(stream)\n    val old = System.out\n    System.setOut(ps)\n    block()\n    System.setOut(old)\n    return stream.toString()\n}"
+}

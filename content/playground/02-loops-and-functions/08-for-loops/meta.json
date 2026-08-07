@@ -1,0 +1,14 @@
+{
+  "slug": "08-for-loops",
+  "section": "loops-and-functions",
+  "sectionTitle": "Loops and Functions",
+  "sectionOrder": 2,
+  "title": "For Loops and Ranges",
+  "description": "Iterate with for loops using Kotlin ranges",
+  "order": 8,
+  "requiredLevel": 0,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["loops", "for", "ranges", "iteration"]
+}

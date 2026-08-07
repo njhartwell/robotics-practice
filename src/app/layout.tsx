@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
 import path from "path";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/layout/AppShell";
 import { getAllLessonMetas } from "@/lib/content/fs-loader";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "FRC Kotlin Tutorial",
@@ -34,10 +23,7 @@ export default async function RootLayout({
   ]);
 
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full">
         <AppShell
           playgroundLessons={playgroundLessons}

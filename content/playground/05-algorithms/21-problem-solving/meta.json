@@ -1,0 +1,14 @@
+{
+  "slug": "21-problem-solving",
+  "section": "algorithms",
+  "sectionTitle": "Algorithms",
+  "sectionOrder": 5,
+  "title": "Problem Solving Patterns",
+  "description": "Apply algorithmic thinking to solve real problems",
+  "order": 21,
+  "requiredLevel": 3,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["algorithms", "problem-solving", "patterns", "practice"]
+}

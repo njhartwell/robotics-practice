@@ -1,0 +1,14 @@
+{
+  "slug": "13-strings-revisited",
+  "section": "collections",
+  "sectionTitle": "Collections",
+  "sectionOrder": 3,
+  "title": "Strings Revisited",
+  "description": "Explore string operations and character-level processing",
+  "order": 13,
+  "requiredLevel": 0,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["strings", "substring", "split", "characters"]
+}

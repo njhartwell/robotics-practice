@@ -1,0 +1,14 @@
+{
+  "id": "36-sealed-classes/ex-02",
+  "lessonSlug": "36-sealed-classes",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Result Type",
+  "instructions": "Write a sealed class called `Result` with two subclasses:\n- `Success` with a `val value: Int` property\n- `Failure` with a `val message: String` property\n\nThen write a function called `handleResult` that takes a `Result` parameter and returns a `String`:\n- For `Success`, return `\"Success: X\"` where X is the value\n- For `Failure`, return `\"Error: M\"` where M is the message\n\nFor example:\n- `handleResult(Result.Success(42))` returns `\"Success: 42\"`\n- `handleResult(Result.Failure(\"Sensor timeout\"))` returns `\"Error: Sensor timeout\"`",
+  "hint": "Define `sealed class Result` with `class Success(val value: Int) : Result()` and `class Failure(val message: String) : Result()` inside. Use `is Result.Success` and `is Result.Failure` in your when expression.",
+  "xpReward": 20,
+  "starterCode": "// Write your Result sealed class here\n\n\n// Write your handleResult function here\n",
+  "solutionCode": "sealed class Result {\n    class Success(val value: Int) : Result()\n    class Failure(val message: String) : Result()\n}\n\nfun handleResult(result: Result): String {\n    return when (result) {\n        is Result.Success -> \"Success: ${result.value}\"\n        is Result.Failure -> \"Error: ${result.message}\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSuccess() {\n        Assert.assertEquals(\"Success: 42\", handleResult(Result.Success(42)))\n    }\n\n    @Test\n    fun testSuccessZero() {\n        Assert.assertEquals(\"Success: 0\", handleResult(Result.Success(0)))\n    }\n\n    @Test\n    fun testFailure() {\n        Assert.assertEquals(\"Error: Sensor timeout\", handleResult(Result.Failure(\"Sensor timeout\")))\n    }\n\n    @Test\n    fun testFailureDifferentMessage() {\n        Assert.assertEquals(\"Error: Connection lost\", handleResult(Result.Failure(\"Connection lost\")))\n    }\n\n    @Test\n    fun testSuccessProperty() {\n        val s = Result.Success(100)\n        Assert.assertEquals(100, s.value)\n    }\n\n    @Test\n    fun testFailureProperty() {\n        val f = Result.Failure(\"Oops\")\n        Assert.assertEquals(\"Oops\", f.message)\n    }\n}"
+}

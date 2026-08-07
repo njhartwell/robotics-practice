@@ -1,0 +1,14 @@
+{
+  "id": "33-safe-calls/ex-04",
+  "lessonSlug": "33-safe-calls",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Chain Safe Calls",
+  "instructions": "A `RobotConfig` data class has a nullable `teamName` property of type `String?`.\n\nWrite a function called `getTeamNameUpperCase` that takes a `config` parameter of type `RobotConfig?` and returns a `String`.\n\nUse chained safe calls to get the team name and convert it to uppercase. If anything is null, return `\"NO TEAM\"`.\n\nFor example:\n- `getTeamNameUpperCase(RobotConfig(\"Tribots\"))` returns `\"TRIBOTS\"`\n- `getTeamNameUpperCase(RobotConfig(null))` returns `\"NO TEAM\"`\n- `getTeamNameUpperCase(null)` returns `\"NO TEAM\"`",
+  "hint": "Chain safe calls like `config?.teamName?.uppercase()` and use `?: \"NO TEAM\"` for the default. The `uppercase()` function converts a String to all capital letters.",
+  "xpReward": 20,
+  "starterCode": "data class RobotConfig(val teamName: String?)\n\nfun getTeamNameUpperCase(config: RobotConfig?): String {\n    // Use chained safe calls and Elvis to return the uppercase team name\n    // Return \"NO TEAM\" if config or teamName is null\n    return \"\"\n}",
+  "solutionCode": "data class RobotConfig(val teamName: String?)\n\nfun getTeamNameUpperCase(config: RobotConfig?): String {\n    return config?.teamName?.uppercase() ?: \"NO TEAM\"\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithTeamName() {\n        Assert.assertEquals(\"TRIBOTS\", getTeamNameUpperCase(RobotConfig(\"Tribots\")))\n    }\n\n    @Test\n    fun testWithNullTeamName() {\n        Assert.assertEquals(\"NO TEAM\", getTeamNameUpperCase(RobotConfig(null)))\n    }\n\n    @Test\n    fun testWithNullConfig() {\n        Assert.assertEquals(\"NO TEAM\", getTeamNameUpperCase(null))\n    }\n\n    @Test\n    fun testWithAnotherTeam() {\n        Assert.assertEquals(\"ROBOWARRIORS\", getTeamNameUpperCase(RobotConfig(\"RoboWarriors\")))\n    }\n}"
+}

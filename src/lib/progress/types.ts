@@ -45,6 +45,24 @@ export interface CodeExercise extends ExerciseBase {
   hiddenPostamble?: string;
 }
 
+/**
+ * Safe subset of a code exercise that may cross the Server Component boundary.
+ * Grader code, expected output, and solutions deliberately remain server-only.
+ */
+export type ClientCodeExercise = Pick<
+  CodeExercise,
+  | "id"
+  | "lessonSlug"
+  | "type"
+  | "order"
+  | "title"
+  | "instructions"
+  | "hint"
+  | "xpReward"
+  | "starterCode"
+  | "validationMode"
+>;
+
 export interface MultipleChoiceExercise extends ExerciseBase {
   type: "multiple-choice";
   options: { id: string; text: string }[];
@@ -61,6 +79,11 @@ export interface FillInTheBlankExercise extends ExerciseBase {
 
 export type Exercise =
   | CodeExercise
+  | MultipleChoiceExercise
+  | FillInTheBlankExercise;
+
+export type ClientExercise =
+  | ClientCodeExercise
   | MultipleChoiceExercise
   | FillInTheBlankExercise;
 

@@ -1,0 +1,17 @@
+{
+  "id": "37-companion-objects/ex-03",
+  "lessonSlug": "37-companion-objects",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Accessing Companion Properties",
+  "instructions": "Given this class:\n\n```kotlin\nclass Motor(val name: String) {\n    companion object {\n        val MAX_SPEED = 1.0\n    }\n}\n```\n\nHow do you access the `MAX_SPEED` property?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "val m = Motor(\"Left\"); m.MAX_SPEED" },
+    { "id": "b", "text": "Motor.MAX_SPEED" },
+    { "id": "c", "text": "Motor.companion.MAX_SPEED" },
+    { "id": "d", "text": "MAX_SPEED" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Companion object properties are accessed through the class name directly, like `Motor.MAX_SPEED`. You do not need to create an instance, and you do not need to write `.companion` in the middle. The companion object's members act as if they belong to the class itself."
+}

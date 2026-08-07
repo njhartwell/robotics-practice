@@ -1,64 +1,101 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useProgress } from "@/lib/progress/useProgress";
-import { XpToast } from "@/components/gamification/XpToast";
-import { LevelUpModal } from "@/components/gamification/LevelUpModal";
-import type { Exercise, LessonMeta } from "@/lib/progress/types";
+import type { LessonMeta } from "@/lib/progress/types";
 import { calculateXpAward } from "@/lib/gamification/xp";
 import Link from "next/link";
-import { ChevronLeft, CheckCircle } from "lucide-react";
+import { ChevronLeft, CheckCircle, Lock } from "lucide-react";
 
 interface LessonViewProps {
   lesson: LessonMeta;
-  exercises: Exercise[];
+  exerciseIds: string[];
+  previousLesson?: Pick<LessonMeta, "slug" | "part" | "title">;
+  nextLesson?: Pick<LessonMeta, "slug" | "part" | "title">;
   children: React.ReactNode;
 }
 
-export function LessonView({ lesson, exercises, children }: LessonViewProps) {
-  const { progress, isLoaded, awardXp, completeLesson, startLesson } =
-    useProgress();
-  const [lessonXpAwarded, setLessonXpAwarded] = useState<number | null>(null);
-  const [levelUp, setLevelUp] = useState<number | null>(null);
-  // Track the level after initial load so we don't fire on page reload
-  const prevLevelRef = useRef<number | null>(null);
+export function LessonView({
+  lesson,
+  exerciseIds,
+  previousLesson,
+  nextLesson,
+  children,
+}: LessonViewProps) {
+  const {
+    progress,
+    isLoaded,
+    awardXp,
+    completeLesson,
+    startLesson,
+    isLessonUnlocked,
+  } = useProgress();
+  const isUnlocked = isLessonUnlocked(
+    lesson.requiredLevel,
+    previousLesson?.slug
+  );
 
   useEffect(() => {
-    startLesson(lesson.slug, lesson.part);
-  }, [lesson.slug, lesson.part, startLesson]);
-
-  // Initialize prevLevel only after progress is loaded from storage
-  useEffect(() => {
-    if (isLoaded && prevLevelRef.current === null) {
-      prevLevelRef.current = progress.profile.currentLevel;
+    if (isLoaded && isUnlocked) {
+      startLesson(lesson.slug, lesson.part);
     }
-  }, [isLoaded, progress.profile.currentLevel]);
-
-  // Detect level up only after initial load is settled
-  useEffect(() => {
-    if (!isLoaded || prevLevelRef.current === null) return;
-    if (progress.profile.currentLevel > prevLevelRef.current) {
-      setLevelUp(progress.profile.currentLevel);
-    }
-    prevLevelRef.current = progress.profile.currentLevel;
-  }, [isLoaded, progress.profile.currentLevel]);
+  }, [isLoaded, isUnlocked, lesson.slug, lesson.part, startLesson]);
 
   const lessonProgress = progress.lessons[lesson.slug];
   const allCompleted =
-    exercises.length > 0 &&
-    exercises.every((ex) => lessonProgress?.exercises[ex.id]?.completed);
+    exerciseIds.length > 0 &&
+    exerciseIds.every((exerciseId) =>
+      Boolean(lessonProgress?.exercises[exerciseId]?.completed)
+    );
   const isLessonDone = lessonProgress?.completed ?? false;
 
   useEffect(() => {
-    if (allCompleted && !isLessonDone) {
+    if (isLoaded && isUnlocked && allCompleted && !isLessonDone) {
       const xp = calculateXpAward(lesson.xpReward, undefined);
       if (xp > 0) {
         awardXp(xp, `lesson:${lesson.slug}`);
-        setLessonXpAwarded(xp);
       }
       completeLesson(lesson.slug);
     }
-  }, [allCompleted, isLessonDone, lesson, awardXp, completeLesson]);
+  }, [
+    allCompleted,
+    isLessonDone,
+    isLoaded,
+    isUnlocked,
+    lesson,
+    awardXp,
+    completeLesson,
+  ]);
+
+  if (!isLoaded) {
+    return (
+      <div
+        role="status"
+        className="mx-auto max-w-3xl py-16 text-center text-muted"
+      >
+        Loading your progress…
+      </div>
+    );
+  }
+
+  if (!isUnlocked) {
+    return (
+      <div className="mx-auto max-w-xl py-16 text-center">
+        <Lock className="mx-auto mb-4 text-muted" size={32} />
+        <h1 className="text-2xl font-bold">Lesson locked</h1>
+        <p className="mt-2 text-muted">
+          Complete the previous lesson or reach Level {lesson.requiredLevel} to
+          unlock {lesson.title}.
+        </p>
+        <Link
+          href={`/${lesson.part}`}
+          className="mt-5 inline-block rounded-lg bg-primary px-5 py-2 font-semibold text-white hover:bg-primary-light"
+        >
+          Back to lessons
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -84,20 +121,47 @@ export function LessonView({ lesson, exercises, children }: LessonViewProps) {
           <p className="text-green-700 text-sm">
             You earned {lesson.xpReward} XP for completing this lesson.
           </p>
-          <Link
-            href={`/${lesson.part}`}
-            className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition-colors"
-          >
-            Continue Learning
-          </Link>
+          {nextLesson ? (
+            <Link
+              href={`/${nextLesson.part}/${nextLesson.slug}`}
+              className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition-colors"
+            >
+              Next: {nextLesson.title}
+            </Link>
+          ) : (
+            <Link
+              href={`/${lesson.part}`}
+              className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition-colors"
+            >
+              Back to Lessons
+            </Link>
+          )}
         </div>
       )}
 
-      <XpToast
-        amount={lessonXpAwarded}
-        onComplete={() => setLessonXpAwarded(null)}
-      />
-      <LevelUpModal newLevel={levelUp} onClose={() => setLevelUp(null)} />
+      <nav
+        aria-label="Lesson navigation"
+        className="mt-8 flex items-center justify-between gap-4 border-t border-border pt-5 text-sm"
+      >
+        {previousLesson ? (
+          <Link
+            href={`/${previousLesson.part}/${previousLesson.slug}`}
+            className="text-primary hover:underline"
+          >
+            ← {previousLesson.title}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {nextLesson && isLessonDone && (
+          <Link
+            href={`/${nextLesson.part}/${nextLesson.slug}`}
+            className="ml-auto text-right text-primary hover:underline"
+          >
+            {nextLesson.title} →
+          </Link>
+        )}
+      </nav>
     </div>
   );
 }

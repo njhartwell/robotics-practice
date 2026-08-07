@@ -1,0 +1,17 @@
+{
+  "id": "32-nullable-types/ex-03",
+  "lessonSlug": "32-nullable-types",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Does the Question Mark Mean?",
+  "instructions": "What does the `?` mean in the type `String?`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The variable must always hold a String" },
+    { "id": "b", "text": "The variable can hold a String or null" },
+    { "id": "c", "text": "The variable is a question to the user" },
+    { "id": "d", "text": "The variable will be deleted after use" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "The `?` after a type name makes it nullable. `String?` means the variable can hold either a real String value or null. Without the `?`, the variable must always hold a non-null String."
+}

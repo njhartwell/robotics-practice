@@ -1,0 +1,15 @@
+{
+  "id": "09-functions-basics/ex-02",
+  "lessonSlug": "09-functions-basics",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Report Motor Speed",
+  "instructions": "Write a function called `reportMotorSpeed` that takes two parameters:\n- `motorName` of type `String`\n- `speed` of type `Double`\n\nThe function should print the motor name followed by its speed as a percentage (whole number). Multiply the speed by 100 and convert it to an `Int`.\n\nFor example, `reportMotorSpeed(\"Left Drive\", 0.75)` should print `Left Drive: 75%`.",
+  "hint": "Use (speed * 100).toInt() to convert the decimal to a whole-number percentage. Then use a string template to print it.",
+  "xpReward": 20,
+  "starterCode": "// Write your reportMotorSpeed function here\n",
+  "solutionCode": "fun reportMotorSpeed(motorName: String, speed: Double) {\n    val percent = (speed * 100).toInt()\n    println(\"$motorName: $percent%\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Left Drive: 75%\nRight Drive: 50%",
+  "hiddenPostamble": "fun main() {\n    reportMotorSpeed(\"Left Drive\", 0.75)\n    reportMotorSpeed(\"Right Drive\", 0.5)\n}"
+}

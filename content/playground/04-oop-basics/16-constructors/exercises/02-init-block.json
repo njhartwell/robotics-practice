@@ -1,0 +1,15 @@
+{
+  "id": "16-constructors/ex-02",
+  "lessonSlug": "16-constructors",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Motor Init Block",
+  "instructions": "Write a class called `Motor` with a primary constructor that takes:\n- `name` of type `String` (read-only)\n- `maxSpeed` of type `Double` (read-only)\n\nAdd an `init` block that prints:\n`Motor {name} initialized with max speed {maxSpeed}`\n\nFor example, `Motor(\"Arm\", 0.6)` should print:\n`Motor Arm initialized with max speed 0.6`",
+  "hint": "Use a string template inside the init block: println(\"Motor $name initialized with max speed $maxSpeed\")",
+  "xpReward": 20,
+  "starterCode": "class Motor {\n    // Add a primary constructor with name and maxSpeed\n    // Add an init block that prints the message\n}",
+  "solutionCode": "class Motor(val name: String, val maxSpeed: Double) {\n    init {\n        println(\"Motor $name initialized with max speed $maxSpeed\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Motor Left Drive initialized with max speed 0.75\nMotor Shooter initialized with max speed 1.0",
+  "hiddenPostamble": "fun main() {\n    Motor(\"Left Drive\", 0.75)\n    Motor(\"Shooter\", 1.0)\n}"
+}

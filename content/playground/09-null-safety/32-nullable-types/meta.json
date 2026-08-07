@@ -1,0 +1,14 @@
+{
+  "slug": "32-nullable-types",
+  "section": "null-safety",
+  "sectionTitle": "Null Safety",
+  "sectionOrder": 9,
+  "title": "Nullable Types",
+  "description": "Learn how Kotlin prevents null bugs with nullable and non-nullable types",
+  "order": 32,
+  "requiredLevel": 7,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["null", "nullable", "null-safety", "question-mark"]
+}

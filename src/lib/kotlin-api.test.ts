@@ -1,5 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { parseOutput, buildFiles, runKotlin } from "./kotlin-api";
+import {
+  parseOutput,
+  buildFiles,
+  buildTestFiles,
+  parseTestResults,
+  runKotlin,
+  runKotlinTests,
+} from "./kotlin-api";
 
 describe("parseOutput", () => {
   it("extracts text from outStream tags", () => {
@@ -179,5 +186,189 @@ describe("runKotlin", () => {
     const result = await runKotlin("fun main() {}");
     expect(result.success).toBe(false);
     expect(result.errors[0]).toContain("Network error");
+  });
+
+  it("fails closed on non-successful HTTP responses", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response("Service unavailable", {
+        status: 503,
+        statusText: "Service Unavailable",
+      })
+    );
+
+    const result = await runKotlin("fun main() {}");
+    expect(result.success).toBe(false);
+    expect(result.errors[0]).toContain("503");
+  });
+
+  it("fails closed on invalid JSON", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response("not json", { status: 200 })
+    );
+
+    const result = await runKotlin("fun main() {}");
+    expect(result.success).toBe(false);
+    expect(result.errors[0]).toContain("invalid response");
+  });
+});
+
+describe("buildTestFiles", () => {
+  it("builds student file and test file", () => {
+    const files = buildTestFiles("fun add(a: Int, b: Int) = a + b", "class Tests {}");
+    expect(files).toHaveLength(2);
+    expect(files[0].name).toBe("File.kt");
+    expect(files[0].text).toBe("fun add(a: Int, b: Int) = a + b");
+    expect(files[1].name).toBe("Tests.kt");
+    expect(files[1].text).toBe("class Tests {}");
+  });
+});
+
+describe("parseTestResults", () => {
+  it("parses all-passing results", () => {
+    const raw = {
+      Tests: [
+        { status: "OK", methodName: "testAdd", comparisonFailure: null, exception: null },
+        { status: "OK", methodName: "testSub", comparisonFailure: null, exception: null },
+      ],
+    };
+    const result = parseTestResults(raw);
+    expect(result.passed).toBe(true);
+    expect(result.tests).toHaveLength(2);
+    expect(result.tests[0].passed).toBe(true);
+    expect(result.tests[0].name).toBe("testAdd");
+    expect(result.tests[0].message).toBeUndefined();
+  });
+
+  it("parses failing results with comparison failure", () => {
+    const raw = {
+      Tests: [
+        {
+          status: "FAIL",
+          methodName: "testGreet",
+          comparisonFailure: {
+            message: 'expected:<[Hello]> but was:<[Goodbye]>',
+            expected: "Hello",
+            actual: "Goodbye",
+          },
+          exception: null,
+        },
+      ],
+    };
+    const result = parseTestResults(raw);
+    expect(result.passed).toBe(false);
+    expect(result.tests[0].passed).toBe(false);
+    expect(result.tests[0].message).toContain("expected:<[Hello]>");
+    expect(result.tests[0].expected).toBe("Hello");
+    expect(result.tests[0].actual).toBe("Goodbye");
+  });
+
+  it("parses failing results with exception", () => {
+    const raw = {
+      Tests: [
+        {
+          status: "FAIL",
+          methodName: "testBoom",
+          comparisonFailure: null,
+          exception: { message: "/ by zero" },
+        },
+      ],
+    };
+    const result = parseTestResults(raw);
+    expect(result.passed).toBe(false);
+    expect(result.tests[0].message).toBe("/ by zero");
+  });
+
+  it("handles empty test results", () => {
+    const result = parseTestResults({});
+    expect(result.passed).toBe(false);
+    expect(result.tests).toHaveLength(0);
+    expect(result.errors[0]).toContain("did not return any test results");
+  });
+
+  it("handles mixed pass/fail", () => {
+    const raw = {
+      Tests: [
+        { status: "OK", methodName: "testA", comparisonFailure: null, exception: null },
+        { status: "FAIL", methodName: "testB", comparisonFailure: { message: "wrong" }, exception: null },
+      ],
+    };
+    const result = parseTestResults(raw);
+    expect(result.passed).toBe(false);
+    expect(result.tests[0].passed).toBe(true);
+    expect(result.tests[1].passed).toBe(false);
+  });
+});
+
+describe("runKotlinTests", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("sends correct request and parses passing tests", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          testResults: {
+            Tests: [
+              { status: "OK", methodName: "testGreet", comparisonFailure: null, exception: null },
+            ],
+          },
+          errors: { "File.kt": [], "Tests.kt": [] },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const result = await runKotlinTests("fun greet() = 42", "class Tests {}");
+    expect(result.passed).toBe(true);
+    expect(result.tests[0].name).toBe("testGreet");
+
+    const call = vi.mocked(fetch).mock.calls[0];
+    const url = call[0] as string;
+    expect(url).toContain("/compiler/test");
+
+    const body = JSON.parse((call[1] as RequestInit).body as string);
+    expect(body.confType).toBe("junit");
+    expect(body.files[1].name).toBe("Tests.kt");
+  });
+
+  it("returns compilation errors", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          testResults: {},
+          errors: {
+            "File.kt": [{ severity: "ERROR", message: "Unresolved reference" }],
+            "Tests.kt": [],
+          },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const result = await runKotlinTests("bad code", "class Tests {}");
+    expect(result.passed).toBe(false);
+    expect(result.errors).toContain("Unresolved reference");
+  });
+
+  it("handles network failure", async () => {
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(new Error("Offline"));
+
+    const result = await runKotlinTests("code", "tests");
+    expect(result.passed).toBe(false);
+    expect(result.errors).toContain("Offline");
+  });
+
+  it("fails closed when testResults is missing", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ errors: {} }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      })
+    );
+
+    const result = await runKotlinTests("code", "tests");
+    expect(result.passed).toBe(false);
+    expect(result.errors[0]).toContain("did not return any test results");
   });
 });

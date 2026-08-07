@@ -1,0 +1,15 @@
+{
+  "id": "14-arrays/ex-01",
+  "lessonSlug": "14-arrays",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Update Motor Speeds",
+  "instructions": "Complete the function `setMotorSpeed`. It receives a `DoubleArray` of 4 motor speeds and an `index` (which motor to change) and a `newSpeed` value.\n\nSet the motor at the given index to the new speed, then print every motor speed on its own line.",
+  "hint": "Use `speeds[index] = newSpeed` to change the value. Then use a for loop over `speeds` to print each one.",
+  "xpReward": 15,
+  "starterCode": "fun setMotorSpeed(speeds: DoubleArray, index: Int, newSpeed: Double) {\n    // Set the motor at 'index' to 'newSpeed'\n\n    // Print each speed on its own line\n}",
+  "solutionCode": "fun setMotorSpeed(speeds: DoubleArray, index: Int, newSpeed: Double) {\n    speeds[index] = newSpeed\n    for (speed in speeds) {\n        println(speed)\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "0.5\n0.75\n0.8\n0.6",
+  "hiddenPostamble": "fun main() {\n    val motors = doubleArrayOf(0.5, 0.75, 0.0, 0.6)\n    setMotorSpeed(motors, 2, 0.8)\n}"
+}

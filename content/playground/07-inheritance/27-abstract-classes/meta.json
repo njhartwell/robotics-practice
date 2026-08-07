@@ -1,0 +1,14 @@
+{
+  "slug": "27-abstract-classes",
+  "section": "inheritance",
+  "sectionTitle": "Inheritance",
+  "sectionOrder": 7,
+  "title": "Abstract Classes",
+  "description": "Build partially implemented classes that other classes must complete",
+  "order": 27,
+  "requiredLevel": 5,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["abstract", "abstract-class", "template"]
+}

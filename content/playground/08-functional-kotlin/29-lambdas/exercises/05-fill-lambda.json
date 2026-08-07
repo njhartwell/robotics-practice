@@ -1,0 +1,12 @@
+{
+  "id": "29-lambdas/ex-05",
+  "lessonSlug": "29-lambdas",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Single Parameter Name",
+  "instructions": "In a lambda with a single parameter, you can refer to that parameter as _____.",
+  "xpReward": 10,
+  "prompt": "In a lambda with a single parameter, you can refer to that parameter as _____.",
+  "acceptedAnswers": ["it"],
+  "explanation": "When a lambda has exactly one parameter, Kotlin provides the automatic name `it` so you do not have to declare a parameter name. For example, `{ it * 2 }` is the same as `{ x -> x * 2 }`."
+}

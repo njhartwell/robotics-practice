@@ -1,0 +1,14 @@
+{
+  "id": "07-while-loops/ex-02",
+  "lessonSlug": "07-while-loops",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Sum to N",
+  "instructions": "Write a function called `sumToN` that takes an `Int` parameter `n` and returns the sum of all numbers from 1 to `n` (inclusive) using a while loop.\n\nFor example, `sumToN(5)` should return `15` because 1 + 2 + 3 + 4 + 5 = 15.",
+  "hint": "Create a var for the running total and a counter starting at 1. In the while loop, add the counter to the total, then increase the counter.",
+  "xpReward": 20,
+  "starterCode": "fun sumToN(n: Int): Int {\n    // Use a while loop to add up 1 + 2 + ... + n\n    return 0\n}",
+  "solutionCode": "fun sumToN(n: Int): Int {\n    var total = 0\n    var i = 1\n    while (i <= n) {\n        total = total + i\n        i = i + 1\n    }\n    return total\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSumTo5() {\n        Assert.assertEquals(15, sumToN(5))\n    }\n\n    @Test\n    fun testSumTo10() {\n        Assert.assertEquals(55, sumToN(10))\n    }\n\n    @Test\n    fun testSumTo1() {\n        Assert.assertEquals(1, sumToN(1))\n    }\n}"
+}

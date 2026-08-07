@@ -1,0 +1,14 @@
+{
+  "id": "23-sets/ex-04",
+  "lessonSlug": "23-sets",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Has Duplicates?",
+  "instructions": "Write a function called `hasDuplicates` that takes a `List<Int>` of team numbers.\n\nReturn `true` if the list contains any duplicate numbers, or `false` if every number is unique.\n\nHint: think about how the size of a list compares to the size of a set made from that list.\n\nFor example:\n- `hasDuplicates(listOf(4215, 1234, 4215))` returns `true`\n- `hasDuplicates(listOf(4215, 1234, 5678))` returns `false`",
+  "hint": "Convert the list to a set with `.toSet()`. If the set has fewer elements than the list, there were duplicates.",
+  "xpReward": 20,
+  "starterCode": "fun hasDuplicates(items: List<Int>): Boolean {\n    // Return true if there are duplicates, false otherwise\n    return false\n}",
+  "solutionCode": "fun hasDuplicates(items: List<Int>): Boolean {\n    return items.size != items.toSet().size\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithDuplicates() {\n        Assert.assertTrue(hasDuplicates(listOf(4215, 1234, 4215)))\n    }\n\n    @Test\n    fun testWithoutDuplicates() {\n        Assert.assertFalse(hasDuplicates(listOf(4215, 1234, 5678)))\n    }\n\n    @Test\n    fun testEmptyList() {\n        Assert.assertFalse(hasDuplicates(listOf()))\n    }\n\n    @Test\n    fun testSingleElement() {\n        Assert.assertFalse(hasDuplicates(listOf(4215)))\n    }\n\n    @Test\n    fun testAllDuplicates() {\n        Assert.assertTrue(hasDuplicates(listOf(4215, 4215, 4215)))\n    }\n}"
+}

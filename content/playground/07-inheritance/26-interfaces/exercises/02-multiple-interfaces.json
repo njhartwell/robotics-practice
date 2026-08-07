@@ -1,0 +1,14 @@
+{
+  "id": "26-interfaces/ex-02",
+  "lessonSlug": "26-interfaces",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Two Interfaces",
+  "instructions": "Write a class called `SmartMotor` that implements both the `Controllable` and `Reportable` interfaces.\n\nYour `SmartMotor` class should:\n1. Take a `val name: String` in its constructor\n2. Have a `var isRunning: Boolean` property that starts as `false`\n3. `enable()` sets `isRunning` to `true`\n4. `disable()` sets `isRunning` to `false`\n5. `report()` returns \"{name}: running\" if `isRunning` is true, or \"{name}: stopped\" if false\n\nBoth interfaces are already written for you. Do not change them.",
+  "hint": "Use `: Controllable, Reportable` after the class name to implement both interfaces. Then override all three methods: `enable()`, `disable()`, and `report()`.",
+  "xpReward": 20,
+  "starterCode": "interface Controllable {\n    fun enable()\n    fun disable()\n}\n\ninterface Reportable {\n    fun report(): String\n}\n\n// Write your SmartMotor class here\n",
+  "solutionCode": "interface Controllable {\n    fun enable()\n    fun disable()\n}\n\ninterface Reportable {\n    fun report(): String\n}\n\nclass SmartMotor(val name: String) : Controllable, Reportable {\n    var isRunning = false\n\n    override fun enable() {\n        isRunning = true\n    }\n\n    override fun disable() {\n        isRunning = false\n    }\n\n    override fun report(): String {\n        return if (isRunning) \"$name: running\" else \"$name: stopped\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testReportWhenStopped() {\n        val motor = SmartMotor(\"Left Drive\")\n        Assert.assertEquals(\"Left Drive: stopped\", motor.report())\n    }\n\n    @Test\n    fun testReportWhenRunning() {\n        val motor = SmartMotor(\"Left Drive\")\n        motor.enable()\n        Assert.assertEquals(\"Left Drive: running\", motor.report())\n    }\n\n    @Test\n    fun testIsControllable() {\n        val motor = SmartMotor(\"Test\")\n        Assert.assertTrue(motor is Controllable)\n    }\n\n    @Test\n    fun testIsReportable() {\n        val motor = SmartMotor(\"Test\")\n        Assert.assertTrue(motor is Reportable)\n    }\n\n    @Test\n    fun testEnableDisable() {\n        val motor = SmartMotor(\"Arm\")\n        motor.enable()\n        Assert.assertTrue(motor.isRunning)\n        motor.disable()\n        Assert.assertFalse(motor.isRunning)\n    }\n}"
+}

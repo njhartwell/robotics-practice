@@ -1,0 +1,14 @@
+{
+  "id": "38-try-catch/ex-04",
+  "lessonSlug": "38-try-catch",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Try as an Expression",
+  "instructions": "Complete the `parseMotorSpeed` function. It receives a string that should contain a decimal number (a `Double`). Use `try` as an expression to convert the string to a `Double`. If the string is not a valid number, return `0.0` as the default.\n\nFor example:\n- `parseMotorSpeed(\"0.75\")` should return `0.75`\n- `parseMotorSpeed(\"bad\")` should return `0.0`",
+  "hint": "Use `try { text.toDouble() } catch (e: NumberFormatException) { 0.0 }` and assign the result to a return value or return it directly.",
+  "xpReward": 15,
+  "starterCode": "fun parseMotorSpeed(text: String): Double {\n    // Use try as an expression to convert text to Double\n    // Return 0.0 if the conversion fails\n}",
+  "solutionCode": "fun parseMotorSpeed(text: String): Double {\n    return try {\n        text.toDouble()\n    } catch (e: NumberFormatException) {\n        0.0\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testValidSpeed() {\n        Assert.assertEquals(0.75, parseMotorSpeed(\"0.75\"), 0.001)\n    }\n\n    @Test\n    fun testInvalidText() {\n        Assert.assertEquals(0.0, parseMotorSpeed(\"bad\"), 0.001)\n    }\n\n    @Test\n    fun testNegativeSpeed() {\n        Assert.assertEquals(-0.5, parseMotorSpeed(\"-0.5\"), 0.001)\n    }\n\n    @Test\n    fun testFullSpeed() {\n        Assert.assertEquals(1.0, parseMotorSpeed(\"1.0\"), 0.001)\n    }\n\n    @Test\n    fun testEmptyString() {\n        Assert.assertEquals(0.0, parseMotorSpeed(\"\"), 0.001)\n    }\n}"
+}

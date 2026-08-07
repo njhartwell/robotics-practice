@@ -1,0 +1,17 @@
+{
+  "id": "36-sealed-classes/ex-03",
+  "lessonSlug": "36-sealed-classes",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Sealed Class Advantage",
+  "instructions": "What is the main advantage of sealed classes over regular open classes with inheritance?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Sealed classes are faster at runtime than regular classes" },
+    { "id": "b", "text": "Sealed classes allow you to create more subclasses than regular classes" },
+    { "id": "c", "text": "The compiler can check that your when expression handles all possible types, preventing missed cases" },
+    { "id": "d", "text": "Sealed classes use less memory than regular classes" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "Because direct subclasses of a sealed class are restricted to the same package and module, the compiler knows every possible direct type. They may be declared in separate files. A when expression can therefore be checked for every case, unlike a hierarchy rooted in a regular open class."
+}

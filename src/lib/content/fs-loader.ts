@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import type { LessonMeta, Part, Exercise } from "@/lib/progress/types";
-import { parseLessonMeta } from "./loader";
+import { parseExercise, parseLessonMeta } from "./loader";
 
 /**
  * Recursively find all directories containing a meta.json file
@@ -62,7 +62,11 @@ export async function getAllLessonMetas(
       // No exercises directory
     }
 
-    const meta = parseLessonMeta({ ...raw, exerciseCount }, part);
+    const meta = parseLessonMeta(
+      { ...raw, exerciseCount },
+      part,
+      path.relative(contentDir, metaPath)
+    );
     metas.push(meta);
   }
 
@@ -96,13 +100,25 @@ export async function getExercisesForLesson(
 
   const exercises: Exercise[] = [];
   for (const file of files) {
-    const raw = JSON.parse(
-      await fs.readFile(path.join(exercisesDir, file), "utf-8")
+    const exercisePath = path.join(exercisesDir, file);
+    const raw = JSON.parse(await fs.readFile(exercisePath, "utf-8"));
+    exercises.push(
+      parseExercise(raw, path.relative(contentDir, exercisePath))
     );
-    exercises.push(raw as Exercise);
   }
 
   return exercises.sort((a, b) => a.order - b.order);
+}
+
+/** Load one exercise while keeping its grader fields on the server. */
+export async function getExerciseForLesson(
+  part: Part,
+  slug: string,
+  exerciseId: string,
+  contentDir: string
+): Promise<Exercise | null> {
+  const exercises = await getExercisesForLesson(part, slug, contentDir);
+  return exercises.find((exercise) => exercise.id === exerciseId) ?? null;
 }
 
 /**

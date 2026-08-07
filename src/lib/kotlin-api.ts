@@ -1,5 +1,10 @@
-const API_SERVER = "https://api.kotlinlang.org";
-const COMPILER_VERSION = "2.0.21"; // fallback; ideally fetched dynamically
+import type { KotlinTestCase } from "./kotlin-grader-types";
+
+const API_SERVER = process.env.KOTLIN_API_SERVER ?? "https://api.kotlinlang.org";
+const COMPILER_VERSION = process.env.KOTLIN_COMPILER_VERSION ?? "2.0.21";
+const REQUEST_TIMEOUT_MS = Number(
+  process.env.KOTLIN_API_TIMEOUT_MS ?? "15000"
+);
 
 interface KotlinFile {
   name: string;
@@ -11,6 +16,80 @@ export interface KotlinRunResult {
   output: string;
   errors: string[];
   success: boolean;
+}
+
+export interface KotlinTestResult {
+  passed: boolean;
+  tests: KotlinTestCase[];
+  errors: string[];
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function collectCompilerErrors(value: unknown): string[] {
+  if (!isRecord(value)) return [];
+
+  const errors: string[] = [];
+  for (const fileErrors of Object.values(value)) {
+    if (!Array.isArray(fileErrors)) continue;
+    for (const fileError of fileErrors) {
+      if (
+        isRecord(fileError) &&
+        fileError.severity === "ERROR" &&
+        typeof fileError.message === "string"
+      ) {
+        errors.push(fileError.message);
+      }
+    }
+  }
+  return errors;
+}
+
+async function postToCompiler(
+  endpoint: "run" | "test",
+  body: Record<string, unknown>
+): Promise<{ data: unknown } | { error: string }> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(
+      `${API_SERVER}/api/${COMPILER_VERSION}/compiler/${endpoint}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        cache: "no-store",
+        signal: controller.signal,
+      }
+    );
+
+    if (!response.ok) {
+      return {
+        error: `Kotlin compiler service returned ${response.status} ${response.statusText}`.trim(),
+      };
+    }
+
+    try {
+      return { data: await response.json() };
+    } catch {
+      return { error: "Kotlin compiler service returned an invalid response" };
+    }
+  } catch (error) {
+    if (controller.signal.aborted) {
+      return { error: "Kotlin compiler service timed out. Try again." };
+    }
+    return {
+      error:
+        error instanceof Error && error.message
+          ? error.message
+          : "Unable to reach the Kotlin compiler service",
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 /**
@@ -78,54 +157,152 @@ export async function runKotlin(
 ): Promise<KotlinRunResult> {
   const files = buildFiles(code, hiddenCode);
 
-  const url = `${API_SERVER}/api/${COMPILER_VERSION}/compiler/run`;
-  const body = JSON.stringify({
+  const response = await postToCompiler("run", {
     args: "",
     files,
     confType: "java",
   });
-
-  let data: {
-    text?: string;
-    errors?: Record<string, { severity: string; message: string }[]>;
-    exception?: { fullName?: string; message?: string } | null;
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    });
-    data = await response.json();
-  } catch (err) {
+  if ("error" in response) {
     return {
       output: "",
-      errors: [(err as Error).message || "Network error"],
+      errors: [response.error],
       success: false,
     };
   }
 
-  // Collect compilation errors
-  const errors: string[] = [];
-  if (data.errors) {
-    for (const fileErrors of Object.values(data.errors)) {
-      for (const err of fileErrors) {
-        if (err.severity === "ERROR") {
-          errors.push(err.message);
-        }
-      }
-    }
+  if (!isRecord(response.data)) {
+    return {
+      output: "",
+      errors: ["Kotlin compiler service returned an invalid response"],
+      success: false,
+    };
   }
 
+  const data = response.data;
+
+  const errors = collectCompilerErrors(data.errors);
+
   // Check for runtime exception
-  if (data.exception) {
-    const msg = data.exception.message || data.exception.fullName || "Runtime error";
+  if (isRecord(data.exception)) {
+    const msg =
+      (typeof data.exception.message === "string" && data.exception.message) ||
+      (typeof data.exception.fullName === "string" && data.exception.fullName) ||
+      "Runtime error";
     errors.push(msg);
   }
 
-  const output = parseOutput(data.text ?? "");
+  const output = parseOutput(typeof data.text === "string" ? data.text : "");
   const success = errors.length === 0;
 
   return { output, errors, success };
+}
+
+/**
+ * Build files array for a JUnit test request.
+ * Student code in File.kt, test code in Tests.kt.
+ */
+export function buildTestFiles(code: string, testCode: string): KotlinFile[] {
+  return [
+    { name: "File.kt", text: code, publicId: "" },
+    { name: "Tests.kt", text: testCode, publicId: "" },
+  ];
+}
+
+/**
+ * Parse the raw testResults object from the JetBrains API into a clean result.
+ */
+export function parseTestResults(
+  raw: Record<
+    string,
+    {
+      status: string;
+      methodName: string;
+      comparisonFailure?: { message?: string; expected?: string; actual?: string } | null;
+      exception?: { message?: string } | null;
+    }[]
+  >
+): KotlinTestResult {
+  const tests: KotlinTestCase[] = [];
+
+  for (const classTests of Object.values(raw)) {
+    for (const t of classTests) {
+      const passed = t.status === "OK";
+      const testCase: KotlinTestCase = {
+        name: t.methodName,
+        passed,
+      };
+
+      if (!passed) {
+        if (t.comparisonFailure) {
+          testCase.message = t.comparisonFailure.message ?? "Assertion failed";
+          testCase.expected = t.comparisonFailure.expected;
+          testCase.actual = t.comparisonFailure.actual;
+        } else if (t.exception) {
+          testCase.message = t.exception.message ?? "Test error";
+        }
+      }
+
+      tests.push(testCase);
+    }
+  }
+
+  return {
+    passed: tests.length > 0 && tests.every((t) => t.passed),
+    tests,
+    errors:
+      tests.length > 0
+        ? []
+        : ["The Kotlin compiler service did not return any test results."],
+  };
+}
+
+/**
+ * Run student code against JUnit tests via the JetBrains compiler API.
+ */
+export async function runKotlinTests(
+  code: string,
+  testCode: string
+): Promise<KotlinTestResult> {
+  const files = buildTestFiles(code, testCode);
+
+  const response = await postToCompiler("test", {
+    args: "",
+    files,
+    confType: "junit",
+  });
+  if ("error" in response) {
+    return {
+      passed: false,
+      tests: [],
+      errors: [response.error],
+    };
+  }
+
+  if (!isRecord(response.data)) {
+    return {
+      passed: false,
+      tests: [],
+      errors: ["Kotlin compiler service returned an invalid response"],
+    };
+  }
+
+  const data = response.data;
+
+  const errors = collectCompilerErrors(data.errors);
+
+  if (errors.length > 0) {
+    return { passed: false, tests: [], errors };
+  }
+
+  if (!isRecord(data.testResults)) {
+    return {
+      passed: false,
+      tests: [],
+      errors: ["The Kotlin compiler service did not return any test results."],
+    };
+  }
+
+  return parseTestResults(
+    data.testResults as Parameters<typeof parseTestResults>[0]
+  );
 }

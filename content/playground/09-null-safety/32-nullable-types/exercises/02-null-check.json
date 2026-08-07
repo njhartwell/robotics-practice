@@ -1,0 +1,14 @@
+{
+  "id": "32-nullable-types/ex-02",
+  "lessonSlug": "32-nullable-types",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Check for Null",
+  "instructions": "Write a function called `describeValue` that takes a parameter `value` of type `String?` and returns a `String`.\n\n- If `value` is not null, return the value itself.\n- If `value` is null, return `\"No value\"`.\n\nFor example:\n- `describeValue(\"Hello\")` returns `\"Hello\"`\n- `describeValue(null)` returns `\"No value\"`",
+  "hint": "Use an if/else statement to check if `value != null`. Return the value when it is not null, and return \"No value\" when it is null.",
+  "xpReward": 20,
+  "starterCode": "fun describeValue(value: String?): String {\n    // Return the value if it is not null\n    // Return \"No value\" if it is null\n    return \"\"\n}",
+  "solutionCode": "fun describeValue(value: String?): String {\n    if (value != null) {\n        return value\n    } else {\n        return \"No value\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithString() {\n        Assert.assertEquals(\"Hello\", describeValue(\"Hello\"))\n    }\n\n    @Test\n    fun testWithNull() {\n        Assert.assertEquals(\"No value\", describeValue(null))\n    }\n\n    @Test\n    fun testWithTeamName() {\n        Assert.assertEquals(\"Tribots\", describeValue(\"Tribots\"))\n    }\n\n    @Test\n    fun testWithEmptyString() {\n        Assert.assertEquals(\"\", describeValue(\"\"))\n    }\n}"
+}

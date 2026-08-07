@@ -1,0 +1,150 @@
+# Methods
+
+So far you have created classes with properties — data that describes an object. But objects can also *do things*. That is where methods come in.
+
+## What Is a Method?
+
+A **method** is a function that belongs to a class. It lives inside the class body and can use the object's properties.
+
+Think about a real FRC motor. It has properties like a name and a current speed. But it also has actions: set the speed, stop, report its status. Those actions are methods.
+
+```kotlin
+class Motor(val name: String) {
+    var speed = 0.0
+
+    fun runAt(newSpeed: Double) {
+        speed = newSpeed
+    }
+
+    fun stop() {
+        speed = 0.0
+    }
+
+    fun getInfo(): String {
+        return "$name running at $speed"
+    }
+}
+
+fun main() {
+    val leftDrive = Motor("Left Drive")
+    leftDrive.runAt(0.75)
+    println(leftDrive.getInfo())
+    leftDrive.stop()
+    println(leftDrive.getInfo())
+}
+```
+
+Output:
+```
+Left Drive running at 0.75
+Left Drive running at 0.0
+```
+
+The methods `runAt`, `stop`, and `getInfo` define behavior shared by every `Motor` object. Each object keeps its own property values—its own `name` and `speed`—while using the methods defined by the class. We avoid naming this method `setSpeed` because Kotlin already generates a JVM setter with that name for the `speed` property.
+
+## Defining a Method
+
+You write a method the same way you write a function — but inside the class body:
+
+```kotlin
+class Robot(val name: String) {
+    fun describe(): String {
+        return "Robot: $name"
+    }
+}
+
+fun main() {
+    val bot = Robot("Tribot")
+    println(bot.describe())
+}
+```
+
+The `describe` method can use `name` because `name` is a property of the same class. Methods have access to all the properties of their object.
+
+## Methods with Parameters
+
+Methods can take parameters, the same as regular functions:
+
+```kotlin
+class Shooter(val maxPower: Double) {
+    fun canShootAt(power: Double): Boolean {
+        return power <= maxPower
+    }
+}
+
+fun main() {
+    val shooter = Shooter(0.8)
+    println(shooter.canShootAt(0.5))  // true
+    println(shooter.canShootAt(1.0))  // false
+}
+```
+
+The `canShootAt` method takes a `power` parameter and compares it against the object's `maxPower` property.
+
+## Methods That Change State
+
+When a property is declared with `var`, methods can change its value. This is how objects update their own state:
+
+```kotlin
+class ScoreTracker(val teamNumber: Int) {
+    var totalPoints = 0
+
+    fun addPoints(points: Int) {
+        totalPoints = totalPoints + points
+    }
+
+    fun getSummary(): String {
+        return "Team $teamNumber: $totalPoints points"
+    }
+}
+
+fun main() {
+    val tracker = ScoreTracker(4215)
+    tracker.addPoints(30)
+    tracker.addPoints(15)
+    println(tracker.getSummary())
+}
+```
+
+Output:
+```
+Team 4215: 45 points
+```
+
+Each time you call `addPoints`, the `totalPoints` property increases. The object remembers its state between method calls.
+
+## The `this` Keyword
+
+Inside a method, the keyword `this` refers to the current object. Most of the time you do not need it because Kotlin figures it out. But it can help when a parameter has the same name as a property:
+
+```kotlin
+class Sensor(var value: Int) {
+    fun update(value: Int) {
+        this.value = value
+    }
+}
+```
+
+Here, `this.value` means "the property" and plain `value` means "the parameter." Without `this`, Kotlin would not know which one you mean.
+
+You will not need `this` very often, but it is good to know it exists.
+
+## Why Methods Matter
+
+Methods keep related code together with the data it works on. Instead of writing loose functions that take a motor name and speed as parameters, you put those functions inside the `Motor` class. This makes your code:
+
+- **Organized** — each class has its own actions bundled together
+- **Reusable** — create multiple objects that all share the same methods
+- **Clear** — `motor.stop()` reads like plain English
+
+In FRC, your robot code is full of methods. Commands have `execute()` and `isFinished()`. Subsystems have methods like `drive()`, `setArmPosition()`, and `getAngle()`. You are learning the building blocks right now!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

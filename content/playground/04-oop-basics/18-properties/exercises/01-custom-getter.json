@@ -1,0 +1,14 @@
+{
+  "id": "18-properties/ex-01",
+  "lessonSlug": "18-properties",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Low Battery Warning",
+  "instructions": "Complete the `Battery` class by adding a custom getter for the `isLowBattery` property. It should return `true` when `voltage` is less than `11.0`, and `false` otherwise.",
+  "hint": "Use a custom getter: `val isLowBattery: Boolean get() = ...` and compare voltage to 11.0.",
+  "xpReward": 15,
+  "starterCode": "class Battery(val voltage: Double) {\n    val isLowBattery: Boolean\n        get() = TODO()\n}",
+  "solutionCode": "class Battery(val voltage: Double) {\n    val isLowBattery: Boolean\n        get() = voltage < 11.0\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testLowBattery() {\n        val battery = Battery(10.5)\n        Assert.assertTrue(battery.isLowBattery)\n    }\n\n    @Test\n    fun testFullBattery() {\n        val battery = Battery(12.6)\n        Assert.assertFalse(battery.isLowBattery)\n    }\n\n    @Test\n    fun testBoundary() {\n        val battery = Battery(11.0)\n        Assert.assertFalse(battery.isLowBattery)\n    }\n\n    @Test\n    fun testJustBelow() {\n        val battery = Battery(10.99)\n        Assert.assertTrue(battery.isLowBattery)\n    }\n}"
+}

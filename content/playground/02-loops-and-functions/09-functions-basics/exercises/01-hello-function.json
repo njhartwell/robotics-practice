@@ -1,0 +1,15 @@
+{
+  "id": "09-functions-basics/ex-01",
+  "lessonSlug": "09-functions-basics",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Say Hello",
+  "instructions": "Complete the `sayHello` function so it prints `Hello, {name}!` where `{name}` is replaced by the parameter value.\n\nFor example, `sayHello(\"Tribots\")` should print `Hello, Tribots!`.",
+  "hint": "Use a string template: println(\"Hello, $name!\")",
+  "xpReward": 15,
+  "starterCode": "fun sayHello(name: String) {\n    // Print \"Hello, {name}!\" using the name parameter\n}",
+  "solutionCode": "fun sayHello(name: String) {\n    println(\"Hello, $name!\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Hello, Tribots!\nHello, Mentor!",
+  "hiddenPostamble": "fun main() {\n    sayHello(\"Tribots\")\n    sayHello(\"Mentor\")\n}"
+}

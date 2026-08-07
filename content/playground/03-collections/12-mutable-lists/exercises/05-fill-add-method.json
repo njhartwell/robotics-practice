@@ -1,0 +1,12 @@
+{
+  "id": "12-mutable-lists/ex-05",
+  "lessonSlug": "12-mutable-lists",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Add Method Name",
+  "instructions": "To add an element to the end of a mutable list, call the _____ method.",
+  "xpReward": 10,
+  "prompt": "To add an element to the end of a mutable list, call the _____ method.",
+  "acceptedAnswers": ["add", ".add()", "add()", ".add"],
+  "explanation": "The `.add()` method appends an element to the end of a mutable list. For example, `teams.add(4215)` puts 4215 at the end of the `teams` list."
+}

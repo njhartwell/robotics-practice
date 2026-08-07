@@ -1,0 +1,14 @@
+{
+  "id": "19-searching/ex-01",
+  "lessonSlug": "19-searching",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Linear Search",
+  "instructions": "Complete the `linearSearch` function. It takes a `List<Int>` called `numbers` and an `Int` called `target`. It should return the index where `target` is found, or `-1` if `target` is not in the list.\n\nUse a `for` loop to check each element one by one.",
+  "hint": "Loop through the indices with `for (i in numbers.indices)`. Inside the loop, check if `numbers[i] == target`. If so, return `i`. After the loop, return `-1`.",
+  "xpReward": 15,
+  "starterCode": "fun linearSearch(numbers: List<Int>, target: Int): Int {\n    // Check each element one by one\n    // Return the index if found, or -1 if not found\n    return -1\n}",
+  "solutionCode": "fun linearSearch(numbers: List<Int>, target: Int): Int {\n    for (i in numbers.indices) {\n        if (numbers[i] == target) {\n            return i\n        }\n    }\n    return -1\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFindMiddle() {\n        Assert.assertEquals(1, linearSearch(listOf(45, 72, 38, 91), 72))\n    }\n\n    @Test\n    fun testNotFound() {\n        Assert.assertEquals(-1, linearSearch(listOf(45, 72, 38, 91), 99))\n    }\n\n    @Test\n    fun testFindFirst() {\n        Assert.assertEquals(0, linearSearch(listOf(45, 72, 38, 91), 45))\n    }\n\n    @Test\n    fun testFindLast() {\n        Assert.assertEquals(3, linearSearch(listOf(45, 72, 38, 91), 91))\n    }\n}"
+}

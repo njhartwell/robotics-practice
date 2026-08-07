@@ -1,0 +1,165 @@
+# Generic Classes
+
+Imagine you are building code for Team 4215's robot. You need a container that holds a sensor reading. Sometimes the reading is an `Int` (like an encoder count). Sometimes it is a `Double` (like a gyro angle). Sometimes it is a `Boolean` (like a limit switch state).
+
+You could write a separate class for each type. But that means copying and pasting the same code over and over. There is a better way. **Generics** let you write one class that works with any type.
+
+## You Already Use Generics
+
+Here is a surprise: you have been using generics since you learned about lists!
+
+```kotlin
+fun main() {
+    val scores: List<Int> = listOf(42, 85, 67)
+    val names: List<String> = listOf("Alice", "Bob", "Carlos")
+    val flags: List<Boolean> = listOf(true, false, true)
+}
+```
+
+The `<Int>`, `<String>`, and `<Boolean>` in angle brackets tell Kotlin what type of items the list holds. `List` itself is a generic class. It does not care what type you put inside -- it works with all of them.
+
+Maps are generic too. `Map<String, Int>` means a map where the keys are strings and the values are integers.
+
+```kotlin
+fun main() {
+    val matchScores: Map<String, Int> = mapOf("Q1" to 85, "Q2" to 92)
+    println(matchScores["Q1"]) // prints: 85
+}
+```
+
+## The Type Parameter: `<T>`
+
+When you see `<T>` in a class definition, `T` is a **type parameter**. It is a placeholder. It stands for "some type that will be decided later."
+
+Think of `T` like a blank on a form. When you create an instance of the class, you fill in the blank with a real type like `Int`, `String`, or `Double`.
+
+The letter `T` is a convention that stands for "Type." You can use any letter or name, but `T` is the most common.
+
+## Creating a Generic Class
+
+Here is a generic class called `SensorReading` that holds a value of any type:
+
+```kotlin
+class SensorReading<T>(val value: T) {
+    fun getReading(): T {
+        return value
+    }
+
+    fun display() {
+        println("Sensor reading: $value")
+    }
+}
+
+fun main() {
+    val encoderCount = SensorReading<Int>(4215)
+    encoderCount.display() // Sensor reading: 4215
+
+    val gyroAngle = SensorReading<Double>(87.5)
+    gyroAngle.display() // Sensor reading: 87.5
+
+    val limitSwitch = SensorReading<Boolean>(true)
+    limitSwitch.display() // Sensor reading: true
+}
+```
+
+Output:
+```
+Sensor reading: 4215
+Sensor reading: 87.5
+Sensor reading: true
+```
+
+Let's break this down:
+
+- `class SensorReading<T>` declares a class with a type parameter `T`.
+- `val value: T` means the property `value` has whatever type `T` ends up being.
+- `fun getReading(): T` means the return type matches `T` as well.
+- When you write `SensorReading<Int>(4215)`, Kotlin replaces every `T` with `Int`.
+- When you write `SensorReading<Double>(87.5)`, Kotlin replaces every `T` with `Double`.
+
+The same class works with completely different types. That is the power of generics.
+
+## Type Safety
+
+Generics give you **type safety**. Once you create a `SensorReading<Int>`, Kotlin knows the value is an `Int`. If you try to use it as a `String`, the compiler will stop you with an error.
+
+```kotlin
+fun main() {
+    val reading = SensorReading<Int>(42)
+    val number: Int = reading.getReading() // This works
+    // val text: String = reading.getReading() // ERROR! Type mismatch
+    println(number)
+}
+```
+
+Without generics, you might store everything as `Any` and cast it back. That is error-prone and can crash your program at runtime. Generics catch these mistakes at compile time, before your robot ever runs the code.
+
+## Multiple Type Parameters
+
+A class can have more than one type parameter. Use a comma to separate them:
+
+```kotlin
+class MotorCommand<S, V>(val speed: S, val voltage: V) {
+    override fun toString(): String {
+        return "Speed: $speed, Voltage: $voltage"
+    }
+}
+
+fun main() {
+    val command = MotorCommand<Double, Int>(0.75, 12)
+    println(command) // Speed: 0.75, Voltage: 12
+}
+```
+
+Output:
+```
+Speed: 0.75, Voltage: 12
+```
+
+Here `S` and `V` are two separate type parameters. When you create an instance, you provide a type for each one.
+
+Common naming conventions for type parameters:
+- `T` -- Type
+- `E` -- Element (used in collections)
+- `K` -- Key
+- `V` -- Value
+- `A`, `B` -- for pairs of types
+
+## Type Inference
+
+Kotlin is smart. Often you do not need to write the type parameter in angle brackets. Kotlin can figure it out from the value you pass in:
+
+```kotlin
+fun main() {
+    // These two lines do the same thing:
+    val reading1 = SensorReading<Int>(42)
+    val reading2 = SensorReading(42) // Kotlin infers <Int>
+
+    println(reading1.getReading()) // 42
+    println(reading2.getReading()) // 42
+}
+```
+
+Since you pass `42` (an `Int`), Kotlin knows `T` must be `Int`. This is called **type inference**. It makes your code shorter without losing any safety.
+
+## Why Generics Matter
+
+Generics help you write code that is:
+
+1. **Reusable** -- one class works with many types.
+2. **Type-safe** -- the compiler catches type mistakes before your code runs.
+3. **Clean** -- no need to duplicate code for each type.
+
+In FRC, you will see generics in command-based robot code, sensor wrappers, and data structures. Understanding them now will make you a stronger programmer on Team 4215.
+
+Great work making it to this point! Time to practice building your own generic classes.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

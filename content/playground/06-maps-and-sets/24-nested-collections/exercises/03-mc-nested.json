@@ -1,0 +1,17 @@
+{
+  "id": "24-nested-collections/ex-03",
+  "lessonSlug": "24-nested-collections",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Nested List Access",
+  "instructions": "How do you access the element at row 1, column 2 of a `List<List<Int>>` called `grid`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "grid[2][1]" },
+    { "id": "b", "text": "grid[1, 2]" },
+    { "id": "c", "text": "grid[1][2]" },
+    { "id": "d", "text": "grid(1)(2)" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "To access a nested list, use two sets of square brackets. The first bracket `[1]` selects the row (the second inner list, since indexing starts at 0). The second bracket `[2]` selects the column (the third element in that inner list)."
+}

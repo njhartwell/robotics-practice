@@ -1,0 +1,14 @@
+{
+  "id": "10-functions-return/ex-04",
+  "lessonSlug": "10-functions-return",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Single-Expression Function",
+  "instructions": "Complete the single-expression function `isPositive` so that it returns `true` when `n` is greater than 0, and `false` otherwise.\n\nUse the single-expression shorthand (the `=` sign is already there for you).",
+  "hint": "After the = sign, write a boolean expression: n > 0. That expression evaluates to true or false automatically.",
+  "xpReward": 15,
+  "starterCode": "fun isPositive(n: Int): Boolean = TODO()",
+  "solutionCode": "fun isPositive(n: Int): Boolean = n > 0",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testPositive() {\n        Assert.assertTrue(\"5 should be positive\", isPositive(5))\n    }\n\n    @Test\n    fun testNegative() {\n        Assert.assertFalse(\"-3 should not be positive\", isPositive(-3))\n    }\n\n    @Test\n    fun testZero() {\n        Assert.assertFalse(\"0 should not be positive\", isPositive(0))\n    }\n}"
+}

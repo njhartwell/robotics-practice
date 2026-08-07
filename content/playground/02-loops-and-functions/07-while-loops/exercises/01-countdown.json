@@ -1,0 +1,15 @@
+{
+  "id": "07-while-loops/ex-01",
+  "lessonSlug": "07-while-loops",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Countdown",
+  "instructions": "Complete the `countdown` function so it prints the numbers from `n` down to `1`, each on its own line.\n\nFor example, `countdown(5)` should print:\n```\n5\n4\n3\n2\n1\n```",
+  "hint": "Use a while loop that runs while n > 0. Print n, then decrease it by 1 with n = n - 1.",
+  "xpReward": 15,
+  "starterCode": "fun countdown(n: Int) {\n    var current = n\n    while (current > 0) {\n        // Print the current number, then decrease it by 1\n    }\n}",
+  "solutionCode": "fun countdown(n: Int) {\n    var current = n\n    while (current > 0) {\n        println(current)\n        current = current - 1\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "5\n4\n3\n2\n1",
+  "hiddenPostamble": "fun main() {\n    countdown(5)\n}"
+}

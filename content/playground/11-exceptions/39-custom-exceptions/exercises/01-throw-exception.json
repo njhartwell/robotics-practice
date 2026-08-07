@@ -1,0 +1,14 @@
+{
+  "id": "39-custom-exceptions/ex-01",
+  "lessonSlug": "39-custom-exceptions",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Validate Motor Speed",
+  "instructions": "Complete the `setMotorSpeed` function. It takes a `Double` called `speed`.\n\n- If `speed` is less than `-1.0` or greater than `1.0`, throw an `IllegalArgumentException` with the message \"Speed out of range: \" followed by the speed value.\n- If the speed is valid, return it.\n\nFor example:\n- `setMotorSpeed(0.5)` should return `0.5`\n- `setMotorSpeed(1.5)` should throw `IllegalArgumentException`\n- `setMotorSpeed(-1.0)` should return `-1.0` (the boundary is valid)",
+  "hint": "Use an if statement to check if speed is less than -1.0 or greater than 1.0. If so, use `throw IllegalArgumentException(\"Speed out of range: $speed\")`. Otherwise, return the speed.",
+  "xpReward": 15,
+  "starterCode": "fun setMotorSpeed(speed: Double): Double {\n    // Throw IllegalArgumentException if speed is outside -1.0 to 1.0\n    // Otherwise return the speed\n}",
+  "solutionCode": "fun setMotorSpeed(speed: Double): Double {\n    if (speed < -1.0 || speed > 1.0) {\n        throw IllegalArgumentException(\"Speed out of range: $speed\")\n    }\n    return speed\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testValidSpeed() {\n        Assert.assertEquals(0.5, setMotorSpeed(0.5), 0.001)\n    }\n\n    @Test\n    fun testZeroSpeed() {\n        Assert.assertEquals(0.0, setMotorSpeed(0.0), 0.001)\n    }\n\n    @Test\n    fun testNegativeValidSpeed() {\n        Assert.assertEquals(-1.0, setMotorSpeed(-1.0), 0.001)\n    }\n\n    @Test\n    fun testMaxValidSpeed() {\n        Assert.assertEquals(1.0, setMotorSpeed(1.0), 0.001)\n    }\n\n    @Test\n    fun testSpeedTooHighMessage() {\n        try {\n            setMotorSpeed(1.5)\n            Assert.fail(\"Should have thrown IllegalArgumentException\")\n        } catch (e: IllegalArgumentException) {\n            Assert.assertEquals(\"Speed out of range: 1.5\", e.message)\n        }\n    }\n\n    @Test(expected = IllegalArgumentException::class)\n    fun testSpeedTooLow() {\n        setMotorSpeed(-2.0)\n    }\n}"
+}

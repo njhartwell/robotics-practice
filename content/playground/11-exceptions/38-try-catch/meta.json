@@ -1,0 +1,14 @@
+{
+  "slug": "38-try-catch",
+  "section": "exceptions",
+  "sectionTitle": "Error Handling",
+  "sectionOrder": 11,
+  "title": "Try-Catch",
+  "description": "Handle errors gracefully with try-catch blocks instead of letting your program crash",
+  "order": 38,
+  "requiredLevel": 9,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["exceptions", "try", "catch", "finally", "error-handling"]
+}

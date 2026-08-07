@@ -1,0 +1,15 @@
+{
+  "id": "11-lists/ex-01",
+  "lessonSlug": "11-lists",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Count Alliance Partners",
+  "instructions": "Complete the `countTeams` function. It should create a list containing three team numbers (4215, 1234, 5678) and print the size of the list.",
+  "hint": "Use `listOf(4215, 1234, 5678)` to create the list, then print `teams.size`.",
+  "xpReward": 15,
+  "starterCode": "fun countTeams() {\n    // Create a list of three team numbers\n    val teams = TODO()\n    // Print the number of teams\n}",
+  "solutionCode": "fun countTeams() {\n    val teams = listOf(4215, 1234, 5678)\n    println(teams.size)\n}",
+  "validationMode": "output",
+  "expectedOutput": "3",
+  "hiddenPostamble": "fun main() {\n    countTeams()\n}"
+}

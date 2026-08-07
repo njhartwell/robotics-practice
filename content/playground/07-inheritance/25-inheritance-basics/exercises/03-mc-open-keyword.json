@@ -1,0 +1,17 @@
+{
+  "id": "25-inheritance-basics/ex-03",
+  "lessonSlug": "25-inheritance-basics",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Why open?",
+  "instructions": "Why do you need to use the `open` keyword on a class in Kotlin before another class can inherit from it?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Kotlin requires open on every class" },
+    { "id": "b", "text": "Kotlin classes are final by default, so open allows inheritance" },
+    { "id": "c", "text": "open makes the class public" },
+    { "id": "d", "text": "open adds a constructor to the class" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "In Kotlin, all classes are final (closed) by default. This means no other class can inherit from them unless you mark them with the `open` keyword. This is a safety feature that prevents unintended inheritance."
+}

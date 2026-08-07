@@ -1,0 +1,133 @@
+# Arrays
+
+Sometimes you know exactly how many items you need. A Tribots robot has exactly 4 drive motors. A match has exactly 3 alliance partners. When the size is fixed, an **array** is a great choice.
+
+## What Is an Array?
+
+An array is a collection that holds a fixed number of items. Once you create it, you cannot add or remove items. You can only change the values that are already there.
+
+Think of an array like a row of numbered boxes. Each box has a position (called an **index**), starting at 0.
+
+## Creating Arrays
+
+Use `arrayOf()` to create an array:
+
+```kotlin
+fun main() {
+    val teamNumbers = arrayOf(4215, 254, 1678, 118)
+    println(teamNumbers[0]) // 4215
+    println(teamNumbers[3]) // 118
+}
+```
+
+Kotlin also has special typed arrays for common types. These are more efficient when you know the exact type:
+
+```kotlin
+fun main() {
+    val motorSpeeds = doubleArrayOf(0.5, 0.75, 0.0, 0.6)
+    val matchScores = intArrayOf(45, 72, 38, 91)
+    println(motorSpeeds[1]) // 0.75
+    println(matchScores[2]) // 38
+}
+```
+
+`intArrayOf` creates an array of `Int` values. `doubleArrayOf` creates an array of `Double` values. There is also `booleanArrayOf` for `Boolean` values.
+
+## Accessing and Changing Elements
+
+Use square brackets with the index to read or change a value:
+
+```kotlin
+fun main() {
+    val scores = intArrayOf(10, 20, 30)
+
+    println(scores[0]) // 10 — first element
+
+    scores[1] = 99    // change the second element
+    println(scores[1]) // 99
+}
+```
+
+Remember: indexes start at 0. The first item is at index 0, the second at index 1, and so on.
+
+If you try to access an index that does not exist, your program will crash with an error. For example, `scores[5]` on an array of size 3 would fail.
+
+## The `.size` Property
+
+Every array knows how many elements it holds:
+
+```kotlin
+fun main() {
+    val sensors = intArrayOf(100, 200, 150, 175, 90, 210)
+    println("We have ${sensors.size} sensors") // We have 6 sensors
+}
+```
+
+## Looping Through Arrays
+
+Use a `for` loop to visit every element:
+
+```kotlin
+fun main() {
+    val allianceTeams = arrayOf(4215, 254, 1678)
+
+    for (team in allianceTeams) {
+        println("Team $team is ready!")
+    }
+}
+```
+
+If you need the index too, use `indices`:
+
+```kotlin
+fun main() {
+    val motorSpeeds = doubleArrayOf(0.5, 0.75, 0.0, 0.6)
+
+    for (i in motorSpeeds.indices) {
+        println("Motor $i: ${motorSpeeds[i]}")
+    }
+}
+```
+
+`motorSpeeds.indices` gives you the range `0..3` automatically, so you do not have to calculate it yourself.
+
+## Arrays vs Lists
+
+You have already learned about lists. Here is when to use each:
+
+| Arrays | Lists |
+|--------|-------|
+| Fixed size — cannot add or remove | Can grow and shrink (MutableList) |
+| Great when size is known | Great when size changes |
+| Slightly faster for large data | More features and flexibility |
+| Common in FRC motor/sensor code | More common in general Kotlin |
+
+In most Kotlin code, lists are preferred. But arrays are useful when you are working with a set number of things, like the 4 motors on a drivetrain or the 6 joystick buttons you want to check.
+
+## Converting Between Arrays and Lists
+
+You can switch between the two when needed:
+
+```kotlin
+fun main() {
+    val scoresArray = intArrayOf(45, 72, 38)
+    val scoresList = scoresArray.toList()
+    println(scoresList) // [45, 72, 38]
+
+    val teamList = listOf(4215, 254, 1678)
+    val teamArray = teamList.toTypedArray()
+    println(teamArray[0]) // 4215
+}
+```
+
+This is helpful when a function expects one type but you have the other.
+
+You are doing great working with collections! Try these exercises to practice arrays.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

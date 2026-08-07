@@ -1,0 +1,12 @@
+{
+  "id": "20-sorting/ex-05",
+  "lessonSlug": "20-sorting",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Built-In Sorting",
+  "instructions": "To get a new list with elements in ascending order, call the _____ method.",
+  "xpReward": 10,
+  "prompt": "To get a new list with elements in ascending order, call the _____ method.",
+  "acceptedAnswers": ["sorted()", ".sorted()", "sorted", ".sorted"],
+  "explanation": "The sorted() method returns a new list with the elements in ascending order (smallest to largest). The original list is not changed."
+}

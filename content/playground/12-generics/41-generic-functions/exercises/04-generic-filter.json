@@ -1,0 +1,14 @@
+{
+  "id": "41-generic-functions/ex-04",
+  "lessonSlug": "41-generic-functions",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Filter Not Null",
+  "instructions": "Write a generic function called `filterNotNull` that takes a `List<T?>` (a list that might contain null values) and returns a `List<T>` with all the null values removed.\n\nThe function signature should be:\n`fun <T> filterNotNull(items: List<T?>): List<T>`\n\nCreate a new mutable list. Loop through `items` and add each non-null item to the new list. Return the new list.\n\nFor example, `filterNotNull(listOf(1, null, 3, null, 5))` should return `[1, 3, 5]`.",
+  "hint": "Create `val result = mutableListOf<T>()`. Loop through each item. Check `if (item != null)` and add it to the result. Return `result`.",
+  "xpReward": 20,
+  "starterCode": "// Write your filterNotNull function here\n",
+  "solutionCode": "fun <T> filterNotNull(items: List<T?>): List<T> {\n    val result = mutableListOf<T>()\n    for (item in items) {\n        if (item != null) {\n            result.add(item)\n        }\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFilterInts() {\n        Assert.assertEquals(listOf(1, 3, 5), filterNotNull(listOf(1, null, 3, null, 5)))\n    }\n\n    @Test\n    fun testFilterStrings() {\n        Assert.assertEquals(listOf(\"Red\", \"Blue\"), filterNotNull(listOf(\"Red\", null, \"Blue\")))\n    }\n\n    @Test\n    fun testAllNull() {\n        val result: List<Int> = filterNotNull(listOf(null, null, null))\n        Assert.assertEquals(emptyList<Int>(), result)\n    }\n\n    @Test\n    fun testNoNulls() {\n        Assert.assertEquals(listOf(4, 2, 1, 5), filterNotNull(listOf(4, 2, 1, 5)))\n    }\n\n    @Test\n    fun testEmptyList() {\n        val result: List<String> = filterNotNull(emptyList())\n        Assert.assertEquals(emptyList<String>(), result)\n    }\n}"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "20-sorting/ex-03",
+  "lessonSlug": "20-sorting",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "How Bubble Sort Works",
+  "instructions": "What does bubble sort do on each pass through the list?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Removes duplicate elements" },
+    { "id": "b", "text": "Compares adjacent elements and swaps them if they are out of order" },
+    { "id": "c", "text": "Splits the list in half and sorts each half" },
+    { "id": "d", "text": "Picks a random element and moves it to the front" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Bubble sort compares each pair of adjacent elements. If the first element is larger than the second, it swaps them. After one full pass, the largest element has 'bubbled up' to the end of the list."
+}

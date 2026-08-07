@@ -1,0 +1,15 @@
+{
+  "id": "12-mutable-lists/ex-01",
+  "lessonSlug": "12-mutable-lists",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Add Teams to a List",
+  "instructions": "Complete the function `addTeams()`. It should:\n\n1. Create an empty mutable list of `Int`\n2. Add the team numbers 4215, 1234, and 5678 to the list\n3. Print the size of the list",
+  "hint": "Use `mutableListOf<Int>()` to create an empty list, then call `.add()` three times. Print with `println(list.size)`.",
+  "xpReward": 15,
+  "starterCode": "fun addTeams() {\n    // Create an empty mutable list of Int\n    \n    // Add 4215, 1234, and 5678\n    \n    // Print the size of the list\n}",
+  "solutionCode": "fun addTeams() {\n    val teams = mutableListOf<Int>()\n    teams.add(4215)\n    teams.add(1234)\n    teams.add(5678)\n    println(teams.size)\n}",
+  "validationMode": "output",
+  "expectedOutput": "3",
+  "hiddenPostamble": "fun main() {\n    addTeams()\n}"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "24-nested-collections/ex-04",
+  "lessonSlug": "24-nested-collections",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Group Teams by Alliance",
+  "instructions": "Write a function called `groupByAlliance` that takes a `List<Pair<String, Int>>` where each pair contains an alliance color (like \"Red\" or \"Blue\") and a team number.\n\nReturn a `Map<String, List<Int>>` where each key is an alliance color and each value is a list of team numbers on that alliance.\n\nFor example:\n```\ngroupByAlliance(listOf(\n    \"Red\" to 4215,\n    \"Blue\" to 1234,\n    \"Red\" to 5678,\n    \"Blue\" to 9999\n))\n```\nReturns: `{Red=[4215, 5678], Blue=[1234, 9999]}`",
+  "hint": "Create a `mutableMapOf<String, MutableList<Int>>()`. Loop through each pair. If the alliance color is not in the map yet, add it with a new `mutableListOf()`. Then add the team number to that alliance's list.",
+  "xpReward": 20,
+  "starterCode": "fun groupByAlliance(teams: List<Pair<String, Int>>): Map<String, List<Int>> {\n    // Group team numbers by their alliance color\n    return emptyMap()\n}",
+  "solutionCode": "fun groupByAlliance(teams: List<Pair<String, Int>>): Map<String, List<Int>> {\n    val result = mutableMapOf<String, MutableList<Int>>()\n    for ((alliance, number) in teams) {\n        if (alliance !in result) {\n            result[alliance] = mutableListOf()\n        }\n        result[alliance]!!.add(number)\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testTwoAlliances() {\n        val result = groupByAlliance(listOf(\n            \"Red\" to 4215,\n            \"Blue\" to 1234,\n            \"Red\" to 5678,\n            \"Blue\" to 9999\n        ))\n        Assert.assertEquals(listOf(4215, 5678), result[\"Red\"])\n        Assert.assertEquals(listOf(1234, 9999), result[\"Blue\"])\n    }\n\n    @Test\n    fun testSingleAlliance() {\n        val result = groupByAlliance(listOf(\n            \"Red\" to 4215,\n            \"Red\" to 1234\n        ))\n        Assert.assertEquals(listOf(4215, 1234), result[\"Red\"])\n        Assert.assertNull(result[\"Blue\"])\n    }\n\n    @Test\n    fun testEmptyList() {\n        val result = groupByAlliance(listOf())\n        Assert.assertTrue(result.isEmpty())\n    }\n\n    @Test\n    fun testThreeTeamsPerAlliance() {\n        val result = groupByAlliance(listOf(\n            \"Red\" to 4215,\n            \"Red\" to 1234,\n            \"Red\" to 5678,\n            \"Blue\" to 9999,\n            \"Blue\" to 7777,\n            \"Blue\" to 3333\n        ))\n        Assert.assertEquals(3, result[\"Red\"]!!.size)\n        Assert.assertEquals(3, result[\"Blue\"]!!.size)\n    }\n}"
+}

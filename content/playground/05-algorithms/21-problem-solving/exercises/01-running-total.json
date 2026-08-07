@@ -1,0 +1,14 @@
+{
+  "id": "21-problem-solving/ex-01",
+  "lessonSlug": "21-problem-solving",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Running Total",
+  "instructions": "Complete the `runningTotal` function. It takes a `List<Int>` called `scores` and returns a new `List<Int>` where each element is the sum of all elements up to and including that position.\n\nFor example, `runningTotal(listOf(10, 20, 30))` should return `[10, 30, 60]`.",
+  "hint": "Create a mutable list for the result and a variable to track the running sum. Loop through the scores, add each one to the sum, and add the sum to the result list.",
+  "xpReward": 15,
+  "starterCode": "fun runningTotal(scores: List<Int>): List<Int> {\n    // Return a list where each element is the sum of all elements up to that point\n    return emptyList()\n}",
+  "solutionCode": "fun runningTotal(scores: List<Int>): List<Int> {\n    val result = mutableListOf<Int>()\n    var sum = 0\n    for (score in scores) {\n        sum += score\n        result.add(sum)\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testThreeScores() {\n        Assert.assertEquals(listOf(10, 30, 60), runningTotal(listOf(10, 20, 30)))\n    }\n\n    @Test\n    fun testSingleScore() {\n        Assert.assertEquals(listOf(5), runningTotal(listOf(5)))\n    }\n\n    @Test\n    fun testEmpty() {\n        Assert.assertEquals(emptyList<Int>(), runningTotal(emptyList()))\n    }\n}"
+}

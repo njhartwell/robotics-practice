@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 interface XpToastProps {
   amount: number | null;
@@ -9,22 +9,16 @@ interface XpToastProps {
 }
 
 export function XpToast({ amount, onComplete }: XpToastProps) {
-  const [visible, setVisible] = useState(false);
-
   useEffect(() => {
     if (amount && amount > 0) {
-      setVisible(true);
-      const timer = setTimeout(() => {
-        setVisible(false);
-        onComplete?.();
-      }, 1500);
+      const timer = setTimeout(() => onComplete?.(), 1500);
       return () => clearTimeout(timer);
     }
   }, [amount, onComplete]);
 
   return (
     <AnimatePresence>
-      {visible && amount && (
+      {amount && amount > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}

@@ -1,0 +1,150 @@
+# Higher-Order Functions
+
+In the last lesson you learned how to create lambdas. Now you will learn how to write your own functions that accept lambdas as parameters. These are called **higher-order functions**, and they are a key part of writing clean, reusable Kotlin code.
+
+## What Is a Higher-Order Function?
+
+A **higher-order function** is a function that does at least one of these things:
+
+- Takes another function as a parameter.
+- Returns a function as its result.
+
+You have already seen one example: the `onButtonPress` function from the lambdas lesson took an `action` lambda as a parameter. That made it a higher-order function.
+
+## Writing Your Own Higher-Order Function
+
+Let's say you want a function that repeats an action a certain number of times. On an FRC robot, you might want to honk a horn three times or flash a light five times.
+
+```kotlin
+fun repeatAction(times: Int, action: () -> Unit) {
+    for (i in 1..times) {
+        action()
+    }
+}
+
+fun main() {
+    repeatAction(3, { println("Honk!") })
+}
+```
+
+Output:
+```
+Honk!
+Honk!
+Honk!
+```
+
+The parameter `action: () -> Unit` means "a function that takes nothing and returns nothing." Inside `repeatAction`, you call `action()` on each loop iteration.
+
+## Trailing Lambda Syntax
+
+When the **last parameter** of a function is a lambda, Kotlin lets you move it outside the parentheses. This is called **trailing lambda syntax**.
+
+```kotlin
+// Normal call
+repeatAction(3, { println("Honk!") })
+
+// Trailing lambda -- same thing, looks cleaner
+repeatAction(3) { println("Honk!") }
+```
+
+Both lines do the same thing. The trailing lambda style is preferred in Kotlin because it reads more naturally.
+
+If the lambda is the **only** parameter, you can even drop the parentheses:
+
+```kotlin
+fun runOnce(action: () -> Unit) {
+    action()
+}
+
+runOnce { println("Running!") }
+```
+
+<Callout type="tip">
+You will see trailing lambda syntax everywhere in Kotlin. Get comfortable with it -- it makes code much easier to read.
+</Callout>
+
+## Passing Functions with Parameters
+
+A higher-order function can accept lambdas that take parameters too. Here is a function that transforms a number:
+
+```kotlin
+fun transformNumber(value: Int, transform: (Int) -> Int): Int {
+    return transform(value)
+}
+
+fun main() {
+    val doubled = transformNumber(5) { it * 2 }
+    val squared = transformNumber(5) { it * it }
+
+    println(doubled)  // 10
+    println(squared)  // 25
+}
+```
+
+The `transform` parameter has type `(Int) -> Int` -- it takes an `Int` and returns an `Int`. When you call `transformNumber`, you provide a lambda that describes what transformation to apply.
+
+## Real-World Use: Event Handlers
+
+On an FRC robot, higher-order functions are perfect for event handling. You can write a function that runs different code depending on what event happens:
+
+```kotlin
+fun onSensorTriggered(sensorName: String, handler: (String) -> Unit) {
+    println("Sensor '$sensorName' activated!")
+    handler(sensorName)
+}
+
+fun main() {
+    onSensorTriggered("frontLidar") { sensor ->
+        println("$sensor detected an obstacle -- stopping motors!")
+    }
+
+    onSensorTriggered("colorSensor") { sensor ->
+        println("$sensor detected a game piece -- grabbing it!")
+    }
+}
+```
+
+Output:
+```
+Sensor 'frontLidar' activated!
+frontLidar detected an obstacle -- stopping motors!
+Sensor 'colorSensor' activated!
+colorSensor detected a game piece -- grabbing it!
+```
+
+Each call to `onSensorTriggered` provides a different lambda. The function does not need to know what the handler does -- it runs whatever code you give it.
+
+## Returning a Function
+
+A higher-order function can also **return** a function. This is less common but still useful:
+
+```kotlin
+fun createMultiplier(factor: Int): (Int) -> Int {
+    return { it * factor }
+}
+
+fun main() {
+    val triple = createMultiplier(3)
+    val tenTimes = createMultiplier(10)
+
+    println(triple(5))    // 15
+    println(tenTimes(5))  // 50
+}
+```
+
+`createMultiplier` returns a lambda. The returned lambda remembers the `factor` value thanks to closures (which you learned about in the last lesson).
+
+## Why Higher-Order Functions Matter
+
+Higher-order functions help you avoid repeating yourself. Instead of writing similar code over and over, you write the shared structure once and pass in the parts that change.
+
+You will use higher-order functions constantly in the next lesson when you learn about collection operations like `map`, `filter`, and `reduce`. Nice work -- you are building real programming skills!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

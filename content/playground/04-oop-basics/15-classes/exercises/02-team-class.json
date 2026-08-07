@@ -1,0 +1,14 @@
+{
+  "id": "15-classes/ex-02",
+  "lessonSlug": "15-classes",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Describe a Team",
+  "instructions": "Write a `Team` class with two properties: `number` (Int) and `name` (String).\n\nThen write a function called `describe` that takes a `Team` parameter and returns a `String` in the format:\n`\"Team {number}: {name}\"`\n\nFor example, `describe(Team(4215, \"Tribots\"))` should return `\"Team 4215: Tribots\"`.",
+  "hint": "Define the class as `class Team(val number: Int, val name: String)`. In the `describe` function, use string templates: `\"Team ${team.number}: ${team.name}\"`.",
+  "xpReward": 20,
+  "starterCode": "// Define the Team class here\n\nfun describe(team: Team): String {\n    return \"\"\n}",
+  "solutionCode": "class Team(val number: Int, val name: String)\n\nfun describe(team: Team): String {\n    return \"Team ${team.number}: ${team.name}\"\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testTribots() {\n        val team = Team(4215, \"Tribots\")\n        Assert.assertEquals(\"Team 4215: Tribots\", describe(team))\n    }\n\n    @Test\n    fun testAnotherTeam() {\n        val team = Team(254, \"The Cheesy Poofs\")\n        Assert.assertEquals(\"Team 254: The Cheesy Poofs\", describe(team))\n    }\n\n    @Test\n    fun testTeamProperties() {\n        val team = Team(4215, \"Tribots\")\n        Assert.assertEquals(4215, team.number)\n        Assert.assertEquals(\"Tribots\", team.name)\n    }\n}"
+}

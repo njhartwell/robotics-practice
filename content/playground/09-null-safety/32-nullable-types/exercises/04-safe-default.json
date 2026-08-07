@@ -1,0 +1,14 @@
+{
+  "id": "32-nullable-types/ex-04",
+  "lessonSlug": "32-nullable-types",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Get Team Name Safely",
+  "instructions": "Write a function called `getTeamName` that takes a parameter `name` of type `String?` and returns a `String`.\n\n- If `name` is not null, return the name.\n- If `name` is null, return `\"Unknown Team\"`.\n\nFor example:\n- `getTeamName(\"Tribots\")` returns `\"Tribots\"`\n- `getTeamName(null)` returns `\"Unknown Team\"`",
+  "hint": "This is similar to the previous exercise. Use an if/else to check whether `name` is null.",
+  "xpReward": 20,
+  "starterCode": "fun getTeamName(name: String?): String {\n    // Return the name if not null\n    // Return \"Unknown Team\" if null\n    return \"\"\n}",
+  "solutionCode": "fun getTeamName(name: String?): String {\n    if (name != null) {\n        return name\n    } else {\n        return \"Unknown Team\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithTribots() {\n        Assert.assertEquals(\"Tribots\", getTeamName(\"Tribots\"))\n    }\n\n    @Test\n    fun testWithNull() {\n        Assert.assertEquals(\"Unknown Team\", getTeamName(null))\n    }\n\n    @Test\n    fun testWithOtherTeam() {\n        Assert.assertEquals(\"RoboWarriors\", getTeamName(\"RoboWarriors\"))\n    }\n\n    @Test\n    fun testWithEmptyString() {\n        Assert.assertEquals(\"\", getTeamName(\"\"))\n    }\n}"
+}

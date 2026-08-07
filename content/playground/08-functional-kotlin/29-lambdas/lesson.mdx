@@ -1,0 +1,163 @@
+# Lambdas
+
+So far, every function you have written has had a name. In this lesson you will learn about **lambdas** -- small, unnamed functions that you can store in variables and pass around like any other value. Lambdas are one of Kotlin's most powerful features.
+
+## What Is a Lambda?
+
+A **lambda** is a function without a name. You write it as a block of code inside curly braces.
+
+Here is a regular named function that doubles a number:
+
+```kotlin
+fun double(x: Int): Int {
+    return x * 2
+}
+```
+
+Here is the same logic written as a lambda:
+
+```kotlin
+val double = { x: Int -> x * 2 }
+```
+
+Both do the same thing. The lambda version is shorter because you do not need the `fun` keyword, the function name, or the `return` keyword.
+
+## Lambda Syntax
+
+The basic shape of a lambda is:
+
+```kotlin
+{ parameters -> body }
+```
+
+- The **parameters** go before the arrow `->`.
+- The **body** goes after the arrow.
+- The last expression in the body is the return value. You do not write `return`.
+
+Here is a lambda that adds two numbers:
+
+```kotlin
+val add = { a: Int, b: Int -> a + b }
+println(add(3, 4)) // prints 7
+```
+
+The variable `add` now holds a function. You call it the same way you call a regular function -- with parentheses and arguments.
+
+## The Type of a Lambda
+
+When you store a lambda in a variable, Kotlin gives it a **function type**. The type describes what the lambda takes in and what it gives back.
+
+```kotlin
+val double: (Int) -> Int = { x -> x * 2 }
+```
+
+- `(Int)` means the lambda takes one `Int` parameter.
+- `-> Int` means it returns an `Int`.
+
+You can read `(Int) -> Int` as "a function from Int to Int."
+
+Here is a function type with two parameters:
+
+```kotlin
+val add: (Int, Int) -> Int = { a, b -> a + b }
+```
+
+When you write the type explicitly, you do not need to repeat the parameter types inside the curly braces. Kotlin already knows them from the type annotation.
+
+## The `it` Shorthand
+
+When a lambda has only **one parameter**, you can skip naming it. Kotlin automatically gives it the name `it`.
+
+```kotlin
+val double: (Int) -> Int = { it * 2 }
+```
+
+This is the same as writing `{ x -> x * 2 }`. The name `it` is shorter and very common in Kotlin code.
+
+Here is another example. This lambda checks if a motor speed is in the safe range:
+
+```kotlin
+val isSafeSpeed: (Double) -> Boolean = { it >= -1.0 && it <= 1.0 }
+
+println(isSafeSpeed(0.75))  // true
+println(isSafeSpeed(1.5))   // false
+```
+
+<Callout type="tip">
+Use `it` when the lambda body is short and the meaning is clear. If the lambda is long or confusing, give the parameter a real name for readability.
+</Callout>
+
+## Passing Lambdas to Functions
+
+Lambdas become really useful when you pass them to other functions. Think of it like giving instructions to someone: "Here is what I want you to do."
+
+On an FRC robot, you might want a button to trigger an action. You could write a function that takes a lambda as the action:
+
+```kotlin
+fun onButtonPress(action: () -> Unit) {
+    println("Button pressed!")
+    action()
+}
+
+fun main() {
+    onButtonPress({ println("Launching game piece!") })
+}
+```
+
+Output:
+```
+Button pressed!
+Launching game piece!
+```
+
+The type `() -> Unit` means "a function that takes no parameters and returns nothing." `Unit` in Kotlin is like saying "no meaningful return value."
+
+## Closures: Accessing Outside Variables
+
+A lambda can use variables from the code around it. This is called a **closure**.
+
+```kotlin
+fun main() {
+    var shotCount = 0
+
+    val shoot = {
+        shotCount++
+        println("Shots fired: $shotCount")
+    }
+
+    shoot() // Shots fired: 1
+    shoot() // Shots fired: 2
+    shoot() // Shots fired: 3
+}
+```
+
+The lambda `shoot` can read and change `shotCount` even though `shotCount` was declared outside the lambda. The lambda "closes over" the variable -- that is where the name "closure" comes from.
+
+This is handy for things like counting events, accumulating scores, or tracking state on your robot.
+
+## Storing Lambdas in Variables -- A Summary
+
+Here are a few examples showing different lambda shapes:
+
+```kotlin
+// No parameters, no return value
+val greet: () -> Unit = { println("Go Tribots!") }
+
+// One parameter, returns a value
+val triple: (Int) -> Int = { it * 3 }
+
+// Two parameters, returns a value
+val maxOf: (Int, Int) -> Int = { a, b -> if (a > b) a else b }
+```
+
+You now have a powerful new tool in your toolkit. Lambdas let you treat code as data -- you can store it, pass it around, and run it whenever you need to. Great job making it this far!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

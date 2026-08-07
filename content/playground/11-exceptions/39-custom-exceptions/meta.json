@@ -1,0 +1,14 @@
+{
+  "slug": "39-custom-exceptions",
+  "section": "exceptions",
+  "sectionTitle": "Error Handling",
+  "sectionOrder": 11,
+  "title": "Custom Exceptions",
+  "description": "Create your own exception types and validate input with throw, require, and check",
+  "order": 39,
+  "requiredLevel": 9,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["exceptions", "custom", "throw", "require"]
+}

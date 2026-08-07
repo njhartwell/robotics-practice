@@ -1,0 +1,14 @@
+{
+  "id": "18-properties/ex-02",
+  "lessonSlug": "18-properties",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Match Score Data Class",
+  "instructions": "Create a `data class` called `MatchScore` with three properties:\n- `teamNumber: Int`\n- `autoPoints: Int`\n- `teleopPoints: Int`\n\nAdd a method called `total()` that returns the sum of `autoPoints` and `teleopPoints`.",
+  "hint": "Start with `data class MatchScore(...)` and put the three val properties inside the parentheses. Add a `fun total(): Int` inside the class body.",
+  "xpReward": 20,
+  "starterCode": "// Create your MatchScore data class here\n",
+  "solutionCode": "data class MatchScore(val teamNumber: Int, val autoPoints: Int, val teleopPoints: Int) {\n    fun total(): Int {\n        return autoPoints + teleopPoints\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testTotal() {\n        val score = MatchScore(4215, 20, 45)\n        Assert.assertEquals(65, score.total())\n    }\n\n    @Test\n    fun testTotalZero() {\n        val score = MatchScore(1234, 0, 0)\n        Assert.assertEquals(0, score.total())\n    }\n\n    @Test\n    fun testToStringContainsValues() {\n        val score = MatchScore(4215, 20, 45)\n        val str = score.toString()\n        Assert.assertTrue(str.contains(\"4215\"))\n        Assert.assertTrue(str.contains(\"20\"))\n        Assert.assertTrue(str.contains(\"45\"))\n    }\n\n    @Test\n    fun testEquality() {\n        val a = MatchScore(4215, 20, 45)\n        val b = MatchScore(4215, 20, 45)\n        Assert.assertEquals(a, b)\n    }\n}"
+}

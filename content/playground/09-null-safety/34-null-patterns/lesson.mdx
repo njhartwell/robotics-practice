@@ -1,0 +1,201 @@
+# Null Patterns
+
+You have learned about nullable types, safe calls, and the Elvis operator. Now let's explore some additional patterns for handling null values in Kotlin. These patterns will help you write safer and cleaner robot code.
+
+## The `?.let {}` Pattern in Depth
+
+You saw `?.let` briefly in the last lesson. Let's dig deeper into how it works.
+
+The `let` function takes a value and passes it into a block of code. When combined with `?.`, the block only runs if the value is not null.
+
+```kotlin
+fun processSensorReading(reading: Double?) {
+    reading?.let { value ->
+        val rounded = Math.round(value * 100) / 100.0
+        println("Sensor reading: $rounded")
+    }
+}
+
+fun main() {
+    processSensorReading(42.567)  // Prints: Sensor reading: 42.57
+    processSensorReading(null)    // Prints nothing
+}
+```
+
+You can also use `it` as a shorthand instead of naming the parameter.
+
+```kotlin
+fun main() {
+    val teamName: String? = "Tribots"
+
+    teamName?.let {
+        println("Team name is $it")
+        println("Name has ${it.length} characters")
+    }
+}
+```
+
+Output:
+```
+Team name is Tribots
+Name has 7 characters
+```
+
+The variable `it` refers to the non-null value inside the `let` block. This is useful when the block is short.
+
+<Callout type="tip">
+Use a named parameter (like `value ->`) when the block is more than one or two lines. Use `it` for short blocks. This makes your code easier to read.
+</Callout>
+
+## The `!!` Not-Null Assertion
+
+The `!!` operator tells Kotlin: "I am absolutely sure this value is not null. If I am wrong, crash the program."
+
+```kotlin
+fun main() {
+    val reading: String? = "42.5"
+    val length = reading!!.length  // Works because reading is not null
+    println(length)  // Prints: 3
+}
+```
+
+But if the value is null:
+
+```kotlin
+fun main() {
+    val reading: String? = null
+    val length = reading!!.length  // CRASH! KotlinNullPointerException
+}
+```
+
+<Callout type="warning">
+Avoid using `!!` in most cases. It throws an exception if the value is null, which can crash your program. This is the same kind of crash that Kotlin's null safety system was designed to prevent. Using `!!` everywhere defeats the purpose.
+</Callout>
+
+There are rare cases where `!!` makes sense. For example, when you have already checked for null in a way that the compiler cannot understand. But in general, use `?.` or `?:` instead.
+
+## `requireNotNull()` -- Assert with a Clear Message
+
+The `requireNotNull()` function is a better alternative to `!!` when you truly need a non-null value. It throws an `IllegalArgumentException` with a message you provide.
+
+```kotlin
+fun initializeDrivetrain(motorController: String?) {
+    val controller = requireNotNull(motorController) {
+        "Motor controller must be connected before initializing drivetrain!"
+    }
+    println("Drivetrain initialized with $controller")
+}
+
+fun main() {
+    initializeDrivetrain("SparkMAX")  // Works fine
+    // initializeDrivetrain(null)      // Would throw with our custom message
+}
+```
+
+Output:
+```
+Drivetrain initialized with SparkMAX
+```
+
+The benefit of `requireNotNull` is the clear error message. When something goes wrong, you immediately know what was null and why it matters. This makes debugging much easier than a generic NullPointerException.
+
+## `checkNotNull()` -- Similar but for State
+
+The `checkNotNull()` function works like `requireNotNull()` but is meant for checking the state of your program rather than function arguments.
+
+```kotlin
+class Robot {
+    var drivetrain: String? = null
+
+    fun drive(speed: Double) {
+        val dt = checkNotNull(drivetrain) {
+            "Drivetrain has not been initialized! Call initialize() first."
+        }
+        println("Driving $dt at speed $speed")
+    }
+}
+
+fun main() {
+    val robot = Robot()
+    robot.drivetrain = "MecanumDrive"
+    robot.drive(0.5)
+}
+```
+
+Output:
+```
+Driving MecanumDrive at speed 0.5
+```
+
+Use `requireNotNull` for function parameters. Use `checkNotNull` for object state. Both give you helpful error messages.
+
+## When to Use Each Approach
+
+Here is a quick guide to choosing the right null-handling tool:
+
+| Situation | Use |
+|-----------|-----|
+| You want a default value when null | `?:` (Elvis) |
+| You want to skip code when null | `?.let {}` |
+| You want to safely access a property | `?.` (safe call) |
+| A null argument means a programming error | `requireNotNull()` |
+| A null state means something was not initialized | `checkNotNull()` |
+| You are 100% certain it is not null (rare!) | `!!` |
+
+## Filtering Nulls from Collections
+
+When you have a list that might contain null values, you can use `filterNotNull()` to remove them.
+
+```kotlin
+fun main() {
+    val sensorReadings: List<Double?> = listOf(42.5, null, 38.1, null, 40.0)
+
+    val validReadings: List<Double> = sensorReadings.filterNotNull()
+
+    println("All readings: $sensorReadings")
+    println("Valid readings: $validReadings")
+    println("Average: ${validReadings.average()}")
+}
+```
+
+Output:
+```
+All readings: [42.5, null, 38.1, null, 40.0]
+Valid readings: [42.5, 38.1, 40.0]
+Average: 40.2
+```
+
+The `filterNotNull()` function returns a new list with all the null values removed. The result is a `List<Double>` (non-nullable) instead of `List<Double?>`.
+
+You can also use `mapNotNull` to transform values and skip nulls in one step.
+
+```kotlin
+fun main() {
+    val rawReadings: List<String?> = listOf("42.5", null, "bad", "38.1", null)
+
+    val parsed: List<Double> = rawReadings.mapNotNull { it?.toDoubleOrNull() }
+
+    println("Parsed readings: $parsed")
+}
+```
+
+Output:
+```
+Parsed readings: [42.5, 38.1]
+```
+
+This is very useful in FRC code where sensor data might be missing or invalid.
+
+<Callout type="info">
+Good null handling is a sign of professional-quality code. FRC judges love seeing teams that write safe, well-structured programs. These patterns will serve you well beyond robotics too!
+</Callout>
+
+Awesome job completing the Null Safety section! You now have all the tools you need to write crash-free Kotlin code. Let's practice these patterns.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

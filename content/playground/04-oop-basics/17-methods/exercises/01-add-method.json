@@ -1,0 +1,14 @@
+{
+  "id": "17-methods/ex-01",
+  "lessonSlug": "17-methods",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Describe the Robot",
+  "instructions": "Complete the `describe()` method in the `Robot` class so it returns the string \"Robot: {name}\" where `{name}` is the robot's name property.\n\nFor example, if the robot's name is \"Tribot\", `describe()` should return `\"Robot: Tribot\"`.",
+  "hint": "Use a string template: \"Robot: $name\". The method can access `name` because it is a property of the same class.",
+  "xpReward": 15,
+  "starterCode": "class Robot(val name: String) {\n    fun describe(): String {\n        // Return \"Robot: {name}\"\n        return \"\"\n    }\n}",
+  "solutionCode": "class Robot(val name: String) {\n    fun describe(): String {\n        return \"Robot: $name\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDescribeTribot() {\n        val robot = Robot(\"Tribot\")\n        Assert.assertEquals(\"Robot: Tribot\", robot.describe())\n    }\n\n    @Test\n    fun testDescribeOther() {\n        val robot = Robot(\"Sparky\")\n        Assert.assertEquals(\"Robot: Sparky\", robot.describe())\n    }\n}"
+}

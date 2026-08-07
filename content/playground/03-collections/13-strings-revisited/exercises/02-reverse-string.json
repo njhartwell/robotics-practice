@@ -1,0 +1,14 @@
+{
+  "id": "13-strings-revisited/ex-02",
+  "lessonSlug": "13-strings-revisited",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Reverse a String",
+  "instructions": "Write a function called `reverseString` that takes a `text` parameter of type `String` and returns a new `String` with the characters in reverse order.\n\nFor example, `reverseString(\"Tribots\")` should return `\"stobirT\"`.\n\nYou can use a loop to build the result, or try Kotlin's built-in `.reversed()` function.",
+  "hint": "One way: start with an empty string, loop through each character, and add it to the front. Another way: use text.reversed().",
+  "xpReward": 20,
+  "starterCode": "fun reverseString(text: String): String {\n    // Return the text with characters in reverse order\n    return \"\"\n}",
+  "solutionCode": "fun reverseString(text: String): String {\n    return text.reversed()\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testTribots() {\n        Assert.assertEquals(\"stobirT\", reverseString(\"Tribots\"))\n    }\n\n    @Test\n    fun testNumber() {\n        Assert.assertEquals(\"5124\", reverseString(\"4215\"))\n    }\n\n    @Test\n    fun testSingleChar() {\n        Assert.assertEquals(\"A\", reverseString(\"A\"))\n    }\n}"
+}

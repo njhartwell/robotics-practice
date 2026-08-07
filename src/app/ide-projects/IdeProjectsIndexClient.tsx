@@ -1,6 +1,7 @@
 "use client";
 
 import { LessonCard } from "@/components/lesson/LessonCard";
+import { buildPreviousLessonMap } from "@/lib/progress/lesson-access";
 import type { LessonMeta } from "@/lib/progress/types";
 
 export function IdeProjectsIndexClient({
@@ -8,6 +9,8 @@ export function IdeProjectsIndexClient({
 }: {
   lessons: LessonMeta[];
 }) {
+  const previousLessons = buildPreviousLessonMap(lessons);
+
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
@@ -18,7 +21,11 @@ export function IdeProjectsIndexClient({
       </div>
       <div className="space-y-3">
         {lessons.map((lesson) => (
-          <LessonCard key={lesson.slug} lesson={lesson} />
+          <LessonCard
+            key={lesson.slug}
+            lesson={lesson}
+            previousLessonSlug={previousLessons.get(lesson.slug)}
+          />
         ))}
       </div>
     </div>

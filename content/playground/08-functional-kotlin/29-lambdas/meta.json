@@ -1,0 +1,14 @@
+{
+  "slug": "29-lambdas",
+  "section": "functional-kotlin",
+  "sectionTitle": "Functional Kotlin",
+  "sectionOrder": 8,
+  "title": "Lambdas",
+  "description": "Write small unnamed functions called lambdas",
+  "order": 29,
+  "requiredLevel": 6,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["lambdas", "anonymous-functions", "it", "closures"]
+}

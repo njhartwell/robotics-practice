@@ -1,0 +1,15 @@
+{
+  "id": "22-maps/ex-01",
+  "lessonSlug": "22-maps",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Create a Team Map",
+  "instructions": "Complete the `printTeamName` function. It should:\n1. Create a map with these team numbers and names:\n   - 4215 -> \"Tribots\"\n   - 1234 -> \"RoboCats\"\n   - 5678 -> \"Iron Eagles\"\n2. Print the name of team 4215.\n\nExpected output:\n```\nTribots\n```",
+  "hint": "Use `mapOf(4215 to \"Tribots\", 1234 to \"RoboCats\", 5678 to \"Iron Eagles\")` to create the map. Then use `teams[4215]` to get the name.",
+  "xpReward": 15,
+  "starterCode": "fun printTeamName() {\n    // Create a map of team numbers to team names\n    val teams = TODO()\n    // Print the name of team 4215\n}",
+  "solutionCode": "fun printTeamName() {\n    val teams = mapOf(\n        4215 to \"Tribots\",\n        1234 to \"RoboCats\",\n        5678 to \"Iron Eagles\"\n    )\n    println(teams[4215])\n}",
+  "validationMode": "output",
+  "expectedOutput": "Tribots",
+  "hiddenPostamble": "fun main() {\n    printTeamName()\n}"
+}

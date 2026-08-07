@@ -1,0 +1,14 @@
+{
+  "id": "22-maps/ex-04",
+  "lessonSlug": "22-maps",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Count by Alliance",
+  "instructions": "Write a function called `countByAlliance` that takes a `List<String>` of alliance colors (like \"Red\", \"Blue\", \"Red\", \"Blue\", \"Red\").\n\nReturn a `Map<String, Int>` where each key is an alliance color and each value is how many times that color appears in the list.\n\nFor example:\n- `countByAlliance(listOf(\"Red\", \"Blue\", \"Red\"))` returns `{Red=2, Blue=1}`",
+  "hint": "Create a mutable map. Loop through the list. For each color, get the current count from the map (defaulting to 0 if not found), add 1, and store the new count back in the map.",
+  "xpReward": 20,
+  "starterCode": "fun countByAlliance(teams: List<String>): Map<String, Int> {\n    // Count how many times each alliance color appears\n    return emptyMap()\n}",
+  "solutionCode": "fun countByAlliance(teams: List<String>): Map<String, Int> {\n    val counts = mutableMapOf<String, Int>()\n    for (color in teams) {\n        counts[color] = (counts[color] ?: 0) + 1\n    }\n    return counts\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testMixedAlliances() {\n        val result = countByAlliance(listOf(\"Red\", \"Blue\", \"Red\"))\n        Assert.assertEquals(2, result[\"Red\"])\n        Assert.assertEquals(1, result[\"Blue\"])\n    }\n\n    @Test\n    fun testAllSameColor() {\n        val result = countByAlliance(listOf(\"Red\", \"Red\", \"Red\"))\n        Assert.assertEquals(3, result[\"Red\"])\n        Assert.assertNull(result[\"Blue\"])\n    }\n\n    @Test\n    fun testEmptyList() {\n        val result = countByAlliance(listOf())\n        Assert.assertTrue(result.isEmpty())\n    }\n\n    @Test\n    fun testEqualCounts() {\n        val result = countByAlliance(listOf(\"Red\", \"Blue\", \"Red\", \"Blue\"))\n        Assert.assertEquals(2, result[\"Red\"])\n        Assert.assertEquals(2, result[\"Blue\"])\n    }\n}"
+}

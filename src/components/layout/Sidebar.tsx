@@ -15,6 +15,12 @@ import {
   Lock,
 } from "lucide-react";
 import type { LessonMeta } from "@/lib/progress/types";
+import {
+  getCurriculumTrack,
+  orderLessonsByTrack,
+  type CurriculumTrack,
+} from "@/lib/content/curriculum-track";
+import { buildPreviousLessonMap } from "@/lib/progress/lesson-access";
 
 interface SidebarProps {
   playgroundLessons: LessonMeta[];
@@ -54,8 +60,35 @@ export function Sidebar({ playgroundLessons, ideLessons }: SidebarProps) {
   const [playgroundOpen, setPlaygroundOpen] = useState(playgroundActive);
   const [ideOpen, setIdeOpen] = useState(ideActive);
 
-  const playgroundSections = groupBySection(playgroundLessons);
+  const playgroundTracks: {
+    id: CurriculumTrack;
+    title: string;
+    sections: SectionGroup[];
+  }[] = [
+    {
+      id: "core",
+      title: "Core Kotlin for FRC",
+      sections: groupBySection(
+        playgroundLessons.filter(
+          (lesson) => getCurriculumTrack(lesson) === "core"
+        )
+      ),
+    },
+    {
+      id: "further",
+      title: "Further Kotlin",
+      sections: groupBySection(
+        playgroundLessons.filter(
+          (lesson) => getCurriculumTrack(lesson) === "further"
+        )
+      ),
+    },
+  ];
   const ideSections = groupBySection(ideLessons);
+  const playgroundPreviousLessons = buildPreviousLessonMap(
+    orderLessonsByTrack(playgroundLessons)
+  );
+  const idePreviousLessons = buildPreviousLessonMap(ideLessons);
 
   return (
     <aside className="w-64 bg-surface border-r border-border p-4 hidden md:block overflow-y-auto">
@@ -81,25 +114,37 @@ export function Sidebar({ playgroundLessons, ideLessons }: SidebarProps) {
           href="/playground"
           active={playgroundActive}
           open={playgroundOpen}
-          onToggle={() => setPlaygroundOpen(!playgroundOpen)}
+          onToggle={() => setPlaygroundOpen((open) => !open)}
         />
         {playgroundOpen && (
           <div className="ml-3 border-l border-border pl-2 space-y-0.5">
-            {playgroundSections.map((section) => (
-              <div key={section.section} className="mb-2">
-                <div className="px-2 py-1 text-xs font-semibold text-muted uppercase tracking-wide">
-                  {section.sectionTitle}
+            {playgroundTracks.map((track) => (
+              <div key={track.id} className="mb-3">
+                <div className="px-2 py-1.5 text-xs font-bold text-foreground">
+                  {track.title}
                 </div>
-                {section.lessons.map((lesson) => (
-                  <LessonNavItem
-                    key={lesson.slug}
-                    lesson={lesson}
-                    active={pathname === `/playground/${lesson.slug}`}
-                    completed={
-                      progress.lessons[lesson.slug]?.completed ?? false
-                    }
-                    locked={!isLessonUnlocked(lesson.requiredLevel)}
-                  />
+                {track.sections.map((section) => (
+                  <div key={section.section} className="mb-2">
+                    <div className="px-2 py-1 text-xs font-semibold text-muted uppercase tracking-wide">
+                      {section.sectionTitle}
+                    </div>
+                    {section.lessons.map((lesson) => (
+                      <LessonNavItem
+                        key={lesson.slug}
+                        lesson={lesson}
+                        active={pathname === `/playground/${lesson.slug}`}
+                        completed={
+                          progress.lessons[lesson.slug]?.completed ?? false
+                        }
+                        locked={
+                          !isLessonUnlocked(
+                            lesson.requiredLevel,
+                            playgroundPreviousLessons.get(lesson.slug)
+                          )
+                        }
+                      />
+                    ))}
+                  </div>
                 ))}
               </div>
             ))}
@@ -113,7 +158,7 @@ export function Sidebar({ playgroundLessons, ideLessons }: SidebarProps) {
           href="/ide-projects"
           active={ideActive}
           open={ideOpen}
-          onToggle={() => setIdeOpen(!ideOpen)}
+          onToggle={() => setIdeOpen((open) => !open)}
         />
         {ideOpen && (
           <div className="ml-3 border-l border-border pl-2 space-y-0.5">
@@ -130,7 +175,12 @@ export function Sidebar({ playgroundLessons, ideLessons }: SidebarProps) {
                     completed={
                       progress.lessons[lesson.slug]?.completed ?? false
                     }
-                    locked={!isLessonUnlocked(lesson.requiredLevel)}
+                    locked={
+                      !isLessonUnlocked(
+                        lesson.requiredLevel,
+                        idePreviousLessons.get(lesson.slug)
+                      )
+                    }
                   />
                 ))}
               </div>

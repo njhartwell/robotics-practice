@@ -1,0 +1,14 @@
+{
+  "id": "21-problem-solving/ex-04",
+  "lessonSlug": "21-problem-solving",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Pair Sum",
+  "instructions": "Write a function called `hasPairWithSum` that takes a `List<Int>` called `numbers` and an `Int` called `target`. It should return `true` if any two different elements in the list add up to the target.\n\nFor example, `hasPairWithSum(listOf(1, 3, 5, 7), 8)` should return `true` because 1 + 7 = 8.",
+  "hint": "Use two nested loops. The outer loop picks the first number (index i). The inner loop picks the second number (index j, starting from i + 1). Check if they add up to the target.",
+  "xpReward": 20,
+  "starterCode": "fun hasPairWithSum(numbers: List<Int>, target: Int): Boolean {\n    // Return true if any two different elements add up to target\n    return false\n}",
+  "solutionCode": "fun hasPairWithSum(numbers: List<Int>, target: Int): Boolean {\n    for (i in 0 until numbers.size) {\n        for (j in i + 1 until numbers.size) {\n            if (numbers[i] + numbers[j] == target) {\n                return true\n            }\n        }\n    }\n    return false\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testPairExists() {\n        Assert.assertTrue(hasPairWithSum(listOf(1, 3, 5, 7), 8))\n    }\n\n    @Test\n    fun testNoPair() {\n        Assert.assertFalse(hasPairWithSum(listOf(1, 2, 3), 10))\n    }\n\n    @Test\n    fun testFirstAndLast() {\n        Assert.assertTrue(hasPairWithSum(listOf(10, 20, 30), 40))\n    }\n\n    @Test\n    fun testSmallList() {\n        Assert.assertFalse(hasPairWithSum(listOf(5), 10))\n    }\n}"
+}

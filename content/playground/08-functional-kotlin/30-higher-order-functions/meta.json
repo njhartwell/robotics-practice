@@ -1,0 +1,14 @@
+{
+  "slug": "30-higher-order-functions",
+  "section": "functional-kotlin",
+  "sectionTitle": "Functional Kotlin",
+  "sectionOrder": 8,
+  "title": "Higher-Order Functions",
+  "description": "Write functions that take or return other functions",
+  "order": 30,
+  "requiredLevel": 6,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["higher-order", "function-parameters", "callbacks"]
+}

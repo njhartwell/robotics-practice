@@ -1,0 +1,14 @@
+{
+  "id": "40-generic-classes/ex-01",
+  "lessonSlug": "40-generic-classes",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Box Class",
+  "instructions": "Complete the generic `Box<T>` class. It should:\n\n1. Have a private property called `item` of type `T` (passed in the constructor).\n2. Have a method called `getValue()` that returns the `item`.\n\nThe tests will create boxes that hold different types to make sure your class works with `Int`, `String`, and `Double`.",
+  "hint": "The class constructor should take `private val item: T`. The `getValue()` method returns `item` and has return type `T`.",
+  "xpReward": 15,
+  "starterCode": "class Box<T>(/* add the item property here */) {\n    // Add a getValue() method that returns the item\n}",
+  "solutionCode": "class Box<T>(private val item: T) {\n    fun getValue(): T {\n        return item\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testIntBox() {\n        val box = Box<Int>(42)\n        Assert.assertEquals(42, box.getValue())\n    }\n\n    @Test\n    fun testStringBox() {\n        val box = Box<String>(\"Tribots\")\n        Assert.assertEquals(\"Tribots\", box.getValue())\n    }\n\n    @Test\n    fun testDoubleBox() {\n        val box = Box<Double>(3.14)\n        Assert.assertEquals(3.14, box.getValue(), 0.001)\n    }\n}"
+}

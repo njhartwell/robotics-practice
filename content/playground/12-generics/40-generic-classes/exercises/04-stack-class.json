@@ -1,0 +1,14 @@
+{
+  "id": "40-generic-classes/ex-04",
+  "lessonSlug": "40-generic-classes",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Generic Stack",
+  "instructions": "Write a generic class called `Stack<T>` that works like a stack of plates -- the last item you add is the first one you remove.\n\nYour class needs:\n1. A `push(item: T)` method that adds an item to the top of the stack.\n2. A `pop(): T` method that removes and returns the top item. If the stack is empty, throw an `IllegalStateException` with the message `\"Stack is empty\"`.\n3. An `isEmpty(): Boolean` method that returns `true` if the stack has no items.\n\nUse a `MutableList<T>` inside the class to store the items.",
+  "hint": "Create a private `val items = mutableListOf<T>()` inside the class. For `push`, use `items.add(item)`. For `pop`, check if empty first, then use `items.removeAt(items.size - 1)`. For `isEmpty`, return `items.isEmpty()`.",
+  "xpReward": 20,
+  "starterCode": "class Stack<T> {\n    // Create a mutable list to store items\n\n    // Add push, pop, and isEmpty methods\n}",
+  "solutionCode": "class Stack<T> {\n    private val items = mutableListOf<T>()\n\n    fun push(item: T) {\n        items.add(item)\n    }\n\n    fun pop(): T {\n        if (items.isEmpty()) {\n            throw IllegalStateException(\"Stack is empty\")\n        }\n        return items.removeAt(items.size - 1)\n    }\n\n    fun isEmpty(): Boolean {\n        return items.isEmpty()\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testPushAndPop() {\n        val stack = Stack<Int>()\n        stack.push(10)\n        stack.push(20)\n        stack.push(30)\n        Assert.assertEquals(30, stack.pop())\n        Assert.assertEquals(20, stack.pop())\n        Assert.assertEquals(10, stack.pop())\n    }\n\n    @Test\n    fun testIsEmpty() {\n        val stack = Stack<String>()\n        Assert.assertTrue(stack.isEmpty())\n        stack.push(\"Tribots\")\n        Assert.assertFalse(stack.isEmpty())\n        stack.pop()\n        Assert.assertTrue(stack.isEmpty())\n    }\n\n    @Test\n    fun testStringStack() {\n        val stack = Stack<String>()\n        stack.push(\"Red\")\n        stack.push(\"Blue\")\n        Assert.assertEquals(\"Blue\", stack.pop())\n        Assert.assertEquals(\"Red\", stack.pop())\n    }\n\n    @Test\n    fun testPopEmptyStackMessage() {\n        val stack = Stack<Int>()\n        try {\n            stack.pop()\n            Assert.fail(\"Should have thrown IllegalStateException\")\n        } catch (e: IllegalStateException) {\n            Assert.assertEquals(\"Stack is empty\", e.message)\n        }\n    }\n}"
+}

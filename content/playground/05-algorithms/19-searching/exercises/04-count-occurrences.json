@@ -1,0 +1,14 @@
+{
+  "id": "19-searching/ex-04",
+  "lessonSlug": "19-searching",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Count Occurrences",
+  "instructions": "Write a function called `countOccurrences` that takes a `List<String>` called `items` and a `String` called `target`. It should return how many times `target` appears in the list.\n\nFor example, `countOccurrences(listOf(\"red\", \"blue\", \"red\"), \"red\")` should return `2`.",
+  "hint": "Use a counter variable starting at 0. Loop through the list. Each time you find the target, add 1 to the counter.",
+  "xpReward": 20,
+  "starterCode": "fun countOccurrences(items: List<String>, target: String): Int {\n    // Count how many times target appears\n    return 0\n}",
+  "solutionCode": "fun countOccurrences(items: List<String>, target: String): Int {\n    var count = 0\n    for (item in items) {\n        if (item == target) {\n            count++\n        }\n    }\n    return count\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testMultipleOccurrences() {\n        Assert.assertEquals(2, countOccurrences(listOf(\"red\", \"blue\", \"red\"), \"red\"))\n    }\n\n    @Test\n    fun testNoOccurrences() {\n        Assert.assertEquals(0, countOccurrences(listOf(\"red\", \"blue\", \"red\"), \"green\"))\n    }\n\n    @Test\n    fun testAllSame() {\n        Assert.assertEquals(3, countOccurrences(listOf(\"blue\", \"blue\", \"blue\"), \"blue\"))\n    }\n\n    @Test\n    fun testEmptyList() {\n        Assert.assertEquals(0, countOccurrences(emptyList(), \"red\"))\n    }\n}"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "19-searching/ex-03",
+  "lessonSlug": "19-searching",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Worst Case for Linear Search",
+  "instructions": "In a linear search, how many elements do you check in the worst case for a list of 100 items?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "1" },
+    { "id": "b", "text": "10" },
+    { "id": "c", "text": "50" },
+    { "id": "d", "text": "100" }
+  ],
+  "correctOptionId": "d",
+  "explanation": "In the worst case, the item you are looking for is the very last element, or it is not in the list at all. Either way, you have to check every single element. For a list of 100 items, that means 100 checks."
+}

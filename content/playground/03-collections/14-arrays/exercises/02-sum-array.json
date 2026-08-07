@@ -1,0 +1,14 @@
+{
+  "id": "14-arrays/ex-02",
+  "lessonSlug": "14-arrays",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Sum an Array",
+  "instructions": "Write a function called `sumArray` that takes an `IntArray` parameter called `numbers` and returns an `Int`.\n\nThe function should return the sum of all elements in the array. If the array is empty, return 0.",
+  "hint": "Create a `var total = 0`, then use a for loop to add each element to `total`. Return `total` at the end.",
+  "xpReward": 20,
+  "starterCode": "fun sumArray(numbers: IntArray): Int {\n    // Return the sum of all elements\n    return 0\n}",
+  "solutionCode": "fun sumArray(numbers: IntArray): Int {\n    var total = 0\n    for (n in numbers) {\n        total += n\n    }\n    return total\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testThreeNumbers() {\n        Assert.assertEquals(60, sumArray(intArrayOf(10, 20, 30)))\n    }\n\n    @Test\n    fun testSingleElement() {\n        Assert.assertEquals(5, sumArray(intArrayOf(5)))\n    }\n\n    @Test\n    fun testEmptyArray() {\n        Assert.assertEquals(0, sumArray(intArrayOf()))\n    }\n}"
+}

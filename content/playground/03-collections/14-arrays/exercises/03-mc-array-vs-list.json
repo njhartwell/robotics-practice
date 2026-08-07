@@ -1,0 +1,17 @@
+{
+  "id": "14-arrays/ex-03",
+  "lessonSlug": "14-arrays",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Arrays vs Lists",
+  "instructions": "Which statement correctly compares an Array with a MutableList in Kotlin?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Arrays can hold any type, lists cannot" },
+    { "id": "b", "text": "Arrays have a fixed size, while MutableLists can grow and shrink" },
+    { "id": "c", "text": "Lists are faster than arrays" },
+    { "id": "d", "text": "There is no difference" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Arrays have a fixed size, so you cannot add or remove elements after creation. MutableList supports adding and removing elements. Kotlin's read-only List interface does not provide those mutation operations."
+}

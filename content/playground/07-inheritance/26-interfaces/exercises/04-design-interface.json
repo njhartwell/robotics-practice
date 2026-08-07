@@ -1,0 +1,14 @@
+{
+  "id": "26-interfaces/ex-04",
+  "lessonSlug": "26-interfaces",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Design a Sensor Interface",
+  "instructions": "Create an interface called `Sensor` with one method:\n- `read()` that returns a `Double`\n\nThen create two classes that implement it:\n\n1. `DistanceSensor` with a `val distance: Double` in its constructor. Its `read()` method returns `distance`.\n\n2. `TemperatureSensor` with a `val temp: Double` in its constructor. Its `read()` method returns `temp`.",
+  "hint": "Define the interface with `interface Sensor { fun read(): Double }`. Then create each class with `: Sensor` and override the `read()` method to return the correct property.",
+  "xpReward": 20,
+  "starterCode": "// Define the Sensor interface here\n\n// Define DistanceSensor and TemperatureSensor here\n",
+  "solutionCode": "interface Sensor {\n    fun read(): Double\n}\n\nclass DistanceSensor(val distance: Double) : Sensor {\n    override fun read(): Double {\n        return distance\n    }\n}\n\nclass TemperatureSensor(val temp: Double) : Sensor {\n    override fun read(): Double {\n        return temp\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDistanceSensor() {\n        val sensor = DistanceSensor(42.5)\n        Assert.assertEquals(42.5, sensor.read(), 0.001)\n    }\n\n    @Test\n    fun testTemperatureSensor() {\n        val sensor = TemperatureSensor(98.6)\n        Assert.assertEquals(98.6, sensor.read(), 0.001)\n    }\n\n    @Test\n    fun testDistanceIsSensor() {\n        val sensor = DistanceSensor(10.0)\n        Assert.assertTrue(sensor is Sensor)\n    }\n\n    @Test\n    fun testTemperatureIsSensor() {\n        val sensor = TemperatureSensor(72.0)\n        Assert.assertTrue(sensor is Sensor)\n    }\n\n    @Test\n    fun testPolymorphicList() {\n        val sensors: List<Sensor> = listOf(DistanceSensor(5.0), TemperatureSensor(100.0))\n        Assert.assertEquals(5.0, sensors[0].read(), 0.001)\n        Assert.assertEquals(100.0, sensors[1].read(), 0.001)\n    }\n}"
+}

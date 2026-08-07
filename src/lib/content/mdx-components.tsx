@@ -1,4 +1,5 @@
 import type { Exercise } from "@/lib/progress/types";
+import { toClientExercise } from "./client-exercise";
 import { Callout } from "@/components/mdx/Callout";
 import { FrcContext } from "@/components/mdx/FrcContext";
 import { Checklist } from "@/components/mdx/Checklist";
@@ -25,7 +26,7 @@ export function buildMdxComponents(exercises: Exercise[]) {
       );
     }
 
-    return <ExerciseInline exercise={exercise} />;
+    return <ExerciseInline exercise={toClientExercise(exercise)} />;
   }
 
   // Hide h1 from MDX since LessonView already renders the lesson title

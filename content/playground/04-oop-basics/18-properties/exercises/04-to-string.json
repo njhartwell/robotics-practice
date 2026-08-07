@@ -1,0 +1,14 @@
+{
+  "id": "18-properties/ex-04",
+  "lessonSlug": "18-properties",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Custom toString",
+  "instructions": "Complete the `toString()` method in the `Motor` class so it returns a string in this exact format:\n\n`Motor(name=Left Drive, speed=0.75)`\n\nUse the `name` and `speed` properties of the class.",
+  "hint": "Use a string template: return \"Motor(name=$name, speed=$speed)\"",
+  "xpReward": 15,
+  "starterCode": "class Motor(val name: String, val speed: Double) {\n    override fun toString(): String {\n        // Return \"Motor(name=..., speed=...)\"\n        return TODO()\n    }\n}",
+  "solutionCode": "class Motor(val name: String, val speed: Double) {\n    override fun toString(): String {\n        return \"Motor(name=$name, speed=$speed)\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testToString() {\n        val motor = Motor(\"Left Drive\", 0.75)\n        Assert.assertEquals(\"Motor(name=Left Drive, speed=0.75)\", motor.toString())\n    }\n\n    @Test\n    fun testToStringZeroSpeed() {\n        val motor = Motor(\"Intake\", 0.0)\n        Assert.assertEquals(\"Motor(name=Intake, speed=0.0)\", motor.toString())\n    }\n\n    @Test\n    fun testPrintUsesToString() {\n        val motor = Motor(\"Shooter\", 1.0)\n        Assert.assertTrue(motor.toString().contains(\"Shooter\"))\n        Assert.assertTrue(motor.toString().contains(\"1.0\"))\n    }\n}"
+}

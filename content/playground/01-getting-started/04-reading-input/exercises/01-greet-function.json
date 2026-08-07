@@ -1,15 +1,14 @@
 {
   "id": "04-reading-input/ex-01",
   "lessonSlug": "04-reading-input",
-  "type": "write-from-scratch",
+  "type": "code-completion",
   "order": 1,
-  "title": "Write a Greeting Function",
-  "instructions": "Write a function called `greet` that takes a `name` parameter of type `String` and returns the string \"Hello, {name}!\" where {name} is replaced with the actual name.\n\nFor example, `greet(\"Alice\")` should return `\"Hello, Alice!\"`.",
-  "hint": "Use string templates: \"Hello, $name!\" and don't forget the return type annotation `: String`.",
+  "title": "Greet a Driver",
+  "instructions": "The `name` variable represents input supplied by the Driver Station. Complete the program so it prints `\"Hello, Alice!\"` using a string template and the `name` variable.",
+  "hint": "Put `$name` inside the greeting string: `println(\"Hello, $name!\")`.",
   "xpReward": 15,
-  "starterCode": "fun greet(name: String): String {\n    // Return a greeting like \"Hello, Alice!\"\n    return \"\"\n}",
-  "solutionCode": "fun greet(name: String): String {\n    return \"Hello, $name!\"\n}",
+  "starterCode": "fun main() {\n    val name = \"Alice\"\n    // Print: Hello, Alice! using the name variable\n}",
+  "solutionCode": "fun main() {\n    val name = \"Alice\"\n    println(\"Hello, $name!\")\n}",
   "validationMode": "output",
-  "expectedOutput": "Hello, Team 4215!\nHello, Team 254!",
-  "hiddenPostamble": "fun main() {\n    println(greet(\"Team 4215\"))\n    println(greet(\"Team 254\"))\n}"
+  "expectedOutput": "Hello, Alice!"
 }

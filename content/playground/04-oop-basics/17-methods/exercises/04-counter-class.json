@@ -1,0 +1,14 @@
+{
+  "id": "17-methods/ex-04",
+  "lessonSlug": "17-methods",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Build a Counter",
+  "instructions": "Write a `Counter` class with:\n\n- A `var count: Int` property that starts at `0`\n- A method `increment()` that increases `count` by 1\n- A method `decrement()` that decreases `count` by 1\n\nRead the current value directly through the `count` property. Kotlin creates the getter for you.\n\nFor example:\n```\nval c = Counter()\nc.increment()\nc.increment()\nc.decrement()\nc.count // returns 1\n```",
+  "hint": "Use count = count + 1 inside increment() and count = count - 1 inside decrement(). The Counter class has no constructor parameters — use class Counter() or class Counter.",
+  "xpReward": 20,
+  "starterCode": "class Counter {\n    // Add a count property starting at 0\n\n    // Add increment and decrement methods\n}",
+  "solutionCode": "class Counter {\n    var count = 0\n\n    fun increment() {\n        count = count + 1\n    }\n\n    fun decrement() {\n        count = count - 1\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testInitialCount() {\n        val counter = Counter()\n        Assert.assertEquals(0, counter.count)\n    }\n\n    @Test\n    fun testIncrement() {\n        val counter = Counter()\n        counter.increment()\n        counter.increment()\n        Assert.assertEquals(2, counter.count)\n    }\n\n    @Test\n    fun testDecrement() {\n        val counter = Counter()\n        counter.increment()\n        counter.increment()\n        counter.decrement()\n        Assert.assertEquals(1, counter.count)\n    }\n\n    @Test\n    fun testDecrementBelowZero() {\n        val counter = Counter()\n        counter.decrement()\n        Assert.assertEquals(-1, counter.count)\n    }\n}"
+}

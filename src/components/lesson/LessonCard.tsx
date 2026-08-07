@@ -8,11 +8,15 @@ import { Lock, CheckCircle, Clock, ChevronRight } from "lucide-react";
 
 interface LessonCardProps {
   lesson: LessonMeta;
+  previousLessonSlug?: string;
 }
 
-export function LessonCard({ lesson }: LessonCardProps) {
+export function LessonCard({ lesson, previousLessonSlug }: LessonCardProps) {
   const { progress, isLessonUnlocked } = useProgress();
-  const unlocked = isLessonUnlocked(lesson.requiredLevel);
+  const unlocked = isLessonUnlocked(
+    lesson.requiredLevel,
+    previousLessonSlug
+  );
   const lessonProgress = progress.lessons[lesson.slug];
   const completed = lessonProgress?.completed ?? false;
 
@@ -29,7 +33,9 @@ export function LessonCard({ lesson }: LessonCardProps) {
           <Lock size={20} className="text-muted flex-shrink-0 mt-1" />
         </div>
         <div className="mt-3 text-xs text-muted">
-          Requires Level {lesson.requiredLevel}
+          {previousLessonSlug
+            ? `Complete the previous lesson or reach Level ${lesson.requiredLevel}`
+            : `Requires Level ${lesson.requiredLevel}`}
         </div>
       </div>
     );

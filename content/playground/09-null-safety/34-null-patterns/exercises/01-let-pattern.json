@@ -1,0 +1,14 @@
+{
+  "id": "34-null-patterns/ex-01",
+  "lessonSlug": "34-null-patterns",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Use the let Pattern",
+  "instructions": "Complete the function `formatReading` that takes a nullable `Double?` parameter called `reading`.\n\nUse `?.let` to return a formatted string like `\"Reading: 42.5\"` when the value is not null. If the value is null, return `\"No reading\"`.\n\nFor example:\n- `formatReading(42.5)` returns `\"Reading: 42.5\"`\n- `formatReading(null)` returns `\"No reading\"`",
+  "hint": "Use `reading?.let { \"Reading: $it\" } ?: \"No reading\"`. The `let` block runs when `reading` is not null, and `?:` provides the default for the null case.",
+  "xpReward": 15,
+  "starterCode": "fun formatReading(reading: Double?): String {\n    // Use ?.let to format the reading\n    // Return \"No reading\" if null\n    return \"\"\n}",
+  "solutionCode": "fun formatReading(reading: Double?): String {\n    return reading?.let { \"Reading: $it\" } ?: \"No reading\"\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithValue() {\n        Assert.assertEquals(\"Reading: 42.5\", formatReading(42.5))\n    }\n\n    @Test\n    fun testWithNull() {\n        Assert.assertEquals(\"No reading\", formatReading(null))\n    }\n\n    @Test\n    fun testWithZero() {\n        Assert.assertEquals(\"Reading: 0.0\", formatReading(0.0))\n    }\n\n    @Test\n    fun testWithNegative() {\n        Assert.assertEquals(\"Reading: -5.3\", formatReading(-5.3))\n    }\n}"
+}

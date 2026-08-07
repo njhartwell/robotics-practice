@@ -1,0 +1,14 @@
+{
+  "id": "29-lambdas/ex-04",
+  "lessonSlug": "29-lambdas",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Apply an Operation",
+  "instructions": "Write a function called `applyOperation` that takes three parameters:\n- `a` of type `Int`\n- `b` of type `Int`\n- `operation` of type `(Int, Int) -> Int`\n\nThe function should return the result of calling `operation` with `a` and `b`.\n\nExamples:\n- `applyOperation(3, 4, { x, y -> x + y })` returns `7`\n- `applyOperation(10, 3, { x, y -> x * y })` returns `30`",
+  "hint": "The function body is one line: return operation(a, b)",
+  "xpReward": 20,
+  "starterCode": "// Write your applyOperation function here\n",
+  "solutionCode": "fun applyOperation(a: Int, b: Int, operation: (Int, Int) -> Int): Int {\n    return operation(a, b)\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testAddition() {\n        Assert.assertEquals(7, applyOperation(3, 4, { x, y -> x + y }))\n    }\n\n    @Test\n    fun testMultiplication() {\n        Assert.assertEquals(30, applyOperation(10, 3, { x, y -> x * y }))\n    }\n\n    @Test\n    fun testSubtraction() {\n        Assert.assertEquals(5, applyOperation(8, 3, { x, y -> x - y }))\n    }\n\n    @Test\n    fun testMax() {\n        Assert.assertEquals(42, applyOperation(42, 17, { x, y -> if (x > y) x else y }))\n    }\n}"
+}

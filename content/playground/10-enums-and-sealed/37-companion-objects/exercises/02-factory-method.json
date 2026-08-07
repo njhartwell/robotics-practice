@@ -1,0 +1,14 @@
+{
+  "id": "37-companion-objects/ex-02",
+  "lessonSlug": "37-companion-objects",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Robot Factory",
+  "instructions": "Write a class called `Robot` with two properties: `val name: String` and `val teamNumber: Int`.\n\nAdd a companion object with two factory methods:\n- `createTribots()` that returns a `Robot` with name `\"Tribots\"` and teamNumber `4215`\n- `createDefault()` that returns a `Robot` with name `\"Unknown\"` and teamNumber `0`\n\nFor example:\n- `Robot.createTribots().name` should be `\"Tribots\"`\n- `Robot.createDefault().teamNumber` should be `0`",
+  "hint": "Define the class with a constructor: `class Robot(val name: String, val teamNumber: Int)`. Inside the class, add `companion object { }` with two functions that each return a new Robot instance.",
+  "xpReward": 20,
+  "starterCode": "// Write your Robot class with a companion object here\n",
+  "solutionCode": "class Robot(val name: String, val teamNumber: Int) {\n    companion object {\n        fun createTribots(): Robot {\n            return Robot(\"Tribots\", 4215)\n        }\n\n        fun createDefault(): Robot {\n            return Robot(\"Unknown\", 0)\n        }\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testCreateTribotsName() {\n        Assert.assertEquals(\"Tribots\", Robot.createTribots().name)\n    }\n\n    @Test\n    fun testCreateTribotsTeam() {\n        Assert.assertEquals(4215, Robot.createTribots().teamNumber)\n    }\n\n    @Test\n    fun testCreateDefaultName() {\n        Assert.assertEquals(\"Unknown\", Robot.createDefault().name)\n    }\n\n    @Test\n    fun testCreateDefaultTeam() {\n        Assert.assertEquals(0, Robot.createDefault().teamNumber)\n    }\n\n    @Test\n    fun testRegularConstructor() {\n        val robot = Robot(\"Test Bot\", 1234)\n        Assert.assertEquals(\"Test Bot\", robot.name)\n        Assert.assertEquals(1234, robot.teamNumber)\n    }\n}"
+}

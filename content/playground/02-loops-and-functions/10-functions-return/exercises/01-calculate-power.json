@@ -1,0 +1,14 @@
+{
+  "id": "10-functions-return/ex-01",
+  "lessonSlug": "10-functions-return",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Clamp Motor Power",
+  "instructions": "Complete the `clampPower` function. It takes a `power` value of type `Double` and returns a `Double`.\n\nThe function should:\n- Return `1.0` if `power` is greater than `1.0`\n- Return `-1.0` if `power` is less than `-1.0`\n- Return `power` unchanged otherwise\n\nThis is how FRC robots keep motor values in a safe range!",
+  "hint": "Use if/else if/else to check the three cases. Return the clamped value in each branch.",
+  "xpReward": 15,
+  "starterCode": "fun clampPower(power: Double): Double {\n    // Clamp power between -1.0 and 1.0\n    return 0.0\n}",
+  "solutionCode": "fun clampPower(power: Double): Double {\n    if (power > 1.0) return 1.0\n    if (power < -1.0) return -1.0\n    return power\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testNormalValue() {\n        Assert.assertEquals(0.5, clampPower(0.5), 0.001)\n    }\n\n    @Test\n    fun testTooHigh() {\n        Assert.assertEquals(1.0, clampPower(1.5), 0.001)\n    }\n\n    @Test\n    fun testTooLow() {\n        Assert.assertEquals(-1.0, clampPower(-2.0), 0.001)\n    }\n\n    @Test\n    fun testBoundary() {\n        Assert.assertEquals(1.0, clampPower(1.0), 0.001)\n    }\n}"
+}

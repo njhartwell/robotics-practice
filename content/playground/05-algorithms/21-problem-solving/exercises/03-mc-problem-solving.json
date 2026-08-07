@@ -1,0 +1,17 @@
+{
+  "id": "21-problem-solving/ex-03",
+  "lessonSlug": "21-problem-solving",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "First Step in Problem Solving",
+  "instructions": "What is the FIRST step when solving a coding problem?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Start typing code immediately" },
+    { "id": "b", "text": "Understand the problem and work through examples by hand" },
+    { "id": "c", "text": "Look up the answer online" },
+    { "id": "d", "text": "Write the most complex solution possible" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Before writing any code, make sure you understand what the problem is asking. Try small examples by hand to see the pattern. This helps you avoid mistakes and find the right approach before you start coding."
+}

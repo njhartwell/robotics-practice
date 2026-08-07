@@ -1,0 +1,14 @@
+{
+  "id": "12-mutable-lists/ex-04",
+  "lessonSlug": "12-mutable-lists",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Build a Sorted Roster",
+  "instructions": "Write a function called `buildRoster` that takes a `List<String>` of names.\n\nThe function should:\n1. Copy the names into a new mutable list\n2. Sort the mutable list (use `.sort()`)\n3. Return the names joined together with \", \" (use `.joinToString(\", \")`)\n\nFor example, `buildRoster(listOf(\"Carlos\", \"Alice\", \"Bob\"))` should return `\"Alice, Bob, Carlos\"`.",
+  "hint": "Create a mutable list with `names.toMutableList()`, call `.sort()` on it, then return `sorted.joinToString(\", \")`.",
+  "xpReward": 20,
+  "starterCode": "fun buildRoster(names: List<String>): String {\n    // Copy to a mutable list, sort, and join with \", \"\n    return \"\"\n}",
+  "solutionCode": "fun buildRoster(names: List<String>): String {\n    val sorted = names.toMutableList()\n    sorted.sort()\n    return sorted.joinToString(\", \")\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSortsAlphabetically() {\n        Assert.assertEquals(\"Alice, Bob, Carlos\", buildRoster(listOf(\"Carlos\", \"Alice\", \"Bob\")))\n    }\n\n    @Test\n    fun testSingleName() {\n        Assert.assertEquals(\"Alice\", buildRoster(listOf(\"Alice\")))\n    }\n\n    @Test\n    fun testAlreadySorted() {\n        Assert.assertEquals(\"Alpha, Beta, Gamma\", buildRoster(listOf(\"Alpha\", \"Beta\", \"Gamma\")))\n    }\n}"
+}

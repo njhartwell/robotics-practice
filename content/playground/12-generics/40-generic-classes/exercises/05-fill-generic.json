@@ -1,0 +1,12 @@
+{
+  "id": "40-generic-classes/ex-05",
+  "lessonSlug": "40-generic-classes",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Angle Brackets",
+  "instructions": "To make a class work with any type, you add a type parameter in special brackets after the class name. What kind of brackets do you use?",
+  "xpReward": 10,
+  "prompt": "To make a class work with any type, add a type parameter in _____ after the class name.",
+  "acceptedAnswers": ["<>", "angle brackets"],
+  "explanation": "You use angle brackets `<>` to declare a type parameter. For example, `class Box<T>` uses angle brackets to hold the type parameter `T`. This tells Kotlin that `T` is a placeholder for a real type that will be provided when an instance is created."
+}

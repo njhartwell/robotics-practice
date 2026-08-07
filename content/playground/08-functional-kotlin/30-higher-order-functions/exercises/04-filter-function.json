@@ -1,0 +1,14 @@
+{
+  "id": "30-higher-order-functions/ex-04",
+  "lessonSlug": "30-higher-order-functions",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Build Your Own Filter",
+  "instructions": "Write a function called `myFilter` that takes two parameters:\n- `items` of type `List<Int>`\n- `predicate` of type `(Int) -> Boolean`\n\nThe function should return a new `List<Int>` containing only the elements where `predicate` returns `true`.\n\nFor example:\n- `myFilter(listOf(1, 2, 3, 4, 5), { it > 3 })` returns `[4, 5]`\n- `myFilter(listOf(10, 15, 20, 25), { it >= 20 })` returns `[20, 25]`",
+  "hint": "Create a mutable list. Loop through items. If predicate(item) is true, add the item to the result list. Return the result.",
+  "xpReward": 20,
+  "starterCode": "// Write your myFilter function here\n",
+  "solutionCode": "fun myFilter(items: List<Int>, predicate: (Int) -> Boolean): List<Int> {\n    val result = mutableListOf<Int>()\n    for (item in items) {\n        if (predicate(item)) {\n            result.add(item)\n        }\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFilterGreaterThan() {\n        Assert.assertEquals(listOf(4, 5), myFilter(listOf(1, 2, 3, 4, 5), { it > 3 }))\n    }\n\n    @Test\n    fun testFilterMinimum() {\n        Assert.assertEquals(listOf(20, 25), myFilter(listOf(10, 15, 20, 25), { it >= 20 }))\n    }\n\n    @Test\n    fun testFilterEven() {\n        Assert.assertEquals(listOf(2, 4, 6), myFilter(listOf(1, 2, 3, 4, 5, 6), { it % 2 == 0 }))\n    }\n\n    @Test\n    fun testFilterNoneMatch() {\n        Assert.assertEquals(emptyList<Int>(), myFilter(listOf(1, 2, 3), { it > 10 }))\n    }\n\n    @Test\n    fun testFilterEmptyList() {\n        Assert.assertEquals(emptyList<Int>(), myFilter(emptyList(), { it > 0 }))\n    }\n}"
+}

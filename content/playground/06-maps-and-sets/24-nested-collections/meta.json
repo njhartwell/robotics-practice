@@ -1,0 +1,14 @@
+{
+  "slug": "24-nested-collections",
+  "section": "maps-and-sets",
+  "sectionTitle": "Maps and Sets",
+  "sectionOrder": 6,
+  "title": "Nested Collections",
+  "description": "Combine lists and maps to organize complex data",
+  "order": 24,
+  "requiredLevel": 4,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["nested", "list-of-lists", "map-of-lists"]
+}

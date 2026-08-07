@@ -1,0 +1,14 @@
+{
+  "id": "20-sorting/ex-01",
+  "lessonSlug": "20-sorting",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Bubble Sort",
+  "instructions": "Complete the `bubbleSort` function. It takes a `MutableList<Int>` and should sort it in ascending order using the bubble sort algorithm.\n\nBubble sort compares adjacent elements and swaps them if they are in the wrong order. Repeat this process until the list is sorted.",
+  "hint": "Use two nested for loops. The outer loop runs `numbers.size` times. The inner loop goes from 0 to `numbers.size - 1 - i`. If `numbers[j] > numbers[j + 1]`, swap them using a temporary variable.",
+  "xpReward": 15,
+  "starterCode": "fun bubbleSort(numbers: MutableList<Int>): List<Int> {\n    // Sort the list using bubble sort\n    // Compare adjacent elements and swap if needed\n    return numbers\n}",
+  "solutionCode": "fun bubbleSort(numbers: MutableList<Int>): List<Int> {\n    for (i in 0 until numbers.size) {\n        for (j in 0 until numbers.size - 1 - i) {\n            if (numbers[j] > numbers[j + 1]) {\n                val temp = numbers[j]\n                numbers[j] = numbers[j + 1]\n                numbers[j + 1] = temp\n            }\n        }\n    }\n    return numbers\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testUnsorted() {\n        Assert.assertEquals(listOf(12, 22, 25, 34, 64), bubbleSort(mutableListOf(64, 34, 25, 12, 22)))\n    }\n\n    @Test\n    fun testAlreadySorted() {\n        Assert.assertEquals(listOf(1, 2, 3), bubbleSort(mutableListOf(1, 2, 3)))\n    }\n\n    @Test\n    fun testReversed() {\n        Assert.assertEquals(listOf(1, 2, 3, 4), bubbleSort(mutableListOf(4, 3, 2, 1)))\n    }\n\n    @Test\n    fun testSingleElement() {\n        Assert.assertEquals(listOf(42), bubbleSort(mutableListOf(42)))\n    }\n}"
+}

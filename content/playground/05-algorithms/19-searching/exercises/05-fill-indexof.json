@@ -1,0 +1,12 @@
+{
+  "id": "19-searching/ex-05",
+  "lessonSlug": "19-searching",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Built-In Search Method",
+  "instructions": "To find the position of an element in a list, use the _____ method.",
+  "xpReward": 10,
+  "prompt": "To find the position of an element in a list, call the _____ method.",
+  "acceptedAnswers": ["indexOf", ".indexOf()", "indexOf()", ".indexOf"],
+  "explanation": "The indexOf() method returns the index of the first occurrence of an element in a list. If the element is not found, it returns -1."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "27-abstract-classes/ex-01",
+  "lessonSlug": "27-abstract-classes",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Game Pieces",
+  "instructions": "Complete the abstract `GamePiece` class and its two subclasses `Cone` and `Cube`.\n\nThe `GamePiece` class has:\n- An abstract property `name: String`\n- An abstract property `points: Int`\n- A regular method `describe()` that returns \"{name} is worth {points} points\"\n\nThe `Cone` class should have name \"Cone\" and points 3.\nThe `Cube` class should have name \"Cube\" and points 4.",
+  "hint": "Use `override val name = \"Cone\"` and `override val points = 3` inside the Cone class. Do the same for Cube with its values.",
+  "xpReward": 15,
+  "starterCode": "abstract class GamePiece {\n    abstract val name: String\n    abstract val points: Int\n\n    fun describe(): String {\n        return \"$name is worth $points points\"\n    }\n}\n\n// Complete the Cone class\nclass Cone : GamePiece() {\n    // Override name and points\n}\n\n// Complete the Cube class\nclass Cube : GamePiece() {\n    // Override name and points\n}",
+  "solutionCode": "abstract class GamePiece {\n    abstract val name: String\n    abstract val points: Int\n\n    fun describe(): String {\n        return \"$name is worth $points points\"\n    }\n}\n\nclass Cone : GamePiece() {\n    override val name = \"Cone\"\n    override val points = 3\n}\n\nclass Cube : GamePiece() {\n    override val name = \"Cube\"\n    override val points = 4\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testConeName() {\n        val cone = Cone()\n        Assert.assertEquals(\"Cone\", cone.name)\n    }\n\n    @Test\n    fun testConePoints() {\n        val cone = Cone()\n        Assert.assertEquals(3, cone.points)\n    }\n\n    @Test\n    fun testConeDescribe() {\n        val cone = Cone()\n        Assert.assertEquals(\"Cone is worth 3 points\", cone.describe())\n    }\n\n    @Test\n    fun testCubeName() {\n        val cube = Cube()\n        Assert.assertEquals(\"Cube\", cube.name)\n    }\n\n    @Test\n    fun testCubePoints() {\n        val cube = Cube()\n        Assert.assertEquals(4, cube.points)\n    }\n\n    @Test\n    fun testCubeDescribe() {\n        val cube = Cube()\n        Assert.assertEquals(\"Cube is worth 4 points\", cube.describe())\n    }\n}"
+}

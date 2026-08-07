@@ -5,7 +5,7 @@ import { java } from "@codemirror/lang-java";
 import { EditorView } from "@codemirror/view";
 import { useMemo } from "react";
 
-const extensions = [
+const baseExtensions = [
   java(),
   EditorView.theme({
     "&": {
@@ -13,11 +13,11 @@ const extensions = [
       fontVariantLigatures: "none",
     },
     ".cm-content": {
-      fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
+      fontFamily: "var(--font-app-mono)",
       fontVariantLigatures: "none",
     },
     ".cm-gutters": {
-      fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
+      fontFamily: "var(--font-app-mono)",
     },
   }),
   EditorView.lineWrapping,
@@ -26,10 +26,28 @@ const extensions = [
 interface CodeEditorProps {
   value: string;
   onChange?: (value: string) => void;
+  onRun?: () => void;
   readOnly?: boolean;
 }
 
-export function CodeEditor({ value, onChange, readOnly }: CodeEditorProps) {
+export function CodeEditor({ value, onChange, onRun, readOnly }: CodeEditorProps) {
+  const extensions = useMemo(
+    () => [
+      ...baseExtensions,
+      EditorView.domEventHandlers({
+        keydown(event) {
+          if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+            event.preventDefault();
+            onRun?.();
+            return true;
+          }
+          return false;
+        },
+      }),
+    ],
+    [onRun]
+  );
+
   return (
     <CodeMirror
       value={value}

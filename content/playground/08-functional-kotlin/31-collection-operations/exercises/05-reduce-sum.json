@@ -1,0 +1,14 @@
+{
+  "id": "31-collection-operations/ex-05",
+  "lessonSlug": "31-collection-operations",
+  "type": "code-completion",
+  "order": 5,
+  "title": "Sum With Reduce",
+  "instructions": "Complete the `totalScore` function. It takes a `List<Int>` of match scores and returns the sum of all scores.\n\nUse the `.reduce` function to add all the numbers together.\n\nFor example, `totalScore(listOf(45, 72, 38))` returns `155`.",
+  "hint": "Use scores.reduce { acc, score -> acc + score } to add up all elements.",
+  "xpReward": 15,
+  "starterCode": "fun totalScore(scores: List<Int>): Int {\n    // Use .reduce to sum all scores\n    return TODO()\n}",
+  "solutionCode": "fun totalScore(scores: List<Int>): Int {\n    return scores.reduce { acc, score -> acc + score }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSumScores() {\n        Assert.assertEquals(155, totalScore(listOf(45, 72, 38)))\n    }\n\n    @Test\n    fun testSingleScore() {\n        Assert.assertEquals(100, totalScore(listOf(100)))\n    }\n\n    @Test\n    fun testTwoScores() {\n        Assert.assertEquals(150, totalScore(listOf(75, 75)))\n    }\n\n    @Test\n    fun testManyScores() {\n        Assert.assertEquals(250, totalScore(listOf(10, 20, 30, 40, 50, 100)))\n    }\n}"
+}

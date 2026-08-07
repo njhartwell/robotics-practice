@@ -1,0 +1,14 @@
+{
+  "id": "19-searching/ex-02",
+  "lessonSlug": "19-searching",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Find the Highest Score",
+  "instructions": "Write a function called `findHighestScore` that takes a `List<Int>` called `scores` and returns the highest score in the list.\n\nAssume the list is never empty.\n\nFor example, `findHighestScore(listOf(45, 72, 38))` should return `72`.",
+  "hint": "Start with the first element as your 'highest so far'. Loop through the rest. If you find something bigger, update your highest.",
+  "xpReward": 20,
+  "starterCode": "fun findHighestScore(scores: List<Int>): Int {\n    // Return the highest score in the list\n    return 0\n}",
+  "solutionCode": "fun findHighestScore(scores: List<Int>): Int {\n    var highest = scores[0]\n    for (score in scores) {\n        if (score > highest) {\n            highest = score\n        }\n    }\n    return highest\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testMultipleScores() {\n        Assert.assertEquals(72, findHighestScore(listOf(45, 72, 38)))\n    }\n\n    @Test\n    fun testSingleScore() {\n        Assert.assertEquals(100, findHighestScore(listOf(100)))\n    }\n\n    @Test\n    fun testAllSame() {\n        Assert.assertEquals(5, findHighestScore(listOf(5, 5, 5)))\n    }\n\n    @Test\n    fun testHighestAtEnd() {\n        Assert.assertEquals(91, findHighestScore(listOf(45, 72, 38, 91)))\n    }\n}"
+}

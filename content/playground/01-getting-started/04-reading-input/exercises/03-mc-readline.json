@@ -3,15 +3,15 @@
   "lessonSlug": "04-reading-input",
   "type": "multiple-choice",
   "order": 3,
-  "title": "Functions vs readLine()",
-  "instructions": "Why do we use function parameters instead of `readLine()` in the playground exercises?",
+  "title": "Simulated Input",
+  "instructions": "Why do these playground exercises use sample values stored in variables instead of `readLine()`?",
   "xpReward": 10,
   "options": [
     { "id": "a", "text": "readLine() doesn't exist in Kotlin" },
-    { "id": "b", "text": "The playground doesn't support interactive console input, and functions are more testable and reusable" },
-    { "id": "c", "text": "Function parameters are slower but more accurate" },
+    { "id": "b", "text": "The playground cannot pause for interactive console input, so variables stand in for incoming values" },
+    { "id": "c", "text": "Variables are slower but more accurate" },
     { "id": "d", "text": "readLine() only works with numbers, not strings" }
   ],
   "correctOptionId": "b",
-  "explanation": "readLine() is a real Kotlin function, but it requires an interactive console. The Kotlin Playground doesn't support that. Using function parameters is actually a better pattern -- it makes code more testable, reusable, and mirrors how real robot code receives sensor data."
+  "explanation": "The playground cannot pause and wait for interactive console input. A sample variable lets you practice processing a value that could later come from a person, sensor, controller, or function parameter."
 }

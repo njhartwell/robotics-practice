@@ -1,0 +1,14 @@
+{
+  "slug": "18-properties",
+  "section": "oop-basics",
+  "sectionTitle": "Object-Oriented Programming",
+  "sectionOrder": 4,
+  "title": "Properties and Data Classes",
+  "description": "Custom getters, setters, and data classes",
+  "order": 18,
+  "requiredLevel": 2,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["oop", "properties", "getters", "data-class", "toString"]
+}

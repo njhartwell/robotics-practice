@@ -1,0 +1,14 @@
+{
+  "id": "20-sorting/ex-04",
+  "lessonSlug": "20-sorting",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Sort Teams by Score",
+  "instructions": "A `Team` data class is already defined with `name: String` and `score: Int` properties.\n\nWrite a function called `sortByScore` that takes a `List<Team>` and returns a new list sorted by score from highest to lowest.",
+  "hint": "Use `.sortedByDescending { it.score }` to sort by the score property in descending order.",
+  "xpReward": 20,
+  "starterCode": "data class Team(val name: String, val score: Int)\n\nfun sortByScore(teams: List<Team>): List<Team> {\n    // Sort teams by score, highest first\n    return teams\n}",
+  "solutionCode": "data class Team(val name: String, val score: Int)\n\nfun sortByScore(teams: List<Team>): List<Team> {\n    return teams.sortedByDescending { it.score }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSortByScore() {\n        val teams = listOf(\n            Team(\"Tribots\", 85),\n            Team(\"Gearheads\", 72),\n            Team(\"RoboWolves\", 91)\n        )\n        val sorted = sortByScore(teams)\n        Assert.assertEquals(\"RoboWolves\", sorted[0].name)\n        Assert.assertEquals(\"Tribots\", sorted[1].name)\n        Assert.assertEquals(\"Gearheads\", sorted[2].name)\n    }\n\n    @Test\n    fun testSingleTeam() {\n        val teams = listOf(Team(\"Tribots\", 85))\n        Assert.assertEquals(1, sortByScore(teams).size)\n    }\n}"
+}

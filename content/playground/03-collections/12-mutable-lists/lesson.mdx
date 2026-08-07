@@ -1,0 +1,118 @@
+# Mutable Lists
+
+In the last lesson you learned about lists created with `listOf()`. Those lists are **immutable** — you cannot change them after they are created. But sometimes you need a list that can grow, shrink, or be rearranged.
+
+Think about an FRC match schedule. Teams get added and removed all the time. You need a list that can change.
+
+## Creating a Mutable List
+
+Use `mutableListOf()` to create a list you can modify:
+
+```kotlin
+fun main() {
+    val roster = mutableListOf("Alice", "Bob", "Carlos")
+    println(roster) // [Alice, Bob, Carlos]
+}
+```
+
+Even though the variable is `val`, the **contents** of the list can still change. The `val` means you cannot point `roster` at a different list, but you can add or remove items inside it.
+
+## Adding Elements
+
+Use `.add()` to put a new element at the end of the list:
+
+```kotlin
+fun main() {
+    val teams = mutableListOf(4215, 1234)
+    teams.add(5678)
+    println(teams) // [4215, 1234, 5678]
+}
+```
+
+You can also insert at a specific position with `.add(index, element)`:
+
+```kotlin
+fun main() {
+    val teams = mutableListOf(4215, 5678)
+    teams.add(1, 1234)  // insert 1234 at index 1
+    println(teams) // [4215, 1234, 5678]
+}
+```
+
+The other elements shift to the right to make room.
+
+## Removing Elements
+
+Remove an element by its value with `.remove()`:
+
+```kotlin
+fun main() {
+    val alliance = mutableListOf("Tribots", "Sparks", "Gearheads")
+    alliance.remove("Sparks")
+    println(alliance) // [Tribots, Gearheads]
+}
+```
+
+Remove an element by its position with `.removeAt()`:
+
+```kotlin
+fun main() {
+    val scores = mutableListOf(42, 58, 91)
+    scores.removeAt(0)  // remove the first element
+    println(scores) // [58, 91]
+}
+```
+
+Be careful with index numbers. If the index does not exist, your program will crash.
+
+## Changing an Element
+
+You can replace an element at a specific position using square brackets:
+
+```kotlin
+fun main() {
+    val motorSpeeds = mutableListOf(0.5, 0.7, 0.3)
+    motorSpeeds[1] = 0.9  // change the second element
+    println(motorSpeeds) // [0.5, 0.9, 0.3]
+}
+```
+
+This is something you cannot do with an immutable list.
+
+## Other Useful Methods
+
+Here are a few more things you can do with mutable lists:
+
+```kotlin
+fun main() {
+    val parts = mutableListOf("wheel", "gear", "motor")
+
+    println(parts.size) // 3
+
+    parts.clear()  // remove ALL elements
+    println(parts) // []
+    println(parts.size) // 0
+}
+```
+
+## When to Use listOf vs mutableListOf
+
+| Use `listOf` when... | Use `mutableListOf` when... |
+|---|---|
+| The data will not change | You need to add or remove items |
+| You want to prevent accidental changes | The list grows as the program runs |
+| You are passing data around safely | You are building a list step by step |
+
+A good rule of thumb: start with `listOf`. Switch to `mutableListOf` when you need to change the contents.
+
+Time to practice!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

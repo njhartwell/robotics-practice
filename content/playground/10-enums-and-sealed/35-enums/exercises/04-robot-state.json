@@ -1,0 +1,14 @@
+{
+  "id": "35-enums/ex-04",
+  "lessonSlug": "35-enums",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Robot State",
+  "instructions": "Write an `enum class RobotState` with three constants: `DISABLED`, `AUTONOMOUS`, and `TELEOP`.\n\nThen write a function called `describe` that takes a `state: RobotState` parameter and returns a `String`:\n- `DISABLED` -> `\"Robot is disabled\"`\n- `AUTONOMOUS` -> `\"Robot is running autonomously\"`\n- `TELEOP` -> `\"Driver is in control\"`",
+  "hint": "Define the enum with the three constants. In the describe function, use a when expression to match each RobotState value and return the correct string.",
+  "xpReward": 20,
+  "starterCode": "// Write your RobotState enum class here\n\n\n// Write your describe function here\n",
+  "solutionCode": "enum class RobotState {\n    DISABLED,\n    AUTONOMOUS,\n    TELEOP\n}\n\nfun describe(state: RobotState): String {\n    return when (state) {\n        RobotState.DISABLED -> \"Robot is disabled\"\n        RobotState.AUTONOMOUS -> \"Robot is running autonomously\"\n        RobotState.TELEOP -> \"Driver is in control\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDisabled() {\n        Assert.assertEquals(\"Robot is disabled\", describe(RobotState.DISABLED))\n    }\n\n    @Test\n    fun testAutonomous() {\n        Assert.assertEquals(\"Robot is running autonomously\", describe(RobotState.AUTONOMOUS))\n    }\n\n    @Test\n    fun testTeleop() {\n        Assert.assertEquals(\"Driver is in control\", describe(RobotState.TELEOP))\n    }\n\n    @Test\n    fun testEnumHasThreeValues() {\n        Assert.assertEquals(3, RobotState.values().size)\n    }\n}"
+}

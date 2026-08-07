@@ -1,0 +1,17 @@
+{
+  "id": "35-enums/ex-03",
+  "lessonSlug": "35-enums",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Why Use Enums?",
+  "instructions": "Why use an enum instead of regular strings to represent values like alliance colors?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Enums make your code run faster than using strings" },
+    { "id": "b", "text": "Enums are type-safe, the compiler catches typos, and when expressions can check that all cases are handled" },
+    { "id": "c", "text": "Strings cannot be used in when expressions" },
+    { "id": "d", "text": "Enums use less memory than strings" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Enums are type-safe. If you misspell a constant name, the compiler catches it right away. When you use a when expression with an enum, the compiler checks that you handle every possible value. With strings, you could easily type \"Rde\" instead of \"Red\" and the compiler would not notice."
+}

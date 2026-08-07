@@ -1,0 +1,190 @@
+# Nested Collections
+
+So far you have worked with lists, maps, and sets that hold simple values like numbers and strings. But collections can also hold **other collections**. This is called **nesting**.
+
+Nested collections let you organize complex data. For example, you might store a list of match scores for each team, or arrange sensor readings into a grid.
+
+## Lists of Lists
+
+A list can hold other lists. This creates a 2D structure, like a grid or table:
+
+```kotlin
+fun main() {
+    val matchSchedule = listOf(
+        listOf(4215, 1234, 5678),   // Match 1 teams
+        listOf(9999, 7777, 4215),   // Match 2 teams
+        listOf(1234, 3333, 9999)    // Match 3 teams
+    )
+
+    println(matchSchedule)
+}
+```
+
+This prints: `[[4215, 1234, 5678], [9999, 7777, 4215], [1234, 3333, 9999]]`
+
+Each inner list represents one match. The outer list holds all the matches together.
+
+## Accessing Nested Elements
+
+Use two sets of square brackets to reach an element inside a nested list. The first bracket picks the outer list, and the second picks the element inside it:
+
+```kotlin
+fun main() {
+    val grid = listOf(
+        listOf(1, 2, 3),
+        listOf(4, 5, 6),
+        listOf(7, 8, 9)
+    )
+
+    println(grid[0])     // [1, 2, 3] — the first row
+    println(grid[1][2])  // 6 — row 1, column 2
+    println(grid[2][0])  // 7 — row 2, column 0
+}
+```
+
+Remember, indexing starts at 0. So `grid[1][2]` means "go to the second row, then get the third element."
+
+## Iterating Over Nested Lists
+
+Use nested `for` loops to go through every element:
+
+```kotlin
+fun main() {
+    val matchSchedule = listOf(
+        listOf(4215, 1234, 5678),
+        listOf(9999, 7777, 4215)
+    )
+
+    for ((index, match) in matchSchedule.withIndex()) {
+        println("Match ${index + 1}: ${match.joinToString(", ")}")
+    }
+}
+```
+
+Output:
+```
+Match 1: 4215, 1234, 5678
+Match 2: 9999, 7777, 4215
+```
+
+You can also loop through the inner lists to process each element:
+
+```kotlin
+fun main() {
+    val scores = listOf(
+        listOf(45, 72, 38),
+        listOf(91, 55, 63)
+    )
+
+    for (matchScores in scores) {
+        var total = 0
+        for (score in matchScores) {
+            total += score
+        }
+        println("Match total: $total")
+    }
+}
+```
+
+Output:
+```
+Match total: 155
+Match total: 209
+```
+
+## Flattening a Nested List
+
+Sometimes you want to combine all the inner lists into one flat list. Use `.flatten()`:
+
+```kotlin
+fun main() {
+    val allScores = listOf(
+        listOf(45, 72),
+        listOf(91, 55),
+        listOf(38, 63)
+    )
+
+    val flat = allScores.flatten()
+    println(flat)  // [45, 72, 91, 55, 38, 63]
+}
+```
+
+This is helpful when you want to calculate a total or average across all matches.
+
+## Maps of Lists
+
+A map can hold lists as its values. This is perfect for storing multiple scores per team:
+
+```kotlin
+fun main() {
+    val teamScores = mapOf(
+        "Tribots" to listOf(45, 72, 38),
+        "RoboCats" to listOf(91, 55, 63),
+        "Iron Eagles" to listOf(50, 48, 77)
+    )
+
+    println(teamScores["Tribots"])  // [45, 72, 38]
+}
+```
+
+Each key maps to a whole list of values. You can loop through this structure to process each team's data:
+
+```kotlin
+fun main() {
+    val teamScores = mapOf(
+        "Tribots" to listOf(45, 72, 38),
+        "RoboCats" to listOf(91, 55, 63)
+    )
+
+    for ((team, scores) in teamScores) {
+        val average = scores.sum().toDouble() / scores.size
+        println("$team average: $average")
+    }
+}
+```
+
+Output:
+```
+Tribots average: 51.666666666666664
+RoboCats average: 69.66666666666667
+```
+
+## Building Nested Structures
+
+You can build nested collections step by step using mutable types:
+
+```kotlin
+fun main() {
+    val teamScores = mutableMapOf<String, MutableList<Int>>()
+
+    // Add scores for Tribots
+    teamScores["Tribots"] = mutableListOf(45, 72)
+    teamScores["Tribots"]?.add(38)
+
+    // Add scores for RoboCats
+    teamScores["RoboCats"] = mutableListOf(91)
+    teamScores["RoboCats"]?.add(55)
+
+    for ((team, scores) in teamScores) {
+        println("$team: $scores")
+    }
+}
+```
+
+Output:
+```
+Tribots: [45, 72, 38]
+RoboCats: [91, 55]
+```
+
+The `?.` is called the **safe call operator**. It means "if this is not null, call the method." This is needed because `teamScores["Tribots"]` could return `null` if the key does not exist.
+
+Nested collections are everywhere in real programs. Match schedules, score histories, sensor grids -- they all use these patterns. You have learned a powerful skill. Keep going!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

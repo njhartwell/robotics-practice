@@ -1,0 +1,17 @@
+{
+  "id": "34-null-patterns/ex-03",
+  "lessonSlug": "34-null-patterns",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Why Avoid !!?",
+  "instructions": "Why should you avoid using `!!` (the not-null assertion operator) in most cases?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "It makes your code run slower" },
+    { "id": "b", "text": "It throws an exception if the value is null, which can crash your program" },
+    { "id": "c", "text": "It converts the value to a different type" },
+    { "id": "d", "text": "It only works with String types" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "The `!!` operator tells Kotlin to skip the null check. If the value turns out to be null, it throws a KotlinNullPointerException and crashes your program. This defeats the purpose of Kotlin's null safety system. Use `?.`, `?:`, or `requireNotNull()` instead for safer null handling."
+}

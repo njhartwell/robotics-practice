@@ -1,0 +1,15 @@
+{
+  "id": "30-higher-order-functions/ex-01",
+  "lessonSlug": "30-higher-order-functions",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Repeat an Action",
+  "instructions": "Complete the `repeatAction` function so that it calls the `action` lambda `times` number of times.\n\nFor example, `repeatAction(3) { print(\"Go! \") }` should print `Go! Go! Go! `.",
+  "hint": "Use a for loop: for (i in 1..times) and call action() inside the loop.",
+  "xpReward": 15,
+  "starterCode": "fun repeatAction(times: Int, action: () -> Unit) {\n    // Call action the given number of times\n}",
+  "solutionCode": "fun repeatAction(times: Int, action: () -> Unit) {\n    for (i in 1..times) {\n        action()\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Honk!\nHonk!\nHonk!\nCharge!\nCharge!",
+  "hiddenPostamble": "fun main() {\n    repeatAction(3) { println(\"Honk!\") }\n    repeatAction(2) { println(\"Charge!\") }\n}"
+}

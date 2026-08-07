@@ -1,0 +1,12 @@
+{
+  "id": "17-methods/ex-05",
+  "lessonSlug": "17-methods",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Calling a Method",
+  "instructions": "To call a method named `stop` on an object called `motor`, you write:",
+  "xpReward": 10,
+  "prompt": "motor._____",
+  "acceptedAnswers": ["stop()", "stop"],
+  "explanation": "You call a method using dot notation: the object name, a dot, then the method name with parentheses. So motor.stop() calls the stop method on the motor object."
+}

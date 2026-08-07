@@ -1,0 +1,110 @@
+# Classes and Objects
+
+So far you have used types that Kotlin provides: `Int`, `String`, `Double`, `Boolean`, and lists. But what if you want to represent something more complex, like a motor or an entire robot? That is where **classes** come in.
+
+## What Is a Class?
+
+A **class** is a blueprint. It describes what something looks like and what information it holds.
+
+Think about your FRC robot. Before you build it, you have a design — a plan that says "the robot has four motors, a name, and a team number." That design is like a class. The actual robot you build from that design is an **object**.
+
+## Defining a Class
+
+You create a class with the `class` keyword:
+
+```kotlin
+class Motor(val name: String, val speed: Double)
+```
+
+This says: "A `Motor` has a `name` (text) and a `speed` (decimal number)."
+
+The values inside the parentheses are called **properties**. They are variables that belong to each object you create.
+
+## Creating an Object
+
+Once you have a class, you can create objects from it. Each object is called an **instance** of the class:
+
+```kotlin
+fun main() {
+    val leftMotor = Motor("Left Drive", 0.75)
+    println(leftMotor.name)
+    println(leftMotor.speed)
+}
+
+class Motor(val name: String, val speed: Double)
+```
+
+Output:
+```
+Left Drive
+0.75
+```
+
+You use the class name followed by parentheses and pass in the values for each property. Then you access properties with a dot: `leftMotor.name`.
+
+## Multiple Instances
+
+You can create as many objects as you need from the same class. Each one is independent:
+
+```kotlin
+fun main() {
+    val motor1 = Motor("Front Left", 0.5)
+    val motor2 = Motor("Front Right", 0.8)
+    val motor3 = Motor("Back Left", 0.5)
+    val motor4 = Motor("Back Right", 0.8)
+
+    println("${motor1.name}: ${motor1.speed}")
+    println("${motor2.name}: ${motor2.speed}")
+}
+
+class Motor(val name: String, val speed: Double)
+```
+
+Team 4215's robot has four drive motors. Each one is its own object, but they all share the same blueprint.
+
+## Classes with More Properties
+
+Classes can hold any number of properties:
+
+```kotlin
+class Team(val number: Int, val name: String, val city: String)
+
+fun main() {
+    val tribots = Team(4215, "Tribots", "Hometown")
+    println("Team ${tribots.number} - ${tribots.name} from ${tribots.city}")
+}
+```
+
+## val vs var Properties
+
+Use `val` for properties that should not change after creation. Use `var` for properties that can be updated:
+
+```kotlin
+class Sensor(val name: String, var reading: Double)
+
+fun main() {
+    val distanceSensor = Sensor("Front Distance", 0.0)
+    println(distanceSensor.reading) // 0.0
+
+    distanceSensor.reading = 42.5
+    println(distanceSensor.reading) // 42.5
+}
+```
+
+The sensor's name stays the same, but its reading changes as the robot moves.
+
+## Why Classes Matter
+
+Classes help you organize your code. Instead of juggling separate variables for a motor's name, speed, and direction, you bundle them into one object. In FRC, your robot code will have classes for drivetrains, arms, shooters, and more.
+
+You are building the skills to write real robot code. Great work!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

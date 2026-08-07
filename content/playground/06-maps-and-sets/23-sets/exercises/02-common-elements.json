@@ -1,0 +1,14 @@
+{
+  "id": "23-sets/ex-02",
+  "lessonSlug": "23-sets",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Common Teams",
+  "instructions": "Write a function called `commonTeams` that takes two parameters: `group1` of type `Set<Int>` and `group2` of type `Set<Int>`.\n\nReturn a `Set<Int>` containing the team numbers that appear in both sets.\n\nFor example:\n- `commonTeams(setOf(4215, 1234, 5678), setOf(5678, 9999, 4215))` returns a set containing `4215` and `5678`.",
+  "hint": "Use the `intersect` operation to find elements that are in both sets: `group1 intersect group2`.",
+  "xpReward": 20,
+  "starterCode": "fun commonTeams(group1: Set<Int>, group2: Set<Int>): Set<Int> {\n    // Return the teams that appear in both sets\n    return emptySet()\n}",
+  "solutionCode": "fun commonTeams(group1: Set<Int>, group2: Set<Int>): Set<Int> {\n    return group1 intersect group2\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testCommonElements() {\n        val result = commonTeams(setOf(4215, 1234, 5678), setOf(5678, 9999, 4215))\n        Assert.assertEquals(2, result.size)\n        Assert.assertTrue(result.contains(4215))\n        Assert.assertTrue(result.contains(5678))\n    }\n\n    @Test\n    fun testNoCommonElements() {\n        val result = commonTeams(setOf(4215, 1234), setOf(5678, 9999))\n        Assert.assertTrue(result.isEmpty())\n    }\n\n    @Test\n    fun testAllCommon() {\n        val result = commonTeams(setOf(4215, 1234), setOf(4215, 1234))\n        Assert.assertEquals(2, result.size)\n    }\n\n    @Test\n    fun testOneEmptySet() {\n        val result = commonTeams(setOf(4215, 1234), emptySet())\n        Assert.assertTrue(result.isEmpty())\n    }\n}"
+}

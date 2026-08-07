@@ -1,0 +1,17 @@
+{
+  "id": "28-polymorphism/ex-03",
+  "lessonSlug": "28-polymorphism",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Is Polymorphism?",
+  "instructions": "What does polymorphism mean in programming?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "A class can only have one method" },
+    { "id": "b", "text": "Treating objects of different types through a common interface or parent type" },
+    { "id": "c", "text": "Making all classes abstract" },
+    { "id": "d", "text": "Using only interfaces instead of classes" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Polymorphism means \"many forms.\" It allows you to write code that works with a parent type or interface, and the correct method runs automatically based on the actual type of each object. This makes code flexible and reusable."
+}

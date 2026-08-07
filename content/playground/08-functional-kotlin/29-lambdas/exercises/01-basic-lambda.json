@@ -1,0 +1,14 @@
+{
+  "id": "29-lambdas/ex-01",
+  "lessonSlug": "29-lambdas",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Double It Lambda",
+  "instructions": "Complete the lambda stored in `double` so that it takes an `Int` and returns that number multiplied by 2.\n\nFor example, `double(5)` should return `10` and `double(0)` should return `0`.",
+  "hint": "Replace TODO() with `it * 2` to multiply the single parameter by 2.",
+  "xpReward": 15,
+  "starterCode": "val double: (Int) -> Int = { TODO() }",
+  "solutionCode": "val double: (Int) -> Int = { it * 2 }",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDoubleFive() {\n        Assert.assertEquals(10, double(5))\n    }\n\n    @Test\n    fun testDoubleZero() {\n        Assert.assertEquals(0, double(0))\n    }\n\n    @Test\n    fun testDoubleNegative() {\n        Assert.assertEquals(-6, double(-3))\n    }\n}"
+}

@@ -7,8 +7,7 @@ import { LEVELS } from "@/lib/gamification/levels";
 export function XpBar() {
   const { progress } = useProgress();
   const { totalXp, currentLevel } = progress.profile;
-  const { currentLevelXp, nextLevelXp, progress: levelProgress } =
-    getXpToNextLevel(totalXp);
+  const { progress: levelProgress } = getXpToNextLevel(totalXp);
   const levelDef = LEVELS[currentLevel];
 
   return (

@@ -1,0 +1,125 @@
+# Functions: The Basics
+
+Think about how a robot works. It has commands like "drive forward", "raise the arm", or "shoot the ball". Each command has a name, and when you call that name, the robot does something. Functions in Kotlin work the same way. You give a block of code a name, and then you can run that code whenever you want by calling the name.
+
+## Your First Function
+
+```kotlin
+fun sayGo() {
+    println("Go Tribots!")
+}
+
+fun main() {
+    sayGo()
+    sayGo()
+}
+```
+
+This prints:
+
+```
+Go Tribots!
+Go Tribots!
+```
+
+The keyword `fun` tells Kotlin you are creating a function. After `fun`, you write the function's name. Then you add parentheses `()` and curly braces `{}`. The code inside the curly braces runs every time you call the function.
+
+We wrote `sayGo()` twice inside `main()`, so the message printed twice. That is the power of functions — write the code once, use it as many times as you want.
+
+## Parameters: Passing Information In
+
+What if you want to change the message? You can give a function a **parameter** — a piece of information it needs to do its job.
+
+```kotlin
+fun greetTeam(teamName: String) {
+    println("Hello, $teamName!")
+}
+
+fun main() {
+    greetTeam("Tribots")
+    greetTeam("Wildcats")
+}
+```
+
+Output:
+
+```
+Hello, Tribots!
+Hello, Wildcats!
+```
+
+Inside the parentheses, `teamName: String` says "this function needs a `String` value, and we will call it `teamName` inside the function." When you call the function, you pass in a value like `"Tribots"`. That value gets stored in `teamName`.
+
+The name before the colon is the **parameter name**. The word after the colon is the **type**. You have seen types before: `String`, `Int`, `Double`, `Boolean`.
+
+## Multiple Parameters
+
+Functions can take more than one parameter. Separate them with commas.
+
+```kotlin
+fun reportScore(teamNumber: Int, score: Int) {
+    println("Team $teamNumber scored $score points!")
+}
+
+fun main() {
+    reportScore(4215, 87)
+    reportScore(1234, 62)
+}
+```
+
+Output:
+
+```
+Team 4215 scored 87 points!
+Team 1234 scored 62 points!
+```
+
+When calling a function with multiple parameters, the order matters. The first value goes to the first parameter, the second value goes to the second parameter, and so on.
+
+## Functions That Do Something (Unit)
+
+All the functions above print something but do not give back a value. In Kotlin, these functions have a return type called `Unit`. You do not need to write it — Kotlin figures it out for you.
+
+```kotlin
+fun printCountdown(start: Int) {
+    var count = start
+    while (count > 0) {
+        println(count)
+        count--
+    }
+    println("Go!")
+}
+
+fun main() {
+    printCountdown(3)
+}
+```
+
+Output:
+
+```
+3
+2
+1
+Go!
+```
+
+This function does useful work (printing a countdown), but it does not return a value to the code that called it. Most of the functions you write at first will be like this.
+
+## Why Functions Matter
+
+Imagine you are writing code for your robot. Without functions, you would copy and paste the same code every time you need it. If you find a bug, you have to fix it in every copy. With functions, you write the code once and call it wherever you need it. Fix a bug in the function, and it is fixed everywhere.
+
+Functions also make your code easier to read. Instead of 20 lines of motor-control code, you see `driveForward(0.5)` — and you know exactly what it does.
+
+In FRC robot code, functions are everywhere. Commands like `autonomousInit()`, `teleopPeriodic()`, and `robotInit()` are all functions that the robot framework calls at the right time.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

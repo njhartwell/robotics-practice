@@ -1,0 +1,14 @@
+{
+  "id": "31-collection-operations/ex-01",
+  "lessonSlug": "31-collection-operations",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Double Every Score",
+  "instructions": "Complete the `doubleScores` function. It takes a `List<Int>` of match scores and returns a new `List<Int>` where every score is doubled.\n\nUse the `.map` function to transform the list.\n\nFor example, `doubleScores(listOf(45, 72, 38))` returns `[90, 144, 76]`.",
+  "hint": "Use scores.map { it * 2 } to double each element.",
+  "xpReward": 15,
+  "starterCode": "fun doubleScores(scores: List<Int>): List<Int> {\n    // Use .map to double each score\n    return TODO()\n}",
+  "solutionCode": "fun doubleScores(scores: List<Int>): List<Int> {\n    return scores.map { it * 2 }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDoubleScores() {\n        Assert.assertEquals(listOf(90, 144, 76), doubleScores(listOf(45, 72, 38)))\n    }\n\n    @Test\n    fun testDoubleEmpty() {\n        Assert.assertEquals(emptyList<Int>(), doubleScores(emptyList()))\n    }\n\n    @Test\n    fun testDoubleSingle() {\n        Assert.assertEquals(listOf(200), doubleScores(listOf(100)))\n    }\n\n    @Test\n    fun testDoubleWithZero() {\n        Assert.assertEquals(listOf(0, 20, 40), doubleScores(listOf(0, 10, 20)))\n    }\n}"
+}

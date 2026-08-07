@@ -1,0 +1,14 @@
+{
+  "id": "12-mutable-lists/ex-02",
+  "lessonSlug": "12-mutable-lists",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Remove a Team",
+  "instructions": "Write a function called `removeTeam` that takes a `MutableList<Int>` called `teams` and an `Int` called `team`.\n\nThe function should remove the given team number from the list and return the modified list.\n\nFor example, `removeTeam(mutableListOf(4215, 1234, 5678), 1234)` should return a list containing `[4215, 5678]`.",
+  "hint": "Call `teams.remove(team)` to remove the value, then return `teams`.",
+  "xpReward": 20,
+  "starterCode": "fun removeTeam(teams: MutableList<Int>, team: Int): List<Int> {\n    // Remove the team from the list and return it\n    return teams\n}",
+  "solutionCode": "fun removeTeam(teams: MutableList<Int>, team: Int): List<Int> {\n    teams.remove(team)\n    return teams\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testRemoveMiddle() {\n        val result = removeTeam(mutableListOf(4215, 1234, 5678), 1234)\n        Assert.assertEquals(listOf(4215, 5678), result)\n    }\n\n    @Test\n    fun testRemoveFirst() {\n        val result = removeTeam(mutableListOf(4215, 1234), 4215)\n        Assert.assertEquals(listOf(1234), result)\n    }\n\n    @Test\n    fun testSizeDecreases() {\n        val result = removeTeam(mutableListOf(100, 200, 300), 200)\n        Assert.assertEquals(2, result.size)\n    }\n}"
+}

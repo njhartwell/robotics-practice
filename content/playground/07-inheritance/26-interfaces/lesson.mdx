@@ -1,0 +1,164 @@
+# Interfaces
+
+In the last lesson, you learned how a child class can inherit from a parent class. But a class can only have one parent. What if you want a class to follow multiple sets of rules? That is where **interfaces** come in.
+
+## What Is an Interface?
+
+An **interface** is a contract. It says: "Any class that uses me must have these methods." It defines what a class should be able to do, without saying how to do it.
+
+Think about your FRC robot. Many different parts of the robot can be enabled and disabled. Motors, sensors, and LED lights all share that ability. An interface lets you say "anything that is controllable must have `enable()` and `disable()` methods."
+
+## Defining an Interface
+
+Use the `interface` keyword to create one:
+
+```kotlin
+interface Controllable {
+    fun enable()
+    fun disable()
+}
+```
+
+Notice there are no curly braces `{}` after the methods. The interface does not include the code for these methods. It only says they must exist.
+
+## Implementing an Interface
+
+A class uses an interface by **implementing** it. Use a colon `:` followed by the interface name:
+
+```kotlin
+interface Controllable {
+    fun enable()
+    fun disable()
+}
+
+class Motor(val name: String) : Controllable {
+    var isRunning = false
+
+    override fun enable() {
+        isRunning = true
+        println("$name motor enabled")
+    }
+
+    override fun disable() {
+        isRunning = false
+        println("$name motor disabled")
+    }
+}
+
+fun main() {
+    val motor = Motor("Left Drive")
+    motor.enable()
+    motor.disable()
+}
+```
+
+Output:
+```
+Left Drive motor enabled
+Left Drive motor disabled
+```
+
+The `Motor` class promises to follow the `Controllable` contract. It must provide code for both `enable()` and `disable()`. If you forget one, Kotlin will give you an error.
+
+## Multiple Interfaces
+
+A class can implement as many interfaces as it needs. This is one of the biggest differences between interfaces and regular classes. A class can only extend one parent class, but it can implement many interfaces.
+
+Separate multiple interfaces with commas:
+
+```kotlin
+interface Controllable {
+    fun enable()
+    fun disable()
+}
+
+interface Reportable {
+    fun report(): String
+}
+
+class Sensor(val name: String) : Controllable, Reportable {
+    var isActive = false
+    var reading = 0.0
+
+    override fun enable() {
+        isActive = true
+    }
+
+    override fun disable() {
+        isActive = false
+    }
+
+    override fun report(): String {
+        return "$name: $reading"
+    }
+}
+
+fun main() {
+    val sensor = Sensor("Distance")
+    sensor.enable()
+    sensor.reading = 42.5
+    println(sensor.report())
+}
+```
+
+Output:
+```
+Distance: 42.5
+```
+
+The `Sensor` class follows both contracts. It can be controlled and it can report its status.
+
+## Default Implementations
+
+Interfaces can include **default implementations** for their methods. This means the interface provides code that classes can use if they do not want to write their own:
+
+```kotlin
+interface Loggable {
+    val logTag: String
+
+    fun log(message: String) {
+        println("[$logTag] $message")
+    }
+}
+
+class Intake(override val logTag: String) : Loggable
+
+fun main() {
+    val intake = Intake("Intake")
+    intake.log("Game piece collected!")
+}
+```
+
+Output:
+```
+[Intake] Game piece collected!
+```
+
+The `Intake` class did not need to write its own `log()` method because `Loggable` already provided one. But it still must provide the `logTag` property because that has no default.
+
+## Interfaces vs Classes
+
+Here is a quick comparison:
+
+| Feature | Class | Interface |
+|---|---|---|
+| Can have properties with values | Yes | Only abstract or with getters |
+| Can have constructors | Yes | No |
+| Can have method bodies | Yes | Yes (default implementations) |
+| A class can extend/implement | One class | Many interfaces |
+
+Use a class when you want to share actual code and data. Use an interface when you want to define a contract that different classes can follow in their own way.
+
+## Why Interfaces Matter in FRC
+
+In FRC programming, interfaces help you write flexible code. For example, you might have a `Controllable` interface that both your drivetrain and your arm implement. Then you can write one function that enables any controllable subsystem, without caring which specific type it is.
+
+You are learning powerful tools for organizing code. Keep it up!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

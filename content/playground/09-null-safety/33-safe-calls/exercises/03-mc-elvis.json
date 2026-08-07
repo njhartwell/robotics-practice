@@ -1,0 +1,17 @@
+{
+  "id": "33-safe-calls/ex-03",
+  "lessonSlug": "33-safe-calls",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Does the Elvis Operator Do?",
+  "instructions": "What does the `?:` (Elvis) operator do in Kotlin?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "It throws an exception if the value is null" },
+    { "id": "b", "text": "It converts a nullable type to a non-nullable type" },
+    { "id": "c", "text": "It provides a default value when the left side is null" },
+    { "id": "d", "text": "It checks if two values are equal" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "The Elvis operator `?:` provides a default value when the expression on the left side is null. For example, `name ?: \"Unknown\"` returns the name if it is not null, or \"Unknown\" if it is null."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "11-lists/ex-04",
+  "lessonSlug": "11-lists",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Is the Team Present?",
+  "instructions": "Write a function called `isTeamPresent` that takes two parameters: `teams` of type `List<Int>` and `teamNumber` of type `Int`. Return `true` if the team number is in the list, or `false` if it is not.\n\nFor example, `isTeamPresent(listOf(4215, 1234), 4215)` should return `true`.",
+  "hint": "You can use the `in` operator: `teamNumber in teams`. Or use `teams.contains(teamNumber)`.",
+  "xpReward": 20,
+  "starterCode": "fun isTeamPresent(teams: List<Int>, teamNumber: Int): Boolean {\n    // Return true if teamNumber is in the list\n    return false\n}",
+  "solutionCode": "fun isTeamPresent(teams: List<Int>, teamNumber: Int): Boolean {\n    return teamNumber in teams\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testTeamFound() {\n        val teams = listOf(4215, 1234, 5678)\n        Assert.assertTrue(isTeamPresent(teams, 4215))\n    }\n\n    @Test\n    fun testTeamNotFound() {\n        val teams = listOf(4215, 1234, 5678)\n        Assert.assertFalse(isTeamPresent(teams, 9999))\n    }\n\n    @Test\n    fun testMiddleElement() {\n        val teams = listOf(4215, 1234, 5678)\n        Assert.assertTrue(isTeamPresent(teams, 1234))\n    }\n\n    @Test\n    fun testEmptyList() {\n        val teams = listOf<Int>()\n        Assert.assertFalse(isTeamPresent(teams, 4215))\n    }\n}"
+}

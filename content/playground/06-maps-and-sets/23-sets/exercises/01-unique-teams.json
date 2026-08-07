@@ -1,0 +1,14 @@
+{
+  "id": "23-sets/ex-01",
+  "lessonSlug": "23-sets",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Unique Alliance Partners",
+  "instructions": "Complete the `uniquePartners` function. It takes a `List<Int>` of team numbers that may contain duplicates. Convert the list to a set to remove duplicates, then return the set.\n\nFor example, `uniquePartners(listOf(4215, 1234, 4215, 5678))` should return a set containing `4215, 1234, 5678`.",
+  "hint": "Use `.toSet()` on the list to convert it to a set with no duplicates.",
+  "xpReward": 15,
+  "starterCode": "fun uniquePartners(teams: List<Int>): Set<Int> {\n    // Convert the list to a set to remove duplicates\n    return emptySet()\n}",
+  "solutionCode": "fun uniquePartners(teams: List<Int>): Set<Int> {\n    return teams.toSet()\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testRemovesDuplicates() {\n        val result = uniquePartners(listOf(4215, 1234, 4215, 5678))\n        Assert.assertEquals(3, result.size)\n        Assert.assertTrue(result.contains(4215))\n        Assert.assertTrue(result.contains(1234))\n        Assert.assertTrue(result.contains(5678))\n    }\n\n    @Test\n    fun testNoDuplicates() {\n        val result = uniquePartners(listOf(4215, 1234, 5678))\n        Assert.assertEquals(3, result.size)\n    }\n\n    @Test\n    fun testAllDuplicates() {\n        val result = uniquePartners(listOf(4215, 4215, 4215))\n        Assert.assertEquals(1, result.size)\n        Assert.assertTrue(result.contains(4215))\n    }\n\n    @Test\n    fun testEmptyList() {\n        val result = uniquePartners(listOf())\n        Assert.assertTrue(result.isEmpty())\n    }\n}"
+}

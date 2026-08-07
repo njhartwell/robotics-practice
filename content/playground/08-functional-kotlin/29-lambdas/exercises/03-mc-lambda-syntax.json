@@ -1,0 +1,17 @@
+{
+  "id": "29-lambdas/ex-03",
+  "lessonSlug": "29-lambdas",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Does `it` Mean?",
+  "instructions": "What does `it` refer to inside a lambda with a single parameter?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The lambda itself" },
+    { "id": "b", "text": "The single parameter of the lambda" },
+    { "id": "c", "text": "The return value of the lambda" },
+    { "id": "d", "text": "The variable the lambda is stored in" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "When a lambda has exactly one parameter, Kotlin lets you skip naming it and instead refer to it as `it`. So `{ x -> x * 2 }` can be shortened to `{ it * 2 }`. The name `it` is an automatic shorthand for the single parameter."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "14-arrays/ex-04",
+  "lessonSlug": "14-arrays",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Find the Highest Score",
+  "instructions": "Write a function called `findMax` that takes an `IntArray` parameter called `scores` and returns an `Int`.\n\nThe function should return the largest value in the array. You can assume the array always has at least one element.\n\nFor example, `findMax(intArrayOf(45, 72, 38, 91, 55))` should return `91`.",
+  "hint": "Start by setting a variable `max` to the first element (`scores[0]`). Then loop through the rest. If an element is bigger than `max`, update `max`.",
+  "xpReward": 20,
+  "starterCode": "fun findMax(scores: IntArray): Int {\n    // Return the largest value in the array\n    return 0\n}",
+  "solutionCode": "fun findMax(scores: IntArray): Int {\n    var max = scores[0]\n    for (score in scores) {\n        if (score > max) {\n            max = score\n        }\n    }\n    return max\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testMultipleScores() {\n        Assert.assertEquals(91, findMax(intArrayOf(45, 72, 38, 91, 55)))\n    }\n\n    @Test\n    fun testSingleElement() {\n        Assert.assertEquals(10, findMax(intArrayOf(10)))\n    }\n\n    @Test\n    fun testAllSame() {\n        Assert.assertEquals(5, findMax(intArrayOf(5, 5, 5)))\n    }\n}"
+}

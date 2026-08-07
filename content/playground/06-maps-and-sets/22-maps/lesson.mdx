@@ -1,0 +1,186 @@
+# Maps
+
+Lists are great when you have an ordered collection of items. But what if you want to look something up by a label? For example, you might want to look up a team's name using their team number. That is where **maps** come in.
+
+A **map** stores data as **key-value pairs**. Each key is connected to one value. Think of it like a phone book: the name (key) leads you to the phone number (value).
+
+## Creating a Map
+
+Use `mapOf()` to create a map:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(
+        4215 to "Tribots",
+        1234 to "RoboCats",
+        5678 to "Iron Eagles"
+    )
+    println(teamNames)
+}
+```
+
+This prints: `{4215=Tribots, 1234=RoboCats, 5678=Iron Eagles}`
+
+The `to` keyword connects each key to its value. In this example, the team numbers are the keys and the team names are the values.
+
+## Accessing Values
+
+Use square brackets `[]` with a key to get its value:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(
+        4215 to "Tribots",
+        1234 to "RoboCats",
+        5678 to "Iron Eagles"
+    )
+    println(teamNames[4215])  // Tribots
+    println(teamNames[1234])  // RoboCats
+}
+```
+
+If you use a key that does not exist, `[]` returns `null` (a special value meaning "nothing"):
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(4215 to "Tribots")
+    println(teamNames[9999])  // null
+}
+```
+
+If you want your program to crash with a clear error instead of getting `null`, use `.getValue()`:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(4215 to "Tribots")
+    println(teamNames.getValue(4215))  // Tribots
+    // teamNames.getValue(9999) would crash with an error
+}
+```
+
+Use `[]` when you are not sure the key exists. Use `.getValue()` when you are certain the key is there and want an error if it is missing.
+
+## Checking for Keys
+
+Use `.containsKey()` to check if a key exists before looking it up:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(
+        4215 to "Tribots",
+        1234 to "RoboCats"
+    )
+
+    if (teamNames.containsKey(4215)) {
+        println("Found: ${teamNames[4215]}")
+    }
+
+    if (!teamNames.containsKey(9999)) {
+        println("Team 9999 is not in our map")
+    }
+}
+```
+
+This is a safe way to avoid `null` surprises.
+
+## Getting All Keys and Values
+
+You can get all the keys or all the values from a map:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(
+        4215 to "Tribots",
+        1234 to "RoboCats",
+        5678 to "Iron Eagles"
+    )
+
+    println(teamNames.keys)    // [4215, 1234, 5678]
+    println(teamNames.values)  // [Tribots, RoboCats, Iron Eagles]
+}
+```
+
+`.keys` gives you a collection of every key. `.values` gives you a collection of every value. These are helpful when you need to work with one side of the map.
+
+## Iterating Over a Map
+
+Use a `for` loop to go through every entry in a map. Each entry has a `key` and a `value`:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(
+        4215 to "Tribots",
+        1234 to "RoboCats",
+        5678 to "Iron Eagles"
+    )
+
+    for ((number, name) in teamNames) {
+        println("Team $number is called $name")
+    }
+}
+```
+
+Output:
+```
+Team 4215 is called Tribots
+Team 1234 is called RoboCats
+Team 5678 is called Iron Eagles
+```
+
+The `(number, name)` part is called **destructuring**. It pulls the key into one variable and the value into another. You can name these variables anything you want.
+
+## Map Size
+
+Like lists, maps have a `.size` property:
+
+```kotlin
+fun main() {
+    val teamNames = mapOf(
+        4215 to "Tribots",
+        1234 to "RoboCats"
+    )
+    println(teamNames.size)  // 2
+}
+```
+
+## Mutable Maps
+
+Maps created with `mapOf()` are **immutable** -- you cannot change them. To create a map you can modify, use `mutableMapOf()`:
+
+```kotlin
+fun main() {
+    val scores = mutableMapOf(
+        "Tribots" to 45,
+        "RoboCats" to 72
+    )
+
+    scores["Iron Eagles"] = 38  // Add a new entry
+    scores["Tribots"] = 50      // Update an existing value
+
+    println(scores)
+}
+```
+
+This prints: `{Tribots=50, RoboCats=72, Iron Eagles=38}`
+
+You can also remove entries with `.remove()`:
+
+```kotlin
+fun main() {
+    val scores = mutableMapOf("Tribots" to 45, "RoboCats" to 72)
+    scores.remove("RoboCats")
+    println(scores)  // {Tribots=45}
+}
+```
+
+Maps are one of the most powerful tools in programming. Anytime you need to look up a value based on a label or ID, a map is the right choice. You are doing great -- time to practice!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

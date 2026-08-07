@@ -1,0 +1,17 @@
+{
+  "id": "38-try-catch/ex-03",
+  "lessonSlug": "38-try-catch",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Uncaught Exceptions",
+  "instructions": "What happens if an exception is thrown and there is no try-catch block to handle it?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The exception is ignored and the program continues normally" },
+    { "id": "b", "text": "The program crashes and stops running" },
+    { "id": "c", "text": "Kotlin automatically fixes the error and retries" },
+    { "id": "d", "text": "The program skips the line that caused the error and moves on" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "If an exception is thrown and no try-catch block handles it, the program crashes. This is why error handling matters -- especially on an FRC robot, where a crash during a match means your robot stops responding."
+}

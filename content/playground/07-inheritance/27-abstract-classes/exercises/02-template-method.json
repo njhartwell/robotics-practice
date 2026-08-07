@@ -1,0 +1,14 @@
+{
+  "id": "27-abstract-classes/ex-02",
+  "lessonSlug": "27-abstract-classes",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Autonomous Routine",
+  "instructions": "Write an abstract class called `AutoRoutine` with:\n- A regular method `run()` that calls `drivePhase()` then `actionPhase()` in order\n- An abstract method `drivePhase()` (no parameters, returns nothing)\n- An abstract method `actionPhase()` (no parameters, returns nothing)\n\nThen write a class called `ScoreAuto` that extends `AutoRoutine`:\n- `drivePhase()` prints \"Driving to scoring zone\"\n- `actionPhase()` prints \"Scoring game piece\"\n\nThe `AutoRoutine` class is the template. `ScoreAuto` fills in the steps.",
+  "hint": "Define `abstract fun drivePhase()` and `abstract fun actionPhase()` in AutoRoutine. The `run()` method calls both in order. ScoreAuto overrides each with a println.",
+  "xpReward": 20,
+  "starterCode": "// Write your AutoRoutine abstract class and ScoreAuto class here\n",
+  "solutionCode": "abstract class AutoRoutine {\n    fun run() {\n        drivePhase()\n        actionPhase()\n    }\n\n    abstract fun drivePhase()\n    abstract fun actionPhase()\n}\n\nclass ScoreAuto : AutoRoutine() {\n    override fun drivePhase() {\n        println(\"Driving to scoring zone\")\n    }\n\n    override fun actionPhase() {\n        println(\"Scoring game piece\")\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDrivePhase() {\n        val auto = ScoreAuto()\n        val output = captureOutput { auto.drivePhase() }\n        Assert.assertEquals(\"Driving to scoring zone\", output.trim())\n    }\n\n    @Test\n    fun testActionPhase() {\n        val auto = ScoreAuto()\n        val output = captureOutput { auto.actionPhase() }\n        Assert.assertEquals(\"Scoring game piece\", output.trim())\n    }\n\n    @Test\n    fun testRunCallsBothInOrder() {\n        val auto = ScoreAuto()\n        val output = captureOutput { auto.run() }\n        val lines = output.trim().split(\"\\n\")\n        Assert.assertEquals(2, lines.size)\n        Assert.assertEquals(\"Driving to scoring zone\", lines[0])\n        Assert.assertEquals(\"Scoring game piece\", lines[1])\n    }\n\n    @Test\n    fun testIsAutoRoutine() {\n        val auto = ScoreAuto()\n        Assert.assertTrue(auto is AutoRoutine)\n    }\n}\n\nfun captureOutput(block: () -> Unit): String {\n    val stream = java.io.ByteArrayOutputStream()\n    val ps = java.io.PrintStream(stream)\n    val old = System.out\n    System.setOut(ps)\n    block()\n    System.setOut(old)\n    return stream.toString()\n}"
+}

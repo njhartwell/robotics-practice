@@ -3,12 +3,12 @@
   "section": "getting-started",
   "sectionTitle": "Getting Started",
   "sectionOrder": 1,
-  "title": "Reading Input",
-  "description": "Learn how programs receive and process input data",
+  "title": "Working with Input Values",
+  "description": "Practice using values supplied by people, sensors, and controllers",
   "order": 4,
   "requiredLevel": 0,
   "xpReward": 50,
   "estimatedMinutes": 10,
   "exerciseCount": 4,
-  "tags": ["basics", "input", "functions"]
+  "tags": ["basics", "input", "variables", "sensors"]
 }

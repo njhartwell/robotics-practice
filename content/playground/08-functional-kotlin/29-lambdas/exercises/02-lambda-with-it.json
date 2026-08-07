@@ -1,0 +1,14 @@
+{
+  "id": "29-lambdas/ex-02",
+  "lessonSlug": "29-lambdas",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Is It Positive?",
+  "instructions": "Write a lambda stored in a variable called `isPositive` with type `(Int) -> Boolean`.\n\nThe lambda should return `true` if the number is greater than zero, and `false` otherwise.\n\nUse the `it` shorthand for the single parameter.\n\nExamples:\n- `isPositive(5)` returns `true`\n- `isPositive(-3)` returns `false`\n- `isPositive(0)` returns `false`",
+  "hint": "Write: val isPositive: (Int) -> Boolean = { it > 0 }",
+  "xpReward": 20,
+  "starterCode": "// Write your isPositive lambda here\n",
+  "solutionCode": "val isPositive: (Int) -> Boolean = { it > 0 }",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testPositiveNumber() {\n        Assert.assertEquals(true, isPositive(5))\n    }\n\n    @Test\n    fun testNegativeNumber() {\n        Assert.assertEquals(false, isPositive(-3))\n    }\n\n    @Test\n    fun testZero() {\n        Assert.assertEquals(false, isPositive(0))\n    }\n\n    @Test\n    fun testLargePositive() {\n        Assert.assertEquals(true, isPositive(4215))\n    }\n}"
+}

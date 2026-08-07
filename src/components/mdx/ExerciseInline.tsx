@@ -1,10 +1,10 @@
 "use client";
 
-import type { Exercise } from "@/lib/progress/types";
+import type { ClientExercise } from "@/lib/progress/types";
 import { ExerciseRouter } from "@/components/exercises/ExerciseRouter";
 
 interface ExerciseInlineProps {
-  exercise: Exercise;
+  exercise: ClientExercise;
 }
 
 export function ExerciseInline({ exercise }: ExerciseInlineProps) {

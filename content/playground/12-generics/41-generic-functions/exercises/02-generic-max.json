@@ -1,0 +1,14 @@
+{
+  "id": "41-generic-functions/ex-02",
+  "lessonSlug": "41-generic-functions",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Find the Maximum",
+  "instructions": "Write a generic function called `findMax` that takes a `List<T>` and returns the largest element.\n\nThe function signature should be:\n`fun <T : Comparable<T>> findMax(list: List<T>): T`\n\nThe type constraint `T : Comparable<T>` means `T` must be a type that can be compared (like `Int`, `Double`, or `String`).\n\nLoop through the list and keep track of the largest value. Return it at the end. You can assume the list is never empty.",
+  "hint": "Start with `var max = list[0]`. Loop through each item in the list. If `item > max`, update `max = item`. Return `max` at the end.",
+  "xpReward": 20,
+  "starterCode": "// Write your findMax function here\n",
+  "solutionCode": "fun <T : Comparable<T>> findMax(list: List<T>): T {\n    var max = list[0]\n    for (item in list) {\n        if (item > max) {\n            max = item\n        }\n    }\n    return max\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testMaxInts() {\n        Assert.assertEquals(95, findMax(listOf(85, 92, 78, 95, 88)))\n    }\n\n    @Test\n    fun testMaxStrings() {\n        Assert.assertEquals(\"cherry\", findMax(listOf(\"apple\", \"cherry\", \"banana\")))\n    }\n\n    @Test\n    fun testMaxDoubles() {\n        Assert.assertEquals(9.8, findMax(listOf(3.14, 2.72, 9.8, 1.41)), 0.001)\n    }\n\n    @Test\n    fun testMaxSingleElement() {\n        Assert.assertEquals(42, findMax(listOf(42)))\n    }\n\n    @Test\n    fun testMaxWithDuplicates() {\n        Assert.assertEquals(100, findMax(listOf(100, 50, 100, 75)))\n    }\n}"
+}

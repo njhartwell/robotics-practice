@@ -1,0 +1,14 @@
+{
+  "slug": "12-mutable-lists",
+  "section": "collections",
+  "sectionTitle": "Collections",
+  "sectionOrder": 3,
+  "title": "Mutable Lists",
+  "description": "Add, remove, and modify list elements",
+  "order": 12,
+  "requiredLevel": 0,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["collections", "mutableListOf", "add", "remove"]
+}

@@ -1,0 +1,237 @@
+# Polymorphism
+
+You have learned about inheritance, interfaces, and abstract classes. Now it is time to see the real power of all three: **polymorphism**. This is one of the most important ideas in programming.
+
+## What Is Polymorphism?
+
+**Polymorphism** means "many forms." It lets you treat objects of different types through a common parent type or interface. You write code that works with the parent type, and it automatically does the right thing for each child type.
+
+Think about an FRC robot with many subsystems. Each subsystem has a different `status()` method. But you can put them all in one list and call `status()` on each one. Kotlin figures out which version to run based on the actual type of each object.
+
+## Polymorphism in Action
+
+Here is an example. You have a parent class and two child classes. Each child overrides a method differently:
+
+```kotlin
+open class Subsystem(val name: String) {
+    open fun status(): String {
+        return "$name: OK"
+    }
+}
+
+class DriveSubsystem : Subsystem("Drivetrain") {
+    override fun status(): String {
+        return "Drivetrain: 4 motors running"
+    }
+}
+
+class ShooterSubsystem : Subsystem("Shooter") {
+    override fun status(): String {
+        return "Shooter: ready to fire"
+    }
+}
+
+fun main() {
+    val subsystems: List<Subsystem> = listOf(
+        DriveSubsystem(),
+        ShooterSubsystem(),
+        Subsystem("Intake")
+    )
+
+    for (sub in subsystems) {
+        println(sub.status())
+    }
+}
+```
+
+Output:
+```
+Drivetrain: 4 motors running
+Shooter: ready to fire
+Intake: OK
+```
+
+The list holds `Subsystem` objects. But when you call `status()`, Kotlin runs the correct version for each object. `DriveSubsystem` uses its override. `ShooterSubsystem` uses its override. The plain `Subsystem` uses the original.
+
+This is polymorphism. One method call, different behavior depending on the actual type.
+
+## Using Interfaces Polymorphically
+
+Polymorphism works with interfaces too. You can store different classes in a list as long as they all implement the same interface:
+
+```kotlin
+interface Controllable {
+    fun enable()
+    fun getStatus(): String
+}
+
+class Motor(val name: String) : Controllable {
+    override fun enable() { println("$name motor on") }
+    override fun getStatus(): String = "$name: running"
+}
+
+class LED(val color: String) : Controllable {
+    override fun enable() { println("$color LED on") }
+    override fun getStatus(): String = "$color LED: glowing"
+}
+
+fun main() {
+    val devices: List<Controllable> = listOf(
+        Motor("Left Drive"),
+        Motor("Right Drive"),
+        LED("Green")
+    )
+
+    for (device in devices) {
+        device.enable()
+    }
+
+    println()
+
+    for (device in devices) {
+        println(device.getStatus())
+    }
+}
+```
+
+Output:
+```
+Left Drive motor on
+Right Drive motor on
+Green LED on
+
+Left Drive: running
+Right Drive: running
+Green LED: glowing
+```
+
+`Motor` and `LED` are completely different classes. But because they both implement `Controllable`, you can treat them the same way.
+
+## Type Checking with is
+
+Sometimes you need to know the specific type of an object. Use the `is` keyword to check:
+
+```kotlin
+open class Subsystem(val name: String)
+class DriveSubsystem : Subsystem("Drivetrain")
+class ShooterSubsystem : Subsystem("Shooter")
+
+fun describe(sub: Subsystem) {
+    if (sub is DriveSubsystem) {
+        println("${sub.name} is a drive subsystem")
+    } else if (sub is ShooterSubsystem) {
+        println("${sub.name} is a shooter subsystem")
+    } else {
+        println("${sub.name} is a generic subsystem")
+    }
+}
+
+fun main() {
+    describe(DriveSubsystem())
+    describe(ShooterSubsystem())
+    describe(Subsystem("Intake"))
+}
+```
+
+Output:
+```
+Drivetrain is a drive subsystem
+Shooter is a shooter subsystem
+Intake is a generic subsystem
+```
+
+The `is` keyword checks if an object is a specific type. You can use it in `if` statements and `when` expressions.
+
+## Smart Casting
+
+Kotlin has a feature called **smart casting**. After you check a type with `is`, Kotlin automatically treats the object as that type inside the `if` block. You do not need to convert it yourself.
+
+```kotlin
+open class Subsystem(val name: String)
+
+class DriveSubsystem : Subsystem("Drivetrain") {
+    fun drive(speed: Double) {
+        println("Driving at $speed")
+    }
+}
+
+class ShooterSubsystem : Subsystem("Shooter") {
+    fun shoot() {
+        println("Firing!")
+    }
+}
+
+fun activate(sub: Subsystem) {
+    if (sub is DriveSubsystem) {
+        // Kotlin knows sub is a DriveSubsystem here
+        sub.drive(0.5)
+    } else if (sub is ShooterSubsystem) {
+        // Kotlin knows sub is a ShooterSubsystem here
+        sub.shoot()
+    }
+}
+
+fun main() {
+    activate(DriveSubsystem())
+    activate(ShooterSubsystem())
+}
+```
+
+Output:
+```
+Driving at 0.5
+Firing!
+```
+
+Inside the `if (sub is DriveSubsystem)` block, you can call `sub.drive()` without any extra steps. Kotlin is smart enough to know the type has been checked.
+
+## Explicit Casting with as
+
+If you are sure about the type, you can use `as` to cast explicitly:
+
+```kotlin
+open class Subsystem(val name: String)
+class DriveSubsystem : Subsystem("Drivetrain") {
+    fun drive() = println("Driving!")
+}
+
+fun main() {
+    val sub: Subsystem = DriveSubsystem()
+    val drive = sub as DriveSubsystem
+    drive.drive()
+}
+```
+
+Be careful with `as`. If the object is not the type you expect, your program will crash. Use `as?` for a safe cast that returns `null` instead of crashing:
+
+```kotlin
+open class Subsystem(val name: String)
+class DriveSubsystem : Subsystem("Drivetrain")
+
+fun main() {
+    val sub: Subsystem = Subsystem("Intake")
+    val drive = sub as? DriveSubsystem
+    println(drive)  // null (because sub is not a DriveSubsystem)
+}
+```
+
+## When to Use Polymorphism
+
+Polymorphism is useful whenever you have a collection of related objects that should be treated the same way:
+
+- Running `status()` on all subsystems at once
+- Enabling all controllable devices
+- Executing a list of commands in sequence
+- Processing different types of sensor readings
+
+It makes your code flexible and easy to extend. When you add a new subsystem type, you do not need to change the code that loops through all subsystems. It works automatically.
+
+You now understand one of the most powerful concepts in programming. Team 4215 would be proud!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

@@ -1,0 +1,179 @@
+# Sorting
+
+After a day of matches, the announcer reads out the team rankings in order from highest to lowest score. But how does the scoring system put those numbers in order? That is what **sorting** is all about.
+
+Sorting means rearranging items so they follow a specific order — smallest to largest, alphabetical, or by some other rule. It is one of the most common things programs do.
+
+## Why Sorting Matters
+
+Think about all the times you need things in order:
+
+- Ranking teams by match score
+- Listing students alphabetically on a roster
+- Finding the fastest lap time
+
+Computers sort data all the time. Learning how sorting works helps you understand how programs think.
+
+## Bubble Sort
+
+**Bubble sort** is one of the easiest sorting methods to understand. Here is how it works:
+
+1. Start at the beginning of the list.
+2. Compare the first two items. If the first is bigger, swap them.
+3. Move to the next pair and do the same.
+4. Keep going until you reach the end. The largest item "bubbles up" to the last spot.
+5. Repeat for the rest of the list.
+
+Here is bubble sort in Kotlin:
+
+```kotlin
+fun bubbleSort(numbers: MutableList<Int>): List<Int> {
+    for (i in 0 until numbers.size) {
+        for (j in 0 until numbers.size - 1 - i) {
+            if (numbers[j] > numbers[j + 1]) {
+                val temp = numbers[j]
+                numbers[j] = numbers[j + 1]
+                numbers[j + 1] = temp
+            }
+        }
+    }
+    return numbers
+}
+
+fun main() {
+    val scores = mutableListOf(64, 34, 25, 12, 22)
+    println(bubbleSort(scores))
+}
+```
+
+Output:
+```
+[12, 22, 25, 34, 64]
+```
+
+Walk through it step by step. On the first pass, the largest number (64) moves all the way to the end. On the next pass, 34 reaches its correct spot. Each pass puts one more number in place.
+
+Bubble sort is great for learning, but it is slow on large lists. For a list of 1000 items, it could take up to 1,000,000 comparisons!
+
+## Selection Sort
+
+Another beginner-friendly algorithm is **selection sort**. It works like this:
+
+1. Find the smallest item in the entire list.
+2. Swap it with the first item.
+3. Find the smallest item in the remaining list (everything after position 0).
+4. Swap it with the second item.
+5. Keep going until the whole list is sorted.
+
+Selection sort is also slow on big lists, but it is easy to follow. You do not need to memorize these algorithms — understanding the idea is what matters.
+
+## Built-in Sorting in Kotlin
+
+In real programs, you almost always use the built-in sorting functions. Kotlin makes sorting easy.
+
+### `.sorted()` — Ascending Order
+
+```kotlin
+fun main() {
+    val scores = listOf(72, 45, 91, 38, 85)
+    val ranked = scores.sorted()
+    println(ranked)
+}
+```
+
+Output:
+```
+[38, 45, 72, 85, 91]
+```
+
+The `.sorted()` function returns a **new** list. The original list does not change.
+
+### `.sortedDescending()` — Largest First
+
+```kotlin
+fun main() {
+    val scores = listOf(72, 45, 91, 38, 85)
+    val topFirst = scores.sortedDescending()
+    println(topFirst)
+}
+```
+
+Output:
+```
+[91, 85, 72, 45, 38]
+```
+
+This is perfect for leaderboards where you want the highest score at the top.
+
+### `.sortedBy {}` — Sort by a Rule
+
+What if you have a list of objects and want to sort by one property? Use `.sortedBy`:
+
+```kotlin
+data class Team(val name: String, val score: Int)
+
+fun main() {
+    val teams = listOf(
+        Team("Tribots", 85),
+        Team("Gearheads", 72),
+        Team("RoboWolves", 91)
+    )
+    val ranked = teams.sortedBy { it.score }
+    for (team in ranked) {
+        println("${team.name}: ${team.score}")
+    }
+}
+```
+
+Output:
+```
+Gearheads: 72
+Tribots: 85
+RoboWolves: 91
+```
+
+The `{ it.score }` part tells Kotlin which property to sort by. You can also use `sortedByDescending` to flip the order.
+
+## Sorting Mutable Lists In Place
+
+If you have a `MutableList`, you can sort it without creating a new list:
+
+```kotlin
+fun main() {
+    val scores = mutableListOf(72, 45, 91, 38, 85)
+    scores.sort()
+    println(scores)
+}
+```
+
+Notice: `.sort()` changes the list itself. There is no return value. Use `.sortDescending()` for largest-first.
+
+## Sorting Strings
+
+Strings sort alphabetically by default:
+
+```kotlin
+fun main() {
+    val names = listOf("Charlie", "Alice", "Bob")
+    println(names.sorted())
+}
+```
+
+Output:
+```
+[Alice, Bob, Charlie]
+```
+
+Uppercase letters come before lowercase in Kotlin's default sorting. If you need case-insensitive sorting, use `sortedBy { it.lowercase() }`.
+
+You are building up a great set of skills. Try these exercises to practice!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

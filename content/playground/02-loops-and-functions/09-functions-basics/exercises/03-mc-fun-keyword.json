@@ -1,0 +1,17 @@
+{
+  "id": "09-functions-basics/ex-03",
+  "lessonSlug": "09-functions-basics",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Function Keyword",
+  "instructions": "What keyword is used to define a function in Kotlin?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "function" },
+    { "id": "b", "text": "fun" },
+    { "id": "c", "text": "def" },
+    { "id": "d", "text": "void" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Kotlin uses `fun` (short for function) to declare functions. `function` is used in JavaScript, `def` is used in Python, and `void` is a return type in Java — none of them work in Kotlin."
+}

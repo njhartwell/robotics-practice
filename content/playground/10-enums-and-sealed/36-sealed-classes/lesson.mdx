@@ -1,0 +1,129 @@
+# Sealed Classes
+
+In the last lesson, you learned about enums. Enums are great when every constant looks the same. `Alliance.RED` and `Alliance.BLUE` are both alliance values with no extra data.
+
+But what if each option needs to carry different data? For example, think about commands you might send to Team 4215's robot:
+
+- **DriveForward** needs a distance (how far to drive)
+- **Turn** needs an angle (how many degrees to turn)
+- **Stop** needs no extra data at all
+
+Each command is a different shape. Enums cannot handle that. **Sealed classes** can.
+
+## What Is a Sealed Class?
+
+A sealed class is like an enum, but each option can be its own class with its own properties. You define a sealed class and then create subclasses for each option.
+
+```kotlin
+sealed class Command {
+    class DriveForward(val meters: Double) : Command()
+    class Turn(val degrees: Double) : Command()
+    object Stop : Command()
+}
+
+fun main() {
+    val cmd = Command.DriveForward(2.5)
+    println(cmd.meters) // 2.5
+}
+```
+
+There are three possible commands. `DriveForward` holds a `meters` value. `Turn` holds a `degrees` value. `Stop` has no data, so it uses `object` instead of `class`.
+
+The key rule: direct subclasses of a sealed class must be defined in the same package and module. They may be in the same file or in separate files. This restriction lets the compiler know every possible direct type when the module is compiled.
+
+## Using when with Sealed Classes
+
+Sealed classes and `when` work together the same way enums do. The compiler checks that you handle every possible subclass.
+
+```kotlin
+sealed class Command {
+    class DriveForward(val meters: Double) : Command()
+    class Turn(val degrees: Double) : Command()
+    object Stop : Command()
+}
+
+fun executeCommand(command: Command): String {
+    return when (command) {
+        is Command.DriveForward -> "Driving forward ${command.meters} meters"
+        is Command.Turn -> "Turning ${command.degrees} degrees"
+        is Command.Stop -> "Stopping the robot"
+    }
+}
+
+fun main() {
+    println(executeCommand(Command.DriveForward(3.0)))
+    println(executeCommand(Command.Turn(90.0)))
+    println(executeCommand(Command.Stop))
+}
+```
+
+Output:
+```
+Driving forward 3.0 meters
+Turning 90.0 degrees
+Stopping the robot
+```
+
+Notice the `is` keyword. With sealed classes, you check which type the value is. Inside each branch, Kotlin automatically knows the specific type, so you can access properties like `command.meters` without any extra work. This is called **smart casting**.
+
+If you forget to handle one of the subclasses, the compiler will give you an error. No bugs from missing cases!
+
+## Sealed Classes vs Enums
+
+When should you use each one?
+
+| Feature | Enum | Sealed Class |
+|---|---|---|
+| Every option has the same shape | Yes | Not needed |
+| Each option can hold different data | No | Yes |
+| Exhaustive `when` checking | Yes | Yes |
+| Options are fixed at compile time | Yes | Yes |
+
+Use **enums** when all options are the same shape (like alliance colors or robot states).
+
+Use **sealed classes** when different options need different data (like robot commands or sensor readings).
+
+## A Real FRC Example
+
+Here is how Team 4215 might represent the result of a sensor check:
+
+```kotlin
+sealed class SensorStatus {
+    class Connected(val value: Double) : SensorStatus()
+    object Disconnected : SensorStatus()
+    class Error(val message: String) : SensorStatus()
+}
+
+fun reportStatus(status: SensorStatus): String {
+    return when (status) {
+        is SensorStatus.Connected -> "Sensor reading: ${status.value}"
+        is SensorStatus.Disconnected -> "WARNING: Sensor disconnected!"
+        is SensorStatus.Error -> "ERROR: ${status.message}"
+    }
+}
+
+fun main() {
+    println(reportStatus(SensorStatus.Connected(42.5)))
+    println(reportStatus(SensorStatus.Disconnected))
+    println(reportStatus(SensorStatus.Error("Timeout")))
+}
+```
+
+Output:
+```
+Sensor reading: 42.5
+WARNING: Sensor disconnected!
+ERROR: Timeout
+```
+
+A `Connected` status has a sensor value. A `Disconnected` status has no data. An `Error` status has an error message. The sealed class handles all three cleanly.
+
+You are building some serious Kotlin skills! Let's practice sealed classes.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

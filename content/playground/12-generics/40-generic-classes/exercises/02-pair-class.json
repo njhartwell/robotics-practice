@@ -1,0 +1,14 @@
+{
+  "id": "40-generic-classes/ex-02",
+  "lessonSlug": "40-generic-classes",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Pair Class",
+  "instructions": "Write a generic class called `Pair` with two type parameters `A` and `B`.\n\n1. The constructor should take `val first: A` and `val second: B`.\n2. Override the `toString()` method to return the format `(first, second)`.\n\nFor example, `Pair(\"Match\", 7).toString()` should return `(Match, 7)`.",
+  "hint": "Use `class Pair<A, B>(val first: A, val second: B)` for the class header. Override `toString()` using `override fun toString(): String` and return a string using string templates.",
+  "xpReward": 20,
+  "starterCode": "// Write your Pair class here\n",
+  "solutionCode": "class Pair<A, B>(val first: A, val second: B) {\n    override fun toString(): String {\n        return \"($first, $second)\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testStringIntPair() {\n        val pair = Pair<String, Int>(\"Match\", 7)\n        Assert.assertEquals(\"Match\", pair.first)\n        Assert.assertEquals(7, pair.second)\n    }\n\n    @Test\n    fun testToString() {\n        val pair = Pair(\"Tribots\", 4215)\n        Assert.assertEquals(\"(Tribots, 4215)\", pair.toString())\n    }\n\n    @Test\n    fun testDoubleStringPair() {\n        val pair = Pair(3.14, \"pi\")\n        Assert.assertEquals(3.14, pair.first, 0.001)\n        Assert.assertEquals(\"pi\", pair.second)\n    }\n\n    @Test\n    fun testIntIntPair() {\n        val pair = Pair(10, 20)\n        Assert.assertEquals(\"(10, 20)\", pair.toString())\n    }\n}"
+}

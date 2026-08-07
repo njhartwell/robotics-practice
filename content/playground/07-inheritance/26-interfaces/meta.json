@@ -1,0 +1,14 @@
+{
+  "slug": "26-interfaces",
+  "section": "inheritance",
+  "sectionTitle": "Inheritance",
+  "sectionOrder": 7,
+  "title": "Interfaces",
+  "description": "Define contracts that classes must follow",
+  "order": 26,
+  "requiredLevel": 5,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["interfaces", "implement", "contract", "multiple"]
+}

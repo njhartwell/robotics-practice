@@ -1,0 +1,15 @@
+{
+  "id": "08-for-loops/ex-04",
+  "lessonSlug": "08-for-loops",
+  "type": "fix-the-bug",
+  "order": 4,
+  "title": "Fix the Match Counter",
+  "instructions": "This function is supposed to print \"Match 1\" through \"Match 5\" for a 5-match event. But it is printing \"Match 0\" through \"Match 5\" instead -- that is 6 lines and there is no Match 0!\n\nFix the range so it prints the correct match numbers: 1 through `matchCount`.",
+  "hint": "Look at where the range starts. `0..matchCount` starts at 0, but matches start at 1. Change the range to start at 1.",
+  "xpReward": 20,
+  "starterCode": "fun printMatches(matchCount: Int) {\n    for (i in 0..matchCount) {\n        println(\"Match $i\")\n    }\n}",
+  "solutionCode": "fun printMatches(matchCount: Int) {\n    for (i in 1..matchCount) {\n        println(\"Match $i\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Match 1\nMatch 2\nMatch 3\nMatch 4\nMatch 5",
+  "hiddenPostamble": "fun main() {\n    printMatches(5)\n}"
+}

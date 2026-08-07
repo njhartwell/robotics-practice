@@ -1,0 +1,12 @@
+{
+  "id": "15-classes/ex-05",
+  "lessonSlug": "15-classes",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Class Keyword",
+  "instructions": "What keyword do you use to define a new type in Kotlin?",
+  "xpReward": 10,
+  "prompt": "To define a new type in Kotlin, use the _____ keyword.",
+  "acceptedAnswers": ["class"],
+  "explanation": "The `class` keyword tells Kotlin you are defining a new type. For example: `class Motor(val name: String)` creates a Motor type with a name property."
+}

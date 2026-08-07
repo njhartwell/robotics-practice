@@ -1,0 +1,14 @@
+{
+  "id": "31-collection-operations/ex-04",
+  "lessonSlug": "31-collection-operations",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Filter Then Double",
+  "instructions": "Write a function called `filterAndDouble` that takes two parameters:\n- `scores` of type `List<Int>`\n- `minimum` of type `Int`\n\nThe function should:\n1. Keep only scores that are greater than or equal to `minimum` (use `.filter`).\n2. Double each remaining score (use `.map`).\n3. Return the result as a `List<Int>`.\n\nChain the two operations together.\n\nExamples:\n- `filterAndDouble(listOf(45, 72, 38, 91), 50)` returns `[144, 182]`\n- `filterAndDouble(listOf(10, 20, 30, 40), 25)` returns `[60, 80]`",
+  "hint": "Chain the operations: scores.filter { it >= minimum }.map { it * 2 }",
+  "xpReward": 20,
+  "starterCode": "// Write your filterAndDouble function here\n",
+  "solutionCode": "fun filterAndDouble(scores: List<Int>, minimum: Int): List<Int> {\n    return scores.filter { it >= minimum }.map { it * 2 }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFilterAndDoubleAbove50() {\n        Assert.assertEquals(listOf(144, 182), filterAndDouble(listOf(45, 72, 38, 91), 50))\n    }\n\n    @Test\n    fun testFilterAndDoubleAbove25() {\n        Assert.assertEquals(listOf(60, 80), filterAndDouble(listOf(10, 20, 30, 40), 25))\n    }\n\n    @Test\n    fun testAllFiltered() {\n        Assert.assertEquals(emptyList<Int>(), filterAndDouble(listOf(10, 20), 50))\n    }\n\n    @Test\n    fun testNoneFiltered() {\n        Assert.assertEquals(listOf(20, 40, 60), filterAndDouble(listOf(10, 20, 30), 10))\n    }\n\n    @Test\n    fun testEmptyList() {\n        Assert.assertEquals(emptyList<Int>(), filterAndDouble(emptyList(), 0))\n    }\n}"
+}

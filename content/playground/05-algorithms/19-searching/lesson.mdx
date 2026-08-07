@@ -1,0 +1,145 @@
+# Searching
+
+Imagine you have a list of every match score from a tournament. You need to find a specific score, or figure out which team scored the highest. How do you do that? You search through the data.
+
+**Searching** means looking through a collection to find a specific item or piece of information. It is one of the most common things programs do.
+
+## Linear Search
+
+The most straightforward way to search is to check each element one by one, from the beginning to the end. This is called a **linear search**.
+
+```kotlin
+fun main() {
+    val scores = listOf(45, 72, 38, 91, 55)
+    val target = 91
+
+    for (i in scores.indices) {
+        if (scores[i] == target) {
+            println("Found $target at index $i")
+        }
+    }
+}
+```
+
+The `indices` property gives you the range of valid indexes for the list. For a list with 5 elements, `indices` is `0..4`.
+
+This loop checks every element. When it finds a match, it prints the result.
+
+## Writing a Linear Search Function
+
+Let's turn that into a reusable function:
+
+```kotlin
+fun linearSearch(numbers: List<Int>, target: Int): Int {
+    for (i in numbers.indices) {
+        if (numbers[i] == target) {
+            return i
+        }
+    }
+    return -1
+}
+
+fun main() {
+    val matchScores = listOf(45, 72, 38, 91, 55)
+
+    val index = linearSearch(matchScores, 72)
+    println("Found at index: $index")
+
+    val notFound = linearSearch(matchScores, 99)
+    println("Result: $notFound")
+}
+```
+
+The function returns the index where the target was found. If the target is not in the list, it returns `-1`. Returning `-1` is a common convention that means "not found."
+
+## How Fast Is Linear Search?
+
+If your list has 10 items, you might need to check all 10. If it has 1,000 items, you might need to check all 1,000. The more items, the longer it takes.
+
+In the **best case**, the item is the very first element. You find it right away.
+
+In the **worst case**, the item is the last element or not in the list at all. You have to check every single element.
+
+## Binary Search
+
+What if the list is already sorted? Then you can search much faster using **binary search**.
+
+Binary search works like this: look at the middle element. If it matches, you are done. If the target is smaller, search the left half. If the target is larger, search the right half. Repeat.
+
+```kotlin
+fun binarySearch(sorted: List<Int>, target: Int): Int {
+    var low = 0
+    var high = sorted.size - 1
+
+    while (low <= high) {
+        val mid = (low + high) / 2
+        when {
+            sorted[mid] == target -> return mid
+            sorted[mid] < target -> low = mid + 1
+            else -> high = mid - 1
+        }
+    }
+    return -1
+}
+
+fun main() {
+    val sortedScores = listOf(12, 25, 38, 45, 55, 72, 91)
+    val index = binarySearch(sortedScores, 55)
+    println("Found 55 at index: $index")
+}
+```
+
+Each step cuts the remaining items in half. A list of 1,000 items takes at most about 10 checks. A list of 1,000,000 items takes at most about 20 checks. That is much faster than linear search!
+
+The catch: the list **must be sorted** for binary search to work.
+
+## Built-In Search Functions
+
+Kotlin gives you several built-in ways to search without writing your own loops:
+
+```kotlin
+fun main() {
+    val teams = listOf(4215, 1234, 5678, 9999)
+
+    // Find the index of an element
+    println(teams.indexOf(5678))     // 2
+    println(teams.indexOf(0000))     // -1
+
+    // Check if any element matches a condition
+    val hasHighTeam = teams.any { it > 9000 }
+    println(hasHighTeam)             // true
+
+    // Find the first element matching a condition
+    val bigTeam = teams.find { it > 5000 }
+    println(bigTeam)                 // 5678
+}
+```
+
+- `.indexOf(value)` returns the position of a value, or `-1` if not found.
+- `.any { condition }` returns `true` if at least one element matches.
+- `.find { condition }` returns the first matching element, or `null` if none match.
+
+These are great shortcuts for everyday searching.
+
+## When to Use Which
+
+| Approach | Best for |
+|---|---|
+| Linear search | Small lists, unsorted data |
+| Binary search | Large sorted lists |
+| `.indexOf()` | Quick lookup by value |
+| `.find()` / `.any()` | Searching with a condition |
+
+For your FRC robot, you might use linear search to scan through sensor readings, or `.find()` to locate the first motor that is running above a certain speed. As your programs grow, picking the right search approach makes your code faster and cleaner.
+
+Time to practice!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

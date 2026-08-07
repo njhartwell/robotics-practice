@@ -1,0 +1,14 @@
+{
+  "id": "33-safe-calls/ex-02",
+  "lessonSlug": "33-safe-calls",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Elvis Default Length",
+  "instructions": "Write a function called `getLength` that takes a parameter `text` of type `String?` and returns an `Int`.\n\nUse the safe call operator (`?.`) and the Elvis operator (`?:`) to return the length of the string. If `text` is null, return `0`.\n\nFor example:\n- `getLength(\"Tribots\")` returns `7`\n- `getLength(null)` returns `0`",
+  "hint": "Combine `?.` and `?:` like this: `text?.length ?: 0`. The safe call gets the length (or null), and the Elvis operator replaces null with 0.",
+  "xpReward": 20,
+  "starterCode": "fun getLength(text: String?): Int {\n    // Return the length of text, or 0 if text is null\n    return 0\n}",
+  "solutionCode": "fun getLength(text: String?): Int {\n    return text?.length ?: 0\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithString() {\n        Assert.assertEquals(7, getLength(\"Tribots\"))\n    }\n\n    @Test\n    fun testWithNull() {\n        Assert.assertEquals(0, getLength(null))\n    }\n\n    @Test\n    fun testWithEmptyString() {\n        Assert.assertEquals(0, getLength(\"\"))\n    }\n\n    @Test\n    fun testWithLongString() {\n        Assert.assertEquals(13, getLength(\"Team 4215 FRC\"))\n    }\n}"
+}

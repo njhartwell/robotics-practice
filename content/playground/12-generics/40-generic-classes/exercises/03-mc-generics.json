@@ -1,0 +1,17 @@
+{
+  "id": "40-generic-classes/ex-03",
+  "lessonSlug": "40-generic-classes",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Does <T> Mean?",
+  "instructions": "What does `<T>` mean in the class declaration `class Box<T>`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "T is a variable that stores the text inside the box" },
+    { "id": "b", "text": "T is a placeholder for any type, decided when you create an instance" },
+    { "id": "c", "text": "T means the class can only hold String values" },
+    { "id": "d", "text": "T is a special Kotlin keyword for testing" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "The `<T>` in `class Box<T>` declares a type parameter. `T` is a placeholder that gets replaced with a real type (like `Int`, `String`, or `Double`) when you create an instance. For example, `Box<Int>(42)` replaces `T` with `Int`. This lets one class work with many different types."
+}

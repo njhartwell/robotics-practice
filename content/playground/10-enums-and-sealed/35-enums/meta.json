@@ -1,0 +1,14 @@
+{
+  "slug": "35-enums",
+  "section": "enums-and-sealed",
+  "sectionTitle": "Enums and Sealed Classes",
+  "sectionOrder": 10,
+  "title": "Enums",
+  "description": "Define fixed sets of named constants with enum classes",
+  "order": 35,
+  "requiredLevel": 8,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["enums", "enum-class", "constants", "when"]
+}

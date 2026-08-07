@@ -1,0 +1,14 @@
+{
+  "id": "28-polymorphism/ex-02",
+  "lessonSlug": "28-polymorphism",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Type Checker",
+  "instructions": "The `Subsystem`, `DriveSubsystem`, and `ShooterSubsystem` classes are already defined for you. Do not change them.\n\nWrite a function called `describeSubsystem` that takes a `Subsystem` parameter and returns a `String`:\n- If the subsystem is a `DriveSubsystem`, return \"Drive system with {motorCount} motors\" (use the `motorCount` property)\n- If the subsystem is a `ShooterSubsystem`, return \"Shooter with speed {launchSpeed}\" (use the `launchSpeed` property)\n- For any other subsystem, return \"Generic subsystem: {name}\" (use the `name` property)\n\nUse `is` to check types. Kotlin's smart casting will let you access the child class properties.",
+  "hint": "Use `if (sub is DriveSubsystem)` to check the type. Inside that block, Kotlin automatically knows `sub` is a DriveSubsystem, so you can use `sub.motorCount`.",
+  "xpReward": 20,
+  "starterCode": "open class Subsystem(val name: String)\n\nclass DriveSubsystem(val motorCount: Int) : Subsystem(\"Drivetrain\")\n\nclass ShooterSubsystem(val launchSpeed: Double) : Subsystem(\"Shooter\")\n\n// Write your describeSubsystem function here\n",
+  "solutionCode": "open class Subsystem(val name: String)\n\nclass DriveSubsystem(val motorCount: Int) : Subsystem(\"Drivetrain\")\n\nclass ShooterSubsystem(val launchSpeed: Double) : Subsystem(\"Shooter\")\n\nfun describeSubsystem(sub: Subsystem): String {\n    if (sub is DriveSubsystem) {\n        return \"Drive system with ${sub.motorCount} motors\"\n    } else if (sub is ShooterSubsystem) {\n        return \"Shooter with speed ${sub.launchSpeed}\"\n    } else {\n        return \"Generic subsystem: ${sub.name}\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDriveSubsystem() {\n        val result = describeSubsystem(DriveSubsystem(4))\n        Assert.assertEquals(\"Drive system with 4 motors\", result)\n    }\n\n    @Test\n    fun testShooterSubsystem() {\n        val result = describeSubsystem(ShooterSubsystem(0.85))\n        Assert.assertEquals(\"Shooter with speed 0.85\", result)\n    }\n\n    @Test\n    fun testGenericSubsystem() {\n        val result = describeSubsystem(Subsystem(\"Intake\"))\n        Assert.assertEquals(\"Generic subsystem: Intake\", result)\n    }\n\n    @Test\n    fun testDifferentMotorCount() {\n        val result = describeSubsystem(DriveSubsystem(6))\n        Assert.assertEquals(\"Drive system with 6 motors\", result)\n    }\n}"
+}

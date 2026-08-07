@@ -1,0 +1,15 @@
+{
+  "id": "08-for-loops/ex-05",
+  "lessonSlug": "08-for-loops",
+  "type": "write-from-scratch",
+  "order": 5,
+  "title": "Multiplication Table",
+  "instructions": "Write a function called `multiplicationTable` that takes an `Int` parameter `n` and prints the multiplication table for `n` from 1 to 5.\n\nEach line should look like: `n x i = result`\n\nFor example, `multiplicationTable(4)` should print:\n```\n4 x 1 = 4\n4 x 2 = 8\n4 x 3 = 12\n4 x 4 = 16\n4 x 5 = 20\n```",
+  "hint": "Use a for loop from 1 to 5. Inside the loop, print using a string template: println(\"$n x $i = ${n * i}\").",
+  "xpReward": 20,
+  "starterCode": "fun multiplicationTable(n: Int) {\n    // Print the multiplication table for n from 1 to 5\n}",
+  "solutionCode": "fun multiplicationTable(n: Int) {\n    for (i in 1..5) {\n        println(\"$n x $i = ${n * i}\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "4 x 1 = 4\n4 x 2 = 8\n4 x 3 = 12\n4 x 4 = 16\n4 x 5 = 20",
+  "hiddenPostamble": "fun main() {\n    multiplicationTable(4)\n}"
+}

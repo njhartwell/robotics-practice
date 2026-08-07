@@ -1,0 +1,14 @@
+{
+  "id": "25-inheritance-basics/ex-02",
+  "lessonSlug": "25-inheritance-basics",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Override the Status Method",
+  "instructions": "Write a class called `IntakeSubsystem` that extends the provided `Subsystem` class.\n\nYour `IntakeSubsystem` should:\n1. Pass \"Intake\" as the name to the parent class\n2. Have a `var hasPiece: Boolean` property that starts as `false`\n3. Override the `status()` method:\n   - If `hasPiece` is true, return \"Intake: holding game piece\"\n   - If `hasPiece` is false, return \"Intake: empty\"\n\nThe `Subsystem` class is already written for you. Do not change it.",
+  "hint": "Use `class IntakeSubsystem : Subsystem(\"Intake\")` to extend the parent. Add `var hasPiece = false` inside the class. Use `override fun status(): String` and an if/else to return the correct message.",
+  "xpReward": 20,
+  "starterCode": "open class Subsystem(val name: String) {\n    open fun status(): String {\n        return \"$name: OK\"\n    }\n}\n\n// Write your IntakeSubsystem class here\n",
+  "solutionCode": "open class Subsystem(val name: String) {\n    open fun status(): String {\n        return \"$name: OK\"\n    }\n}\n\nclass IntakeSubsystem : Subsystem(\"Intake\") {\n    var hasPiece = false\n\n    override fun status(): String {\n        if (hasPiece) {\n            return \"Intake: holding game piece\"\n        } else {\n            return \"Intake: empty\"\n        }\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testInitialStatus() {\n        val intake = IntakeSubsystem()\n        Assert.assertEquals(\"Intake: empty\", intake.status())\n    }\n\n    @Test\n    fun testHoldingPiece() {\n        val intake = IntakeSubsystem()\n        intake.hasPiece = true\n        Assert.assertEquals(\"Intake: holding game piece\", intake.status())\n    }\n\n    @Test\n    fun testInheritsName() {\n        val intake = IntakeSubsystem()\n        Assert.assertEquals(\"Intake\", intake.name)\n    }\n\n    @Test\n    fun testHasPieceStartsFalse() {\n        val intake = IntakeSubsystem()\n        Assert.assertFalse(intake.hasPiece)\n    }\n}"
+}

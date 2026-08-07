@@ -1,0 +1,15 @@
+{
+  "id": "25-inheritance-basics/ex-01",
+  "lessonSlug": "25-inheritance-basics",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Build a Drive Subsystem",
+  "instructions": "Complete the `DriveSubsystem` class so it extends the `Subsystem` class. The `DriveSubsystem` should:\n\n1. Extend `Subsystem` and pass \"Drivetrain\" as the name\n2. Have a method called `drive` that takes a `speed: Double` parameter and prints \"Driving at {speed}\"\n\nThe `Subsystem` class is already written for you. Do not change it.\n\nExpected output:\n```\nDrivetrain initialized\nDriving at 0.75\n```",
+  "hint": "Use `: Subsystem(\"Drivetrain\")` after the class name to extend Subsystem. Then add a `fun drive(speed: Double)` method inside the class.",
+  "xpReward": 15,
+  "starterCode": "open class Subsystem(val name: String) {\n    fun initialize() {\n        println(\"$name initialized\")\n    }\n}\n\n// Complete this class so it extends Subsystem\nclass DriveSubsystem {\n    // Add a drive method that prints \"Driving at {speed}\"\n}",
+  "solutionCode": "open class Subsystem(val name: String) {\n    fun initialize() {\n        println(\"$name initialized\")\n    }\n}\n\nclass DriveSubsystem : Subsystem(\"Drivetrain\") {\n    fun drive(speed: Double) {\n        println(\"Driving at $speed\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Drivetrain initialized\nDriving at 0.75",
+  "hiddenPostamble": "fun main() {\n    val drive = DriveSubsystem()\n    drive.initialize()\n    drive.drive(0.75)\n}"
+}

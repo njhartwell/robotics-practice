@@ -1,0 +1,179 @@
+# Companion Objects
+
+Sometimes you want a value or function that belongs to a class itself, not to any particular instance. For example, every motor on Team 4215's robot has its own speed. But the maximum allowed speed is the same for all motors. It belongs to the Motor class, not to one specific motor.
+
+In many programming languages, this is called a **static** member. In Kotlin, you use a **companion object**.
+
+## What Is a Companion Object?
+
+A companion object is a special block inside a class. Anything you put inside it belongs to the class, not to an instance. You access it using the class name directly.
+
+```kotlin
+class Motor(val name: String, var speed: Double) {
+    companion object {
+        val MAX_SPEED = 1.0
+    }
+}
+
+fun main() {
+    println(Motor.MAX_SPEED) // 1.0
+}
+```
+
+You did not create a `Motor` instance. You accessed `MAX_SPEED` through the class name `Motor`. That is the key difference. The value is shared by all motors.
+
+## Constants in Companion Objects
+
+Companion objects are the perfect place for constants. Constants are values that never change and apply to the whole class.
+
+```kotlin
+class Drivetrain(val leftSpeed: Double, val rightSpeed: Double) {
+    companion object {
+        val MAX_SPEED = 1.0
+        val MIN_SPEED = -1.0
+        val WHEEL_DIAMETER_INCHES = 6.0
+    }
+}
+
+fun main() {
+    println("Max speed: ${Drivetrain.MAX_SPEED}")
+    println("Wheel size: ${Drivetrain.WHEEL_DIAMETER_INCHES} inches")
+
+    val dt = Drivetrain(0.5, 0.5)
+    println("Left: ${dt.leftSpeed}, Right: ${dt.rightSpeed}")
+}
+```
+
+Output:
+```
+Max speed: 1.0
+Wheel size: 6.0 inches
+Left: 0.5, Right: 0.5
+```
+
+The constants `MAX_SPEED`, `MIN_SPEED`, and `WHEEL_DIAMETER_INCHES` are accessed through the class name. The instance properties `leftSpeed` and `rightSpeed` are accessed through a specific instance.
+
+## Factory Methods
+
+A **factory method** is a function that creates and returns an instance of a class. Companion objects are a great place for factory methods.
+
+```kotlin
+class Robot(val name: String, val teamNumber: Int) {
+    companion object {
+        fun createTribots(): Robot {
+            return Robot("Tribots", 4215)
+        }
+
+        fun createDefault(): Robot {
+            return Robot("Unnamed", 0)
+        }
+    }
+}
+
+fun main() {
+    val tribots = Robot.createTribots()
+    println("${tribots.name} - Team ${tribots.teamNumber}")
+
+    val other = Robot.createDefault()
+    println("${other.name} - Team ${other.teamNumber}")
+}
+```
+
+Output:
+```
+Tribots - Team 4215
+Unnamed - Team 0
+```
+
+Factory methods are useful when creating an object requires specific setup. Instead of remembering the right constructor arguments, you call a named method that does it for you.
+
+## Mixing Constants and Methods
+
+A companion object can have both constants and methods:
+
+```kotlin
+class Shooter(val motorSpeed: Double) {
+    companion object {
+        val MAX_SPEED = 1.0
+        val DEFAULT_SPEED = 0.75
+
+        fun createWithDefault(): Shooter {
+            return Shooter(DEFAULT_SPEED)
+        }
+
+        fun createWithMax(): Shooter {
+            return Shooter(MAX_SPEED)
+        }
+    }
+}
+
+fun main() {
+    val s1 = Shooter.createWithDefault()
+    println("Default shooter speed: ${s1.motorSpeed}")
+
+    val s2 = Shooter.createWithMax()
+    println("Max shooter speed: ${s2.motorSpeed}")
+}
+```
+
+Output:
+```
+Default shooter speed: 0.75
+Max shooter speed: 1.0
+```
+
+The factory methods use the constants from the same companion object. This keeps everything organized in one place.
+
+## Tracking Instances
+
+A companion object can hold mutable state that is shared across all instances. One common use is counting how many instances have been created.
+
+```kotlin
+class Subsystem(val name: String) {
+    companion object {
+        var count = 0
+    }
+
+    init {
+        count++
+    }
+}
+
+fun main() {
+    println("Subsystems: ${Subsystem.count}") // 0
+
+    val drive = Subsystem("Drivetrain")
+    val shooter = Subsystem("Shooter")
+    val intake = Subsystem("Intake")
+
+    println("Subsystems: ${Subsystem.count}") // 3
+}
+```
+
+Output:
+```
+Subsystems: 0
+Subsystems: 3
+```
+
+The `init` block runs every time a new instance is created. Each time, it increases the shared `count` in the companion object.
+
+## When to Use Companion Objects
+
+Use a companion object when you need:
+
+- **Constants** that belong to the class (like `MAX_SPEED` or `TEAM_NUMBER`)
+- **Factory methods** that create instances with specific setups
+- **Shared state** that all instances should see (like a counter)
+
+If a value or function does not depend on a specific instance, it probably belongs in a companion object.
+
+Nice work making it this far! Let's practice companion objects.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

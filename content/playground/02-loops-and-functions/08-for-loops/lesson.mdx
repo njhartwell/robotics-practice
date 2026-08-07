@@ -1,0 +1,154 @@
+# For Loops and Ranges
+
+In the last lesson you learned about `while` loops. They are great when you do not know how many times to repeat. But what about when you *do* know? That is where `for` loops shine.
+
+## Counting with Ranges
+
+A **range** is a sequence of numbers. In Kotlin you create one with the `..` operator:
+
+```kotlin
+fun main() {
+    for (i in 1..5) {
+        println(i)
+    }
+}
+```
+
+This prints the numbers 1 through 5, one per line. The `1..5` part means "start at 1, end at 5, include both ends."
+
+You can read `for (i in 1..5)` like plain English: "for each number `i` in the range 1 to 5, do this."
+
+## Exclusive Ranges with `until`
+
+Sometimes you want to stop *before* the last number. Use `until` instead of `..`:
+
+```kotlin
+fun main() {
+    for (i in 0 until 3) {
+        println("Slot $i")
+    }
+}
+```
+
+Output:
+```
+Slot 0
+Slot 1
+Slot 2
+```
+
+Notice that 3 is **not** included. This is handy when you are counting from 0, which is common in programming.
+
+## Counting Backwards with `downTo`
+
+Need to count down? Use `downTo`:
+
+```kotlin
+fun main() {
+    for (i in 5 downTo 1) {
+        println("$i...")
+    }
+    println("Go, Tribots!")
+}
+```
+
+Output:
+```
+5...
+4...
+3...
+2...
+1...
+Go, Tribots!
+```
+
+Think of it like a launch countdown for your robot.
+
+## Skipping Numbers with `step`
+
+You can skip numbers by adding `step`:
+
+```kotlin
+fun main() {
+    for (i in 0..20 step 5) {
+        println(i)
+    }
+}
+```
+
+This prints 0, 5, 10, 15, and 20. The loop moves forward by 5 each time instead of 1.
+
+You can combine `step` with `downTo` too:
+
+```kotlin
+fun main() {
+    for (i in 100 downTo 0 step 10) {
+        println("Motor power: $i%")
+    }
+}
+```
+
+## Looping Over Characters in a String
+
+A `for` loop can go through each character in a string one at a time:
+
+```kotlin
+fun main() {
+    val teamName = "Tribots"
+    for (letter in teamName) {
+        println(letter)
+    }
+}
+```
+
+Each time through the loop, `letter` holds the next character. This prints each letter of "Tribots" on its own line.
+
+## Nested Loops
+
+You can put a loop inside another loop. The inner loop runs completely for each step of the outer loop:
+
+```kotlin
+fun main() {
+    for (match in 1..3) {
+        for (alliance in listOf("Red", "Blue")) {
+            println("Match $match - $alliance Alliance")
+        }
+    }
+}
+```
+
+Output:
+```
+Match 1 - Red Alliance
+Match 1 - Blue Alliance
+Match 2 - Red Alliance
+Match 2 - Blue Alliance
+Match 3 - Red Alliance
+Match 3 - Blue Alliance
+```
+
+Nested loops are powerful, but they can be tricky to follow at first. Trace through each step on paper if you get confused.
+
+## When to Use `for` vs `while`
+
+Here is a quick guide:
+
+| Use `for` when... | Use `while` when... |
+|---|---|
+| You know how many times to repeat | You do not know in advance |
+| You are counting through a range | You are waiting for a condition |
+| You are going through items in a list | The number of repeats depends on input |
+
+In FRC, you might use a `for` loop to initialize 4 motors or check 6 sensors. You would use a `while` loop to keep a mechanism running until a limit switch is hit.
+
+Now try these exercises!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

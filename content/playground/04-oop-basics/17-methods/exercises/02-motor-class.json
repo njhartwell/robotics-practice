@@ -1,0 +1,14 @@
+{
+  "id": "17-methods/ex-02",
+  "lessonSlug": "17-methods",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Build a Motor Class",
+  "instructions": "Write a `Motor` class with:\n\n- A `val name: String` property (set in the constructor)\n- A `var speed: Double` property that starts at `0.0`\n- A method `runAt(newSpeed: Double)` that updates `speed`\n- A method `getInfo(): String` that returns \"{name} at {speed}\"\n\nFor example:\n```\nval m = Motor(\"Arm\")\nm.runAt(0.5)\nm.getInfo() // returns \"Arm at 0.5\"\n```",
+  "hint": "Define speed as `var speed = 0.0` inside the class body (not in the constructor). The runAt method assigns the parameter to the property.",
+  "xpReward": 20,
+  "starterCode": "class Motor(val name: String) {\n    // Add a speed property starting at 0.0\n\n    // Add runAt and getInfo methods\n}",
+  "solutionCode": "class Motor(val name: String) {\n    var speed = 0.0\n\n    fun runAt(newSpeed: Double) {\n        speed = newSpeed\n    }\n\n    fun getInfo(): String {\n        return \"$name at $speed\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testInitialSpeed() {\n        val motor = Motor(\"Left\")\n        Assert.assertEquals(\"Left at 0.0\", motor.getInfo())\n    }\n\n    @Test\n    fun testRunAtSpeed() {\n        val motor = Motor(\"Right\")\n        motor.runAt(0.75)\n        Assert.assertEquals(\"Right at 0.75\", motor.getInfo())\n    }\n\n    @Test\n    fun testMultipleUpdates() {\n        val motor = Motor(\"Arm\")\n        motor.runAt(0.5)\n        motor.runAt(1.0)\n        Assert.assertEquals(\"Arm at 1.0\", motor.getInfo())\n    }\n}"
+}

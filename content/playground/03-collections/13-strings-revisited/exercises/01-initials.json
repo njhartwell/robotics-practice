@@ -1,0 +1,14 @@
+{
+  "id": "13-strings-revisited/ex-01",
+  "lessonSlug": "13-strings-revisited",
+  "type": "write-from-scratch",
+  "order": 1,
+  "title": "Get Initials",
+  "instructions": "Write a function called `getInitials` that takes a `fullName` parameter of type `String` and returns a `String` with the uppercase initials.\n\nThe name will always be two words separated by a space.\n\nFor example, `getInitials(\"Nathan Hartwell\")` should return `\"NH\"`.",
+  "hint": "Use .split(\" \") to break the name into two parts. Then grab the first character of each part with [0] and convert to uppercase.",
+  "xpReward": 20,
+  "starterCode": "fun getInitials(fullName: String): String {\n    // Split the name and return the uppercase initials\n    return \"\"\n}",
+  "solutionCode": "fun getInitials(fullName: String): String {\n    val parts = fullName.split(\" \")\n    return \"${parts[0][0]}${parts[1][0]}\".uppercase()\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testNathanHartwell() {\n        Assert.assertEquals(\"NH\", getInitials(\"Nathan Hartwell\"))\n    }\n\n    @Test\n    fun testGraceHopper() {\n        Assert.assertEquals(\"GH\", getInitials(\"Grace Hopper\"))\n    }\n\n    @Test\n    fun testLowercaseInput() {\n        Assert.assertEquals(\"JD\", getInitials(\"john doe\"))\n    }\n}"
+}

@@ -1,0 +1,202 @@
+# Abstract Classes
+
+You have learned about regular classes and interfaces. Now it is time to learn about something in between: **abstract classes**. They let you write classes that are partially finished, leaving some parts for child classes to complete.
+
+## What Is an Abstract Class?
+
+An **abstract class** is a class that cannot be created on its own. It is meant to be a starting point for other classes. It can have regular methods with code inside them, and it can also have methods with no code that child classes must fill in.
+
+Think about FRC commands. Every command has a name and can be scheduled. But each specific command does something different when it runs. An abstract `Command` class would define the structure, while each specific command fills in the details.
+
+## Defining an Abstract Class
+
+Use the `abstract` keyword before `class`:
+
+```kotlin
+abstract class Command(val commandName: String) {
+    abstract fun execute()
+
+    fun schedule() {
+        println("Scheduling: $commandName")
+        execute()
+    }
+}
+```
+
+The `execute()` method is marked `abstract`. It has no body (no curly braces). Any class that extends `Command` must provide its own version of `execute()`.
+
+The `schedule()` method is a regular method. It has code inside it and works the same in every child class.
+
+## Extending an Abstract Class
+
+Child classes extend abstract classes the same way they extend regular classes. But they must override all abstract methods:
+
+```kotlin
+abstract class Command(val commandName: String) {
+    abstract fun execute()
+
+    fun schedule() {
+        println("Scheduling: $commandName")
+        execute()
+    }
+}
+
+class DriveForward(val speed: Double) : Command("Drive Forward") {
+    override fun execute() {
+        println("Driving forward at $speed")
+    }
+}
+
+class StopDriving : Command("Stop") {
+    override fun execute() {
+        println("Motors stopped")
+    }
+}
+
+fun main() {
+    val drive = DriveForward(0.5)
+    drive.schedule()
+
+    println()
+
+    val stop = StopDriving()
+    stop.schedule()
+}
+```
+
+Output:
+```
+Scheduling: Drive Forward
+Driving forward at 0.5
+
+Scheduling: Stop
+Motors stopped
+```
+
+Both `DriveForward` and `StopDriving` extend `Command`. They each provide their own `execute()` method. But they both get the `schedule()` method for free.
+
+## You Cannot Create an Abstract Class Directly
+
+This is an important rule. You cannot use `val cmd = Command("test")` because `Command` is abstract. It is incomplete. You can only create instances of the child classes that fill in the missing pieces.
+
+```kotlin
+// This would cause an error:
+// val cmd = Command("test")  // ERROR! Cannot create an instance of an abstract class
+
+// This works:
+val drive = DriveForward(0.5)  // DriveForward is a complete class
+```
+
+## Abstract Properties
+
+Abstract classes can also have abstract properties. Child classes must provide values for them:
+
+```kotlin
+abstract class GamePiece {
+    abstract val name: String
+    abstract val points: Int
+
+    fun describe(): String {
+        return "$name is worth $points points"
+    }
+}
+
+class Cone : GamePiece() {
+    override val name = "Cone"
+    override val points = 3
+}
+
+class Cube : GamePiece() {
+    override val name = "Cube"
+    override val points = 4
+}
+
+fun main() {
+    val cone = Cone()
+    val cube = Cube()
+    println(cone.describe())
+    println(cube.describe())
+}
+```
+
+Output:
+```
+Cone is worth 3 points
+Cube is worth 4 points
+```
+
+Both `Cone` and `Cube` fill in the `name` and `points` properties. The `describe()` method uses those properties and works the same for both.
+
+## The Template Method Pattern
+
+A common and useful pattern with abstract classes is the **template method** pattern. The parent class defines the steps of a process, and child classes fill in the details:
+
+```kotlin
+abstract class AutonomousRoutine {
+    fun run() {
+        println("Starting autonomous...")
+        step1()
+        step2()
+        step3()
+        println("Autonomous complete!")
+    }
+
+    abstract fun step1()
+    abstract fun step2()
+    abstract fun step3()
+}
+
+class SimpleAuto : AutonomousRoutine() {
+    override fun step1() {
+        println("Drive forward")
+    }
+    override fun step2() {
+        println("Score game piece")
+    }
+    override fun step3() {
+        println("Drive back")
+    }
+}
+
+fun main() {
+    val auto = SimpleAuto()
+    auto.run()
+}
+```
+
+Output:
+```
+Starting autonomous...
+Drive forward
+Score game piece
+Drive back
+Autonomous complete!
+```
+
+The `run()` method defines the order of steps. Each child class fills in what the steps do. This keeps the overall structure consistent while allowing different behaviors.
+
+## Abstract Class vs Interface
+
+When should you use an abstract class instead of an interface?
+
+| Feature | Abstract Class | Interface |
+|---|---|---|
+| Can have constructors | Yes | No |
+| Can store state (properties with values) | Yes | Only abstract or computed |
+| A class can extend | One | Many |
+| Can have abstract methods | Yes | Yes |
+| Can have regular methods | Yes | Yes (default implementations) |
+
+Use an abstract class when your child classes share data and behavior. Use an interface when you want to define a contract that unrelated classes can follow.
+
+In FRC, the `Command` base class is abstract because all commands share scheduling logic. But `Controllable` might be an interface because motors, sensors, and LEDs are all very different things that happen to share the ability to be enabled and disabled.
+
+You are learning to design code like a real software engineer. Awesome work!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

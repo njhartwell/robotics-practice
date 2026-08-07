@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { checkBadgeUnlocks, BADGE_DEFINITIONS } from "./badges";
-import type { UserProgress } from "@/lib/progress/types";
 import { createDefaultProgress } from "@/lib/progress/types";
 
 describe("BADGE_DEFINITIONS", () => {

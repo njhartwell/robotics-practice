@@ -1,0 +1,14 @@
+{
+  "id": "15-classes/ex-04",
+  "lessonSlug": "15-classes",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Two Motors",
+  "instructions": "The `Motor` class is already defined. Complete the `main` function to:\n1. Create a Motor named `\"Left Drive\"` with speed `0.6`\n2. Create a Motor named `\"Right Drive\"` with speed `0.9`\n3. Print each motor's name and speed in the format: `\"{name}: {speed}\"`",
+  "hint": "Create each Motor with `Motor(\"Left Drive\", 0.6)` and use string templates to print: `\"${motor.name}: ${motor.speed}\"`.",
+  "xpReward": 15,
+  "starterCode": "class Motor(val name: String, val speed: Double)\n\nfun main() {\n    // Create two motors and print their name and speed\n}",
+  "solutionCode": "class Motor(val name: String, val speed: Double)\n\nfun main() {\n    val left = Motor(\"Left Drive\", 0.6)\n    val right = Motor(\"Right Drive\", 0.9)\n    println(\"${left.name}: ${left.speed}\")\n    println(\"${right.name}: ${right.speed}\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Left Drive: 0.6\nRight Drive: 0.9"
+}

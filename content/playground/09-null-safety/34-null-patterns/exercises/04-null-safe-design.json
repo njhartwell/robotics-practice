@@ -1,0 +1,14 @@
+{
+  "id": "34-null-patterns/ex-04",
+  "lessonSlug": "34-null-patterns",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Filter Null Sensor Readings",
+  "instructions": "Complete the function `getValidReadings` that takes a `List<Double?>` of sensor readings (some might be null) and returns a `List<Double>` containing only the non-null values.\n\nAlso complete the function `averageReading` that takes the same list and returns the average of the valid (non-null) readings. If there are no valid readings, return `0.0`.\n\nFor example:\n- `getValidReadings(listOf(42.5, null, 38.0))` returns `[42.5, 38.0]`\n- `averageReading(listOf(42.5, null, 38.0))` returns `40.25`\n- `averageReading(listOf(null, null))` returns `0.0`",
+  "hint": "Use `filterNotNull()` to remove null values from a list. For the average, check if the filtered list is empty before calling `average()`. If empty, return 0.0.",
+  "xpReward": 15,
+  "starterCode": "fun getValidReadings(readings: List<Double?>): List<Double> {\n    // Remove null values from the list\n    return emptyList()\n}\n\nfun averageReading(readings: List<Double?>): Double {\n    // Get valid readings, then return their average\n    // Return 0.0 if there are no valid readings\n    return 0.0\n}",
+  "solutionCode": "fun getValidReadings(readings: List<Double?>): List<Double> {\n    return readings.filterNotNull()\n}\n\nfun averageReading(readings: List<Double?>): Double {\n    val valid = readings.filterNotNull()\n    return if (valid.isEmpty()) 0.0 else valid.average()\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testGetValidReadings() {\n        Assert.assertEquals(listOf(42.5, 38.0), getValidReadings(listOf(42.5, null, 38.0)))\n    }\n\n    @Test\n    fun testGetValidReadingsAllNull() {\n        Assert.assertEquals(emptyList<Double>(), getValidReadings(listOf(null, null, null)))\n    }\n\n    @Test\n    fun testGetValidReadingsNoNulls() {\n        Assert.assertEquals(listOf(10.0, 20.0, 30.0), getValidReadings(listOf(10.0, 20.0, 30.0)))\n    }\n\n    @Test\n    fun testAverageReading() {\n        Assert.assertEquals(40.25, averageReading(listOf(42.5, null, 38.0)), 0.01)\n    }\n\n    @Test\n    fun testAverageReadingAllNull() {\n        Assert.assertEquals(0.0, averageReading(listOf(null, null)), 0.01)\n    }\n\n    @Test\n    fun testAverageReadingSingle() {\n        Assert.assertEquals(42.5, averageReading(listOf(42.5)), 0.01)\n    }\n}"
+}

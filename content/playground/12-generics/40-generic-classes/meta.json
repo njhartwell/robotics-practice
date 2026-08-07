@@ -1,0 +1,14 @@
+{
+  "slug": "40-generic-classes",
+  "section": "generics",
+  "sectionTitle": "Generics",
+  "sectionOrder": 12,
+  "title": "Generic Classes",
+  "description": "Write classes that work with any type using type parameters and the <T> syntax",
+  "order": 40,
+  "requiredLevel": 10,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["generics", "type-parameter", "generic-class", "reuse"]
+}

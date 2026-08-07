@@ -1,0 +1,14 @@
+{
+  "slug": "31-collection-operations",
+  "section": "functional-kotlin",
+  "sectionTitle": "Functional Kotlin",
+  "sectionOrder": 8,
+  "title": "Collection Operations",
+  "description": "Use map, filter, reduce, and other powerful collection functions",
+  "order": 31,
+  "requiredLevel": 6,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["map", "filter", "reduce", "collection-functions"]
+}

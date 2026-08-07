@@ -1,0 +1,14 @@
+{
+  "id": "30-higher-order-functions/ex-02",
+  "lessonSlug": "30-higher-order-functions",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Transform a List",
+  "instructions": "Write a function called `transformList` that takes two parameters:\n- `numbers` of type `List<Int>`\n- `transform` of type `(Int) -> Int`\n\nThe function should return a new `List<Int>` where each element has been transformed by calling the `transform` lambda on it.\n\nFor example:\n- `transformList(listOf(1, 2, 3), { it * 2 })` returns `[2, 4, 6]`\n- `transformList(listOf(10, 20), { it + 1 })` returns `[11, 21]`",
+  "hint": "Create a mutable list, loop through `numbers`, add `transform(number)` to the result, and return it. Or use the built-in `.map` function!",
+  "xpReward": 20,
+  "starterCode": "// Write your transformList function here\n",
+  "solutionCode": "fun transformList(numbers: List<Int>, transform: (Int) -> Int): List<Int> {\n    val result = mutableListOf<Int>()\n    for (number in numbers) {\n        result.add(transform(number))\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDoubleAll() {\n        Assert.assertEquals(listOf(2, 4, 6), transformList(listOf(1, 2, 3), { it * 2 }))\n    }\n\n    @Test\n    fun testAddOne() {\n        Assert.assertEquals(listOf(11, 21), transformList(listOf(10, 20), { it + 1 }))\n    }\n\n    @Test\n    fun testSquare() {\n        Assert.assertEquals(listOf(1, 4, 9, 16), transformList(listOf(1, 2, 3, 4), { it * it }))\n    }\n\n    @Test\n    fun testEmptyList() {\n        Assert.assertEquals(emptyList<Int>(), transformList(emptyList(), { it * 2 }))\n    }\n}"
+}

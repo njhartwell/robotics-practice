@@ -1,0 +1,15 @@
+{
+  "id": "11-lists/ex-05",
+  "lessonSlug": "11-lists",
+  "type": "code-completion",
+  "order": 5,
+  "title": "Print All Scores",
+  "instructions": "Complete the `printScores` function. It takes a `List<Int>` of match scores. Use a `for` loop to print each score with the prefix \"Score: \".\n\nFor example, if the list contains 45, 72, and 38, the output should be:\n```\nScore: 45\nScore: 72\nScore: 38\n```",
+  "hint": "Use `for (score in scores)` to loop through the list, then `println(\"Score: $score\")` inside the loop.",
+  "xpReward": 15,
+  "starterCode": "fun printScores(scores: List<Int>) {\n    // Use a for loop to print each score\n    // Format: \"Score: 45\"\n}",
+  "solutionCode": "fun printScores(scores: List<Int>) {\n    for (score in scores) {\n        println(\"Score: $score\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Score: 45\nScore: 72\nScore: 38",
+  "hiddenPostamble": "fun main() {\n    printScores(listOf(45, 72, 38))\n}"
+}

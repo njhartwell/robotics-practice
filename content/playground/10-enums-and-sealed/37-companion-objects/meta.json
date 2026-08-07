@@ -1,0 +1,14 @@
+{
+  "slug": "37-companion-objects",
+  "section": "enums-and-sealed",
+  "sectionTitle": "Enums and Sealed Classes",
+  "sectionOrder": 10,
+  "title": "Companion Objects",
+  "description": "Share constants and factory methods across all instances of a class",
+  "order": 37,
+  "requiredLevel": 8,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["companion-object", "static", "factory", "constants"]
+}

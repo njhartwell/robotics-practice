@@ -1,0 +1,14 @@
+{
+  "id": "37-companion-objects/ex-01",
+  "lessonSlug": "37-companion-objects",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Motor Constant",
+  "instructions": "Complete the `Motor` class by adding a companion object that contains a constant called `MAX_SPEED` with the value `1.0`.\n\nThe `Motor` class already has a `name` property and a `speed` property. Do not change those.",
+  "hint": "Add `companion object { val MAX_SPEED = 1.0 }` inside the Motor class body.",
+  "xpReward": 15,
+  "starterCode": "class Motor(val name: String, var speed: Double) {\n    // Add a companion object with a MAX_SPEED constant of 1.0\n}",
+  "solutionCode": "class Motor(val name: String, var speed: Double) {\n    companion object {\n        val MAX_SPEED = 1.0\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testMaxSpeedValue() {\n        Assert.assertEquals(1.0, Motor.MAX_SPEED, 0.001)\n    }\n\n    @Test\n    fun testMotorCreation() {\n        val motor = Motor(\"Left Drive\", 0.5)\n        Assert.assertEquals(\"Left Drive\", motor.name)\n        Assert.assertEquals(0.5, motor.speed, 0.001)\n    }\n\n    @Test\n    fun testMaxSpeedIsAccessibleWithoutInstance() {\n        val speed = Motor.MAX_SPEED\n        Assert.assertTrue(speed > 0)\n    }\n}"
+}

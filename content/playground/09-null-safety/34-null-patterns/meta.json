@@ -1,0 +1,14 @@
+{
+  "slug": "34-null-patterns",
+  "section": "null-safety",
+  "sectionTitle": "Null Safety",
+  "sectionOrder": 9,
+  "title": "Null Patterns",
+  "description": "Master advanced null-handling patterns like let, requireNotNull, and safe design",
+  "order": 34,
+  "requiredLevel": 7,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["null-patterns", "let", "require", "not-null-assertion"]
+}

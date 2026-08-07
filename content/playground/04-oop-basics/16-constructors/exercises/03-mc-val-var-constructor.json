@@ -1,0 +1,17 @@
+{
+  "id": "16-constructors/ex-03",
+  "lessonSlug": "16-constructors",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "val in Constructors",
+  "instructions": "In `class Motor(val name: String)`, what does `val` mean for the `name` property?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The name can be changed later" },
+    { "id": "b", "text": "The name is read-only after the object is created" },
+    { "id": "c", "text": "The name must be a String" },
+    { "id": "d", "text": "The name parameter is optional" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Using `val` in a constructor makes the property read-only. Once the object is created, you cannot change its `name`. If you used `var` instead, the property would be mutable and you could change it later."
+}

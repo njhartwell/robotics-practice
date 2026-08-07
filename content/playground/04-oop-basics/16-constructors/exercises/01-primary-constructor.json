@@ -1,0 +1,14 @@
+{
+  "id": "16-constructors/ex-01",
+  "lessonSlug": "16-constructors",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Create a Sensor Class",
+  "instructions": "Complete the `Sensor` class so it has a primary constructor with two properties:\n- `name` of type `String` (read-only)\n- `port` of type `Int` (read-only)\n\nThen in `main()`, create a Sensor called \"Gyro\" on port 0 and print its name and port on separate lines.",
+  "hint": "Put `val name: String, val port: Int` inside the parentheses after the class name. Then create an instance with `Sensor(\"Gyro\", 0)` and use `println`.",
+  "xpReward": 15,
+  "starterCode": "class Sensor(/* Add constructor parameters here */) \n\nfun main() {\n    // Create a Sensor named \"Gyro\" on port 0\n    // Print its name, then its port\n}",
+  "solutionCode": "class Sensor(val name: String, val port: Int)\n\nfun main() {\n    val sensor = Sensor(\"Gyro\", 0)\n    println(sensor.name)\n    println(sensor.port)\n}",
+  "validationMode": "output",
+  "expectedOutput": "Gyro\n0"
+}

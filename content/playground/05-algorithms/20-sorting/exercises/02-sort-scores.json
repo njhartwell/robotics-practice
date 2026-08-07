@@ -1,0 +1,14 @@
+{
+  "id": "20-sorting/ex-02",
+  "lessonSlug": "20-sorting",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Sort Scores Descending",
+  "instructions": "Write a function called `sortDescending` that takes a `List<Int>` called `scores` and returns a new list with the scores sorted from highest to lowest.\n\nUse Kotlin's built-in sorting (no need to write your own algorithm).",
+  "hint": "Use the `.sortedDescending()` method on the list.",
+  "xpReward": 20,
+  "starterCode": "fun sortDescending(scores: List<Int>): List<Int> {\n    // Return scores sorted from highest to lowest\n    return scores\n}",
+  "solutionCode": "fun sortDescending(scores: List<Int>): List<Int> {\n    return scores.sortedDescending()\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testDescending() {\n        Assert.assertEquals(listOf(91, 72, 45, 38), sortDescending(listOf(45, 72, 38, 91)))\n    }\n\n    @Test\n    fun testAlreadyDescending() {\n        Assert.assertEquals(listOf(3, 2, 1), sortDescending(listOf(3, 2, 1)))\n    }\n\n    @Test\n    fun testSingle() {\n        Assert.assertEquals(listOf(5), sortDescending(listOf(5)))\n    }\n}"
+}

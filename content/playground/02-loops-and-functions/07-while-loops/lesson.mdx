@@ -1,0 +1,115 @@
+# While Loops
+
+Sometimes you need your code to do the same thing over and over. Think about a robot on the field -- it checks its sensors, adjusts its motors, and repeats. That's what **loops** are for. A loop runs a block of code multiple times.
+
+## The while Loop
+
+A `while` loop keeps running as long as a condition is `true`. Here's a quick example:
+
+```kotlin
+fun main() {
+    var laps = 1
+
+    while (laps <= 3) {
+        println("Lap $laps complete!")
+        laps = laps + 1
+    }
+    println("Done!")
+}
+```
+
+This prints:
+
+```
+Lap 1 complete!
+Lap 2 complete!
+Lap 3 complete!
+Done!
+```
+
+Let's break it down:
+
+1. We create a variable `laps` and set it to `1`.
+2. The `while` checks: is `laps <= 3`? If yes, it runs the code inside the curly braces.
+3. Inside the loop, we print the current lap and then **increase** `laps` by 1.
+4. After each pass, the `while` checks the condition again. When `laps` becomes `4`, the condition is `false` and the loop stops.
+
+The variable that controls the loop is often called a **counter**. You must update it inside the loop, or the loop will never stop!
+
+## Watch Out for Infinite Loops
+
+What happens if you forget to update the counter?
+
+```kotlin
+// WARNING: This loop never ends!
+fun main() {
+    var count = 1
+    while (count <= 5) {
+        println(count)
+        // Oops — we never change count!
+    }
+}
+```
+
+Because `count` never changes, `count <= 5` stays `true` forever. This is called an **infinite loop**. The program gets stuck and never finishes. Always make sure your loop's condition will eventually become `false`.
+
+## do-while Loops
+
+A `do-while` loop is similar, but it runs the code **at least once** before checking the condition:
+
+```kotlin
+fun main() {
+    var attempts = 0
+
+    do {
+        println("Attempting connection... (attempt ${attempts + 1})")
+        attempts = attempts + 1
+    } while (attempts < 3)
+
+    println("All attempts done.")
+}
+```
+
+This prints:
+
+```
+Attempting connection... (attempt 1)
+Attempting connection... (attempt 2)
+Attempting connection... (attempt 3)
+All attempts done.
+```
+
+The difference from a regular `while` loop: even if the condition is already `false`, the code inside `do { ... }` runs once. This is useful when you always want to perform an action at least one time, like checking a sensor reading before deciding whether to check again.
+
+## Breaking Out of a Loop
+
+Sometimes you want to stop a loop early. The `break` keyword exits the loop immediately:
+
+```kotlin
+fun main() {
+    var speed = 0
+
+    while (speed <= 100) {
+        if (speed > 50) {
+            println("Speed limit reached!")
+            break
+        }
+        println("Speed: $speed")
+        speed = speed + 10
+    }
+}
+```
+
+When `speed` goes above 50, the `break` stops the loop right away. No more passes happen after `break`.
+
+## Loops in FRC
+
+On Team 4215, loops are everywhere in robot code. The robot's main loop runs 50 times per second, reading sensors and updating motors each time. You'll also use loops to process lists of game pieces, cycle through autonomous steps, and more. Getting comfortable with loops is a big step forward. Nice work making it here!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

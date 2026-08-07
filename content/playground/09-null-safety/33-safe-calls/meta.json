@@ -1,0 +1,14 @@
+{
+  "slug": "33-safe-calls",
+  "section": "null-safety",
+  "sectionTitle": "Null Safety",
+  "sectionOrder": 9,
+  "title": "Safe Calls and Elvis",
+  "description": "Use the safe call operator and Elvis operator to handle nullable values",
+  "order": 33,
+  "requiredLevel": 7,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["safe-call", "elvis", "null-handling", "?."]
+}

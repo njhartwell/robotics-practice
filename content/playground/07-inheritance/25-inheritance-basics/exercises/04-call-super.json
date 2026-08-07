@@ -1,0 +1,15 @@
+{
+  "id": "25-inheritance-basics/ex-04",
+  "lessonSlug": "25-inheritance-basics",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Call Super in Reset",
+  "instructions": "Complete the `ClimberSubsystem` class. It extends `Subsystem` and overrides the `reset()` method.\n\nYour `reset()` method should:\n1. Call the parent's `reset()` method first using `super`\n2. Set `height` to `0.0`\n3. Print \"Climber height reset to 0.0\"\n\nExpected output:\n```\nClimber: resetting subsystem\nClimber height reset to 0.0\nClimber height: 0.0\n```",
+  "hint": "Use `super.reset()` as the first line inside your override method. Then set `height = 0.0` and print the message.",
+  "xpReward": 15,
+  "starterCode": "open class Subsystem(val name: String) {\n    open fun reset() {\n        println(\"$name: resetting subsystem\")\n    }\n}\n\nclass ClimberSubsystem : Subsystem(\"Climber\") {\n    var height = 0.0\n\n    override fun reset() {\n        // Call the parent's reset method\n        // Set height to 0.0\n        // Print \"Climber height reset to 0.0\"\n    }\n}",
+  "solutionCode": "open class Subsystem(val name: String) {\n    open fun reset() {\n        println(\"$name: resetting subsystem\")\n    }\n}\n\nclass ClimberSubsystem : Subsystem(\"Climber\") {\n    var height = 0.0\n\n    override fun reset() {\n        super.reset()\n        height = 0.0\n        println(\"Climber height reset to 0.0\")\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Climber: resetting subsystem\nClimber height reset to 0.0\nClimber height: 0.0",
+  "hiddenPostamble": "fun main() {\n    val climber = ClimberSubsystem()\n    climber.height = 12.5\n    climber.reset()\n    println(\"Climber height: ${climber.height}\")\n}"
+}

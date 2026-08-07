@@ -1,0 +1,17 @@
+{
+  "id": "27-abstract-classes/ex-03",
+  "lessonSlug": "27-abstract-classes",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Abstract Instances",
+  "instructions": "Can you create an instance of an abstract class using something like `val obj = MyAbstractClass()`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Yes, abstract classes work like regular classes" },
+    { "id": "b", "text": "Yes, but only if it has no abstract methods" },
+    { "id": "c", "text": "No, you can only create instances of classes that extend the abstract class" },
+    { "id": "d", "text": "No, abstract classes cannot have any methods" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "You cannot create an instance of an abstract class directly. Abstract classes are incomplete blueprints. You must create a child class that provides implementations for all abstract methods, and then create instances of that child class."
+}

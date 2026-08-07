@@ -1,0 +1,17 @@
+{
+  "id": "12-mutable-lists/ex-03",
+  "lessonSlug": "12-mutable-lists",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Immutable vs Mutable",
+  "instructions": "What happens if you try to call `.add()` on a list created with `listOf()`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "It works fine and adds the element" },
+    { "id": "b", "text": "It adds the element at the end" },
+    { "id": "c", "text": "You get a compiler error" },
+    { "id": "d", "text": "The program crashes at runtime" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "Lists created with `listOf()` are immutable. They do not have an `.add()` method, so the Kotlin compiler will show an error before the program even runs. Use `mutableListOf()` if you need to add or remove elements."
+}

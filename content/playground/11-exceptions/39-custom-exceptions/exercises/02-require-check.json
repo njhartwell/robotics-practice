@@ -1,0 +1,14 @@
+{
+  "id": "39-custom-exceptions/ex-02",
+  "lessonSlug": "39-custom-exceptions",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Require Valid Team Number",
+  "instructions": "Write a function called `validateTeamNumber` that takes an `Int` called `number` and returns it if valid.\n\nUse `require()` to check that the team number is between 1 and 9999 (inclusive). If the number is invalid, the error message should be \"Team number must be between 1 and 9999\".\n\nThe function signature is:\n`fun validateTeamNumber(number: Int): Int`\n\nFor example:\n- `validateTeamNumber(4215)` should return `4215`\n- `validateTeamNumber(0)` should throw `IllegalArgumentException`\n- `validateTeamNumber(10000)` should throw `IllegalArgumentException`",
+  "hint": "Use `require(number in 1..9999) { \"Team number must be between 1 and 9999\" }` and then return the number.",
+  "xpReward": 20,
+  "starterCode": "fun validateTeamNumber(number: Int): Int {\n    // Use require() to validate, then return the number\n}",
+  "solutionCode": "fun validateTeamNumber(number: Int): Int {\n    require(number in 1..9999) { \"Team number must be between 1 and 9999\" }\n    return number\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testValidTeamNumber() {\n        Assert.assertEquals(4215, validateTeamNumber(4215))\n    }\n\n    @Test\n    fun testMinTeamNumber() {\n        Assert.assertEquals(1, validateTeamNumber(1))\n    }\n\n    @Test\n    fun testMaxTeamNumber() {\n        Assert.assertEquals(9999, validateTeamNumber(9999))\n    }\n\n    @Test\n    fun testZeroMessage() {\n        try {\n            validateTeamNumber(0)\n            Assert.fail(\"Should have thrown IllegalArgumentException\")\n        } catch (e: IllegalArgumentException) {\n            Assert.assertEquals(\"Team number must be between 1 and 9999\", e.message)\n        }\n    }\n\n    @Test(expected = IllegalArgumentException::class)\n    fun testNegative() {\n        validateTeamNumber(-1)\n    }\n\n    @Test(expected = IllegalArgumentException::class)\n    fun testTooLarge() {\n        validateTeamNumber(10000)\n    }\n}"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "16-constructors/ex-04",
+  "lessonSlug": "16-constructors",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Default Parameter Values",
+  "instructions": "Complete the `GamePiece` class so it has:\n- `type` of type `String` with a default value of `\"cone\"`\n- `points` of type `Int` with a default value of `3`\n\nBoth should be read-only. Then in `main()`, create two GamePiece objects:\n1. One using the defaults (no arguments)\n2. One with type `\"cube\"` and points `5`\n\nPrint each one in the format: `{type}: {points} points`",
+  "hint": "Write default values with `=` in the constructor: `val type: String = \"cone\"`. Create the default one with `GamePiece()` and the custom one with `GamePiece(\"cube\", 5)`.",
+  "xpReward": 15,
+  "starterCode": "class GamePiece(/* Add parameters with defaults */) \n\nfun main() {\n    // Create one with defaults and one with \"cube\", 5\n    // Print each as \"{type}: {points} points\"\n}",
+  "solutionCode": "class GamePiece(val type: String = \"cone\", val points: Int = 3)\n\nfun main() {\n    val piece1 = GamePiece()\n    val piece2 = GamePiece(\"cube\", 5)\n    println(\"${piece1.type}: ${piece1.points} points\")\n    println(\"${piece2.type}: ${piece2.points} points\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "cone: 3 points\ncube: 5 points"
+}

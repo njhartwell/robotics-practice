@@ -1,0 +1,14 @@
+{
+  "id": "15-classes/ex-01",
+  "lessonSlug": "15-classes",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Create a Robot",
+  "instructions": "Complete the `Robot` class so it has a `name` property of type `String`. Then in the `main` function, create a `Robot` with the name `\"Tribots Bot\"` and print its name.",
+  "hint": "Add `val name: String` inside the parentheses of the class. Then create an instance with `Robot(\"Tribots Bot\")` and use `println(robot.name)`.",
+  "xpReward": 15,
+  "starterCode": "class Robot(/* add a name property here */)\n\nfun main() {\n    // Create a Robot named \"Tribots Bot\" and print its name\n}",
+  "solutionCode": "class Robot(val name: String)\n\nfun main() {\n    val robot = Robot(\"Tribots Bot\")\n    println(robot.name)\n}",
+  "validationMode": "output",
+  "expectedOutput": "Tribots Bot"
+}

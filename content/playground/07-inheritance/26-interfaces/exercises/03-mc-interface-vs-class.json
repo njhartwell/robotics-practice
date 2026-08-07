@@ -1,0 +1,17 @@
+{
+  "id": "26-interfaces/ex-03",
+  "lessonSlug": "26-interfaces",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Interface Limit",
+  "instructions": "How many interfaces can a single class implement in Kotlin?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Only one" },
+    { "id": "b", "text": "Only two" },
+    { "id": "c", "text": "As many as it needs" },
+    { "id": "d", "text": "It depends on the size of the class" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "A class can implement as many interfaces as it needs. There is no limit. This is one of the big advantages of interfaces over class inheritance, where a class can only extend one parent class."
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "25-inheritance-basics",
+  "section": "inheritance",
+  "sectionTitle": "Inheritance",
+  "sectionOrder": 7,
+  "title": "Inheritance Basics",
+  "description": "Create new classes based on existing ones",
+  "order": 25,
+  "requiredLevel": 5,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["inheritance", "open", "extends", "super"]
+}

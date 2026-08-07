@@ -1,0 +1,183 @@
+# Enums
+
+Sometimes your code needs to represent a value that can only be one of a few specific choices. For example, an FRC alliance is either Red or Blue. There is no third option.
+
+You could use strings like `"Red"` and `"Blue"`. But what happens if someone types `"red"` or `"Rde"`? The code would break, and the compiler would not catch the mistake.
+
+**Enums** solve this problem. An enum is a fixed set of named constants. Once you define them, those are the only possible values.
+
+## Defining an Enum Class
+
+Use the `enum class` keywords to define an enum:
+
+```kotlin
+enum class Alliance {
+    RED,
+    BLUE
+}
+
+fun main() {
+    val myAlliance = Alliance.RED
+    println(myAlliance) // prints: RED
+}
+```
+
+`Alliance` has exactly two possible values: `RED` and `BLUE`. You access them with the class name, a dot, and the constant name.
+
+Each value is separated by a comma. By convention, enum constant names use ALL_CAPS.
+
+## Using Enums with when
+
+Enums work great with `when` expressions. Kotlin knows all the possible values, so it can check that you handle every case. This is called **exhaustive matching**.
+
+```kotlin
+enum class Alliance {
+    RED,
+    BLUE
+}
+
+fun describeAlliance(alliance: Alliance): String {
+    return when (alliance) {
+        Alliance.RED -> "You are on the Red Alliance!"
+        Alliance.BLUE -> "You are on the Blue Alliance!"
+    }
+}
+
+fun main() {
+    println(describeAlliance(Alliance.RED))
+    println(describeAlliance(Alliance.BLUE))
+}
+```
+
+Output:
+```
+You are on the Red Alliance!
+You are on the Blue Alliance!
+```
+
+If you forget to handle one of the values, the compiler will give you an error. This prevents bugs before your code even runs. That is a big deal!
+
+## Enums with Properties
+
+Each enum constant can hold data. You define a property in the enum class constructor, then pass a value for each constant:
+
+```kotlin
+enum class GamePiece(val points: Int) {
+    CONE(3),
+    CUBE(4),
+    NONE(0)
+}
+
+fun main() {
+    val piece = GamePiece.CONE
+    println("${piece.name} is worth ${piece.points} points")
+}
+```
+
+Output:
+```
+CONE is worth 3 points
+```
+
+Each `GamePiece` constant has a `points` property. `CONE` is worth 3, `CUBE` is worth 4, and `NONE` is worth 0.
+
+## Enums with Methods
+
+You can add methods to an enum class. The methods are available on every constant:
+
+```kotlin
+enum class RobotMode(val durationSeconds: Int) {
+    AUTONOMOUS(15),
+    TELEOP(135),
+    ENDGAME(30);
+
+    fun describe(): String {
+        return "$name lasts $durationSeconds seconds"
+    }
+}
+
+fun main() {
+    println(RobotMode.AUTONOMOUS.describe())
+    println(RobotMode.TELEOP.describe())
+}
+```
+
+Output:
+```
+AUTONOMOUS lasts 15 seconds
+TELEOP lasts 135 seconds
+```
+
+Notice the semicolon `;` after the last constant. When an enum has methods or properties defined in the body, you must put a semicolon between the constants and the rest of the class.
+
+## Useful Built-in Properties
+
+Every enum constant comes with two built-in properties:
+
+- `.name` gives you the constant's name as a `String`
+- `.ordinal` gives you the constant's position as an `Int` (starting from 0)
+
+```kotlin
+enum class Alliance {
+    RED,
+    BLUE
+}
+
+fun main() {
+    val a = Alliance.RED
+    println(a.name)    // RED
+    println(a.ordinal) // 0
+
+    val b = Alliance.BLUE
+    println(b.name)    // BLUE
+    println(b.ordinal) // 1
+}
+```
+
+## Getting All Enum Values
+
+Use the `values()` function to get an array of all constants in an enum:
+
+```kotlin
+enum class Alliance {
+    RED,
+    BLUE
+}
+
+fun main() {
+    for (alliance in Alliance.values()) {
+        println(alliance)
+    }
+}
+```
+
+Output:
+```
+RED
+BLUE
+```
+
+This is useful when you need to loop through every possible value.
+
+## Why Enums Matter in FRC
+
+In FRC robot code, enums are used all the time. Here are some real examples:
+
+- **Alliance color**: Red or Blue
+- **Robot state**: Disabled, Autonomous, Teleop
+- **Arm position**: Stowed, Low, Mid, High
+- **Drive mode**: Tank, Arcade, Swerve
+
+Using enums instead of strings keeps your code safe. The compiler catches mistakes, and anyone reading your code can see exactly what values are allowed.
+
+You are doing great! Time to practice what you have learned.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

@@ -1,0 +1,14 @@
+{
+  "id": "38-try-catch/ex-01",
+  "lessonSlug": "38-try-catch",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Safe Number Parsing",
+  "instructions": "Complete the `safeParseInt` function. It should try to convert the `text` parameter to an `Int` and return it. If the text is not a valid number (a `NumberFormatException` is thrown), the function should return `-1` instead.\n\nFor example:\n- `safeParseInt(\"42\")` should return `42`\n- `safeParseInt(\"abc\")` should return `-1`\n- `safeParseInt(\"\")` should return `-1`",
+  "hint": "Use a try-catch block. In the try block, return `text.toInt()`. In the catch block, catch `NumberFormatException` and return `-1`.",
+  "xpReward": 15,
+  "starterCode": "fun safeParseInt(text: String): Int {\n    // Return the parsed number, or -1 if it fails\n}",
+  "solutionCode": "fun safeParseInt(text: String): Int {\n    return try {\n        text.toInt()\n    } catch (e: NumberFormatException) {\n        -1\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testValidNumber() {\n        Assert.assertEquals(42, safeParseInt(\"42\"))\n    }\n\n    @Test\n    fun testInvalidText() {\n        Assert.assertEquals(-1, safeParseInt(\"abc\"))\n    }\n\n    @Test\n    fun testEmptyString() {\n        Assert.assertEquals(-1, safeParseInt(\"\"))\n    }\n\n    @Test\n    fun testNegativeNumber() {\n        Assert.assertEquals(-5, safeParseInt(\"-5\"))\n    }\n\n    @Test\n    fun testZero() {\n        Assert.assertEquals(0, safeParseInt(\"0\"))\n    }\n}"
+}

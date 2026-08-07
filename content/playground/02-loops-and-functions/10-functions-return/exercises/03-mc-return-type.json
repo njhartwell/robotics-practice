@@ -1,0 +1,17 @@
+{
+  "id": "10-functions-return/ex-03",
+  "lessonSlug": "10-functions-return",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Return Type Annotation",
+  "instructions": "What does `: String` mean in this function?\n\n```\nfun greet(name: String): String\n```",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "The function is called \"String\"" },
+    { "id": "b", "text": "The parameter type is String" },
+    { "id": "c", "text": "The function returns a String value" },
+    { "id": "d", "text": "The function only accepts strings as input" }
+  ],
+  "correctOptionId": "c",
+  "explanation": "The `: String` after the parentheses is the return type. It tells Kotlin that this function gives back a String value when it is called. The parameter type (`name: String` inside the parentheses) is a separate thing -- that tells Kotlin what type of input the function expects."
+}

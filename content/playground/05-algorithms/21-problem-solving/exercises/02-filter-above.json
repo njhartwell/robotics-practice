@@ -1,0 +1,14 @@
+{
+  "id": "21-problem-solving/ex-02",
+  "lessonSlug": "21-problem-solving",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Filter Above Threshold",
+  "instructions": "Write a function called `filterAbove` that takes a `List<Int>` called `scores` and an `Int` called `threshold`. It should return a new list containing only the scores that are strictly greater than the threshold.\n\nFor example, `filterAbove(listOf(45, 72, 38, 91), 50)` should return `[72, 91]`.",
+  "hint": "Create a mutable list for the result. Loop through scores. If a score is greater than the threshold, add it to the result.",
+  "xpReward": 20,
+  "starterCode": "fun filterAbove(scores: List<Int>, threshold: Int): List<Int> {\n    // Return only scores greater than threshold\n    return emptyList()\n}",
+  "solutionCode": "fun filterAbove(scores: List<Int>, threshold: Int): List<Int> {\n    val result = mutableListOf<Int>()\n    for (score in scores) {\n        if (score > threshold) {\n            result.add(score)\n        }\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFilterAbove50() {\n        Assert.assertEquals(listOf(72, 91), filterAbove(listOf(45, 72, 38, 91), 50))\n    }\n\n    @Test\n    fun testNoneAbove() {\n        Assert.assertEquals(emptyList<Int>(), filterAbove(listOf(10, 20, 30), 100))\n    }\n\n    @Test\n    fun testAllAbove() {\n        Assert.assertEquals(listOf(80, 90, 100), filterAbove(listOf(80, 90, 100), 50))\n    }\n}"
+}

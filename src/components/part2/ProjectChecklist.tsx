@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChecklistItem } from "./ChecklistItem";
 import { useProgress } from "@/lib/progress/useProgress";
-import { calculateXpAward } from "@/lib/gamification/xp";
 import { XpToast } from "@/components/gamification/XpToast";
 import { CheckCircle } from "lucide-react";
 
@@ -26,27 +25,20 @@ export function ProjectChecklist({
 
   const lessonProgress = progress.lessons[lessonSlug];
   const isLessonDone = lessonProgress?.completed ?? false;
-  const allChecked = checked.every(Boolean);
+  function toggleItem(index: number, value: boolean) {
+    if (isLessonDone) return;
+    const next = [...checked];
+    next[index] = value;
+    setChecked(next);
 
-  useEffect(() => {
-    if (allChecked && !isLessonDone && items.length > 0) {
-      // Mark each checklist item as a completed "exercise"
-      items.forEach((_, i) => {
-        completeExercise(lessonSlug, `checklist-${i}`);
+    if (items.length > 0 && next.every(Boolean)) {
+      items.forEach((_, itemIndex) => {
+        completeExercise(lessonSlug, `checklist-${itemIndex}`);
       });
       awardXp(xpReward, `lesson:${lessonSlug}`);
       setXpAwarded(xpReward);
       completeLesson(lessonSlug);
     }
-  }, [allChecked, isLessonDone, items, lessonSlug, xpReward, awardXp, completeExercise, completeLesson]);
-
-  function toggleItem(index: number, value: boolean) {
-    if (isLessonDone) return;
-    setChecked((prev) => {
-      const next = [...prev];
-      next[index] = value;
-      return next;
-    });
   }
 
   return (

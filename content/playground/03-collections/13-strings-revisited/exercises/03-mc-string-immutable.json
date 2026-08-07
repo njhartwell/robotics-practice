@@ -1,0 +1,17 @@
+{
+  "id": "13-strings-revisited/ex-03",
+  "lessonSlug": "13-strings-revisited",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "String Mutability",
+  "instructions": "Are strings in Kotlin mutable or immutable?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Mutable — you can change individual characters" },
+    { "id": "b", "text": "Immutable — you cannot change them after creation" },
+    { "id": "c", "text": "It depends on whether you use val or var" },
+    { "id": "d", "text": "Mutable only inside functions" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Strings in Kotlin are immutable. Once a string is created, its characters cannot be changed. Using val vs var controls whether the variable can point to a different string, but the string object itself never changes. Functions like .uppercase() return a new string — they do not modify the original."
+}

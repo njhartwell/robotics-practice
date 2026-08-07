@@ -1,0 +1,14 @@
+{
+  "id": "10-functions-return/ex-02",
+  "lessonSlug": "10-functions-return",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Battery Check",
+  "instructions": "Write a function called `isBatteryLow` that takes a `voltage` parameter of type `Double` and returns a `Boolean`.\n\nThe function should return `true` if the voltage is **less than** `11.0`, and `false` otherwise.\n\nFor example, `isBatteryLow(10.5)` should return `true` and `isBatteryLow(12.0)` should return `false`.",
+  "hint": "Compare voltage with < 11.0 and return the result. You can return the comparison directly: return voltage < 11.0",
+  "xpReward": 20,
+  "starterCode": "fun isBatteryLow(voltage: Double): Boolean {\n    // Return true if voltage is below 11.0\n    return false\n}",
+  "solutionCode": "fun isBatteryLow(voltage: Double): Boolean {\n    return voltage < 11.0\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testLowBattery() {\n        Assert.assertTrue(\"10.5 should be low\", isBatteryLow(10.5))\n    }\n\n    @Test\n    fun testGoodBattery() {\n        Assert.assertFalse(\"12.0 should not be low\", isBatteryLow(12.0))\n    }\n\n    @Test\n    fun testExactThreshold() {\n        Assert.assertFalse(\"11.0 should not be low\", isBatteryLow(11.0))\n    }\n\n    @Test\n    fun testJustBelow() {\n        Assert.assertTrue(\"10.99 should be low\", isBatteryLow(10.99))\n    }\n}"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "38-try-catch/ex-02",
+  "lessonSlug": "38-try-catch",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Safe List Access",
+  "instructions": "Write a function called `safeGet` that takes a `List<Int>` and an `Int` index. It should return the element at that index, or `null` if the index is out of bounds.\n\nThe function signature is:\n`fun safeGet(list: List<Int>, index: Int): Int?`\n\nUse a try-catch block to catch `IndexOutOfBoundsException`.\n\nFor example:\n- `safeGet(listOf(10, 20, 30), 1)` should return `20`\n- `safeGet(listOf(10, 20, 30), 5)` should return `null`\n- `safeGet(listOf(10, 20, 30), -1)` should return `null`",
+  "hint": "In the try block, return `list[index]`. In the catch block, catch `IndexOutOfBoundsException` and return `null`.",
+  "xpReward": 20,
+  "starterCode": "fun safeGet(list: List<Int>, index: Int): Int? {\n    // Return the element at the index, or null if out of bounds\n}",
+  "solutionCode": "fun safeGet(list: List<Int>, index: Int): Int? {\n    return try {\n        list[index]\n    } catch (e: IndexOutOfBoundsException) {\n        null\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testValidIndex() {\n        Assert.assertEquals(20, safeGet(listOf(10, 20, 30), 1))\n    }\n\n    @Test\n    fun testFirstElement() {\n        Assert.assertEquals(10, safeGet(listOf(10, 20, 30), 0))\n    }\n\n    @Test\n    fun testIndexTooLarge() {\n        Assert.assertNull(safeGet(listOf(10, 20, 30), 5))\n    }\n\n    @Test\n    fun testNegativeIndex() {\n        Assert.assertNull(safeGet(listOf(10, 20, 30), -1))\n    }\n\n    @Test\n    fun testEmptyList() {\n        Assert.assertNull(safeGet(emptyList(), 0))\n    }\n}"
+}

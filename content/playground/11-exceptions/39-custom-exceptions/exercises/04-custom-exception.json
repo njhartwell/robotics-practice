@@ -1,0 +1,14 @@
+{
+  "id": "39-custom-exceptions/ex-04",
+  "lessonSlug": "39-custom-exceptions",
+  "type": "write-from-scratch",
+  "order": 4,
+  "title": "Custom SpeedOutOfRangeException",
+  "instructions": "Write two things:\n\n1. A custom exception class called `SpeedOutOfRangeException` that extends `Exception` and takes a `String` message parameter.\n\n2. A function called `setSafeSpeed` that takes a `Double` called `speed` and returns it. If the speed is less than `-1.0` or greater than `1.0`, throw a `SpeedOutOfRangeException` with the message \"Invalid speed: \" followed by the speed value.\n\nThe function signature is:\n`fun setSafeSpeed(speed: Double): Double`\n\nFor example:\n- `setSafeSpeed(0.8)` should return `0.8`\n- `setSafeSpeed(3.0)` should throw `SpeedOutOfRangeException`",
+  "hint": "Define the exception with `class SpeedOutOfRangeException(message: String) : Exception(message)`. Then in the function, check the range and throw your custom exception if needed.",
+  "xpReward": 20,
+  "starterCode": "// Define SpeedOutOfRangeException here\n\nfun setSafeSpeed(speed: Double): Double {\n    // Throw SpeedOutOfRangeException if speed is outside -1.0 to 1.0\n    // Otherwise return the speed\n}",
+  "solutionCode": "class SpeedOutOfRangeException(message: String) : Exception(message)\n\nfun setSafeSpeed(speed: Double): Double {\n    if (speed < -1.0 || speed > 1.0) {\n        throw SpeedOutOfRangeException(\"Invalid speed: $speed\")\n    }\n    return speed\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testValidSpeed() {\n        Assert.assertEquals(0.8, setSafeSpeed(0.8), 0.001)\n    }\n\n    @Test\n    fun testZeroSpeed() {\n        Assert.assertEquals(0.0, setSafeSpeed(0.0), 0.001)\n    }\n\n    @Test\n    fun testBoundaryMax() {\n        Assert.assertEquals(1.0, setSafeSpeed(1.0), 0.001)\n    }\n\n    @Test\n    fun testBoundaryMin() {\n        Assert.assertEquals(-1.0, setSafeSpeed(-1.0), 0.001)\n    }\n\n    @Test\n    fun testSpeedTooHighMessage() {\n        try {\n            setSafeSpeed(3.0)\n            Assert.fail(\"Should have thrown SpeedOutOfRangeException\")\n        } catch (e: SpeedOutOfRangeException) {\n            Assert.assertEquals(\"Invalid speed: 3.0\", e.message)\n        }\n    }\n\n    @Test(expected = SpeedOutOfRangeException::class)\n    fun testSpeedTooLow() {\n        setSafeSpeed(-1.5)\n    }\n\n    @Test\n    fun testExceptionExtendsException() {\n        val exception = SpeedOutOfRangeException(\"test\")\n        Assert.assertTrue(exception is Exception)\n    }\n}"
+}

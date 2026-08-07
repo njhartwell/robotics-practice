@@ -1,0 +1,163 @@
+# Custom Exceptions
+
+In the last lesson, you learned how to catch exceptions. Now you will learn how to throw them yourself. Throwing exceptions is how you tell the rest of your code that something has gone wrong. You can also create your own exception types to describe specific problems in your robot code.
+
+## Throwing Exceptions
+
+Use the `throw` keyword to throw an exception. This stops the current function and sends the error up to whoever called it.
+
+```kotlin
+fun setMotorSpeed(speed: Double): Double {
+    if (speed < -1.0 || speed > 1.0) {
+        throw IllegalArgumentException("Speed must be between -1.0 and 1.0, got $speed")
+    }
+    return speed
+}
+
+fun main() {
+    println(setMotorSpeed(0.5))  // Works fine: 0.5
+    println(setMotorSpeed(2.0))  // CRASH! IllegalArgumentException
+}
+```
+
+On Team 4215's robot, motor speeds must stay between -1.0 and 1.0. If someone passes 2.0, that is a bug in the code. Throwing an exception makes the bug loud and obvious instead of silently doing the wrong thing.
+
+## When to Throw Exceptions
+
+Throw an exception when your function receives input that it cannot work with. Common built-in exception types include:
+
+| Exception | When to Use It |
+|-----------|---------------|
+| `IllegalArgumentException` | A function argument has an invalid value |
+| `IllegalStateException` | The object is in the wrong state for this operation |
+| `UnsupportedOperationException` | This operation is not supported |
+
+```kotlin
+fun selectAutonomous(routineNumber: Int): String {
+    if (routineNumber < 1 || routineNumber > 3) {
+        throw IllegalArgumentException("Routine must be 1, 2, or 3")
+    }
+    return when (routineNumber) {
+        1 -> "Drive forward"
+        2 -> "Score and back up"
+        3 -> "Do nothing"
+        else -> "" // Never reached, but Kotlin needs it
+    }
+}
+```
+
+<Exercise id="01" />
+
+## require() and check()
+
+Kotlin provides two helper functions that make validation easier.
+
+**`require(condition)`** checks function arguments. If the condition is `false`, it throws an `IllegalArgumentException`.
+
+```kotlin
+fun setMotorSpeed(speed: Double): Double {
+    require(speed in -1.0..1.0) { "Speed must be between -1.0 and 1.0, got $speed" }
+    return speed
+}
+
+fun main() {
+    println(setMotorSpeed(0.5))  // 0.5
+    println(setMotorSpeed(2.0))  // IllegalArgumentException
+}
+```
+
+The code inside the curly braces `{ }` after `require` is the error message. It only gets created if the check fails.
+
+**`check(condition)`** checks object state. If the condition is `false`, it throws an `IllegalStateException`.
+
+```kotlin
+class Launcher {
+    var isCalibrated = false
+
+    fun launch() {
+        check(isCalibrated) { "Launcher must be calibrated before launching!" }
+        println("Launching!")
+    }
+}
+
+fun main() {
+    val launcher = Launcher()
+    launcher.launch() // IllegalStateException!
+}
+```
+
+Use `require` when validating inputs. Use `check` when verifying that your object is in the right state to do something.
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+## Creating Custom Exceptions
+
+Sometimes the built-in exception types are not specific enough. You can create your own exception class by extending `Exception`.
+
+```kotlin
+class SpeedOutOfRangeException(message: String) : Exception(message)
+```
+
+That is it. One line. Now you can throw it like any other exception.
+
+```kotlin
+class SpeedOutOfRangeException(message: String) : Exception(message)
+
+fun setMotorSpeed(speed: Double): Double {
+    if (speed < -1.0 || speed > 1.0) {
+        throw SpeedOutOfRangeException("Motor speed $speed is out of range [-1.0, 1.0]")
+    }
+    return speed
+}
+
+fun main() {
+    try {
+        setMotorSpeed(1.5)
+    } catch (e: SpeedOutOfRangeException) {
+        println("Caught: ${e.message}")
+    }
+}
+```
+
+Output:
+```
+Caught: Motor speed 1.5 is out of range [-1.0, 1.0]
+```
+
+Custom exceptions are useful when you want calling code to handle specific errors differently. On a robot, you might have `SensorDisconnectedException`, `MotorStallException`, or `CalibrationException` -- each describing a different problem that needs a different response.
+
+<Exercise id="04" />
+
+## Throw vs Return Null vs Return a Result
+
+You have several options when a function cannot produce a normal result:
+
+**Throw an exception** when the problem is a bug or something that should never happen in correct code.
+
+```kotlin
+fun getTeamMember(index: Int): String {
+    require(index >= 0) { "Index cannot be negative" }
+    // ...
+}
+```
+
+**Return null** when the absence of a value is a normal, expected outcome.
+
+```kotlin
+fun findTeamByNumber(number: Int): Team? {
+    // Returns null if team is not found -- that is normal
+    return teams.find { it.number == number }
+}
+```
+
+**Return a default value** when you can provide a reasonable fallback.
+
+```kotlin
+fun parseSensorReading(text: String): Double {
+    return text.toDoubleOrNull() ?: 0.0
+}
+```
+
+As a general rule: throw exceptions for programmer mistakes. Return null or defaults for expected situations. This keeps your robot code predictable and your error messages helpful.

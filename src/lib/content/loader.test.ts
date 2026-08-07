@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { parseLessonMeta, sortLessons, getExercisesForLesson } from "./loader";
-import type { LessonMeta } from "@/lib/progress/types";
+import {
+  parseExercise,
+  parseLessonMeta,
+  sortLessons,
+  getExercisesForLesson,
+} from "./loader";
+import type { Exercise, LessonMeta } from "@/lib/progress/types";
 
 describe("parseLessonMeta", () => {
   it("parses a valid meta.json object", () => {
@@ -107,8 +112,49 @@ describe("getExercisesForLesson", () => {
       { id: "ex-01", order: 1, title: "First" },
     ];
 
-    const sorted = getExercisesForLesson(exercises as any);
+    const sorted = getExercisesForLesson(exercises as Exercise[]);
     expect(sorted[0].id).toBe("ex-01");
     expect(sorted[1].id).toBe("ex-02");
+  });
+});
+
+describe("content schema validation", () => {
+  it("rejects incomplete lesson metadata", () => {
+    expect(() => parseLessonMeta({ slug: "missing-fields" }, "playground"))
+      .toThrow("section must be a non-empty string");
+  });
+
+  it("rejects test exercises without tests", () => {
+    expect(() =>
+      parseExercise({
+        id: "ex",
+        lessonSlug: "lesson",
+        type: "write-from-scratch",
+        order: 1,
+        title: "Exercise",
+        instructions: "Write code",
+        xpReward: 10,
+        starterCode: "fun answer() = 0",
+        solutionCode: "fun answer() = 42",
+        validationMode: "test",
+      })
+    ).toThrow("test exercises require testCode");
+  });
+
+  it("rejects a multiple-choice answer not present in its options", () => {
+    expect(() =>
+      parseExercise({
+        id: "ex",
+        lessonSlug: "lesson",
+        type: "multiple-choice",
+        order: 1,
+        title: "Exercise",
+        instructions: "Choose",
+        xpReward: 10,
+        options: [{ id: "a", text: "A" }],
+        correctOptionId: "b",
+        explanation: "Because",
+      })
+    ).toThrow("correctOptionId must match an option");
   });
 });

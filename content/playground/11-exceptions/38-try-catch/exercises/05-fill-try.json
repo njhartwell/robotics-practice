@@ -1,0 +1,12 @@
+{
+  "id": "38-try-catch/ex-05",
+  "lessonSlug": "38-try-catch",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Error Handling Keyword",
+  "instructions": "What keyword starts the block where you put code that might cause an error?",
+  "xpReward": 10,
+  "prompt": "To handle errors in Kotlin, wrap risky code in a _____ block.",
+  "acceptedAnswers": ["try"],
+  "explanation": "The `try` block contains code that might throw an exception. If an exception occurs, Kotlin jumps to the matching `catch` block to handle the error instead of crashing the program."
+}

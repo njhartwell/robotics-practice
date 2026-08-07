@@ -9,6 +9,7 @@ import {
 import { LessonView } from "@/components/lesson/LessonView";
 import { buildMdxComponents } from "@/lib/content/mdx-components";
 import remarkGfm from "remark-gfm";
+import { orderLessonsByTrack } from "@/lib/content/curriculum-track";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
@@ -44,6 +45,16 @@ export default async function PlaygroundLessonPage({ params }: PageProps) {
   ]);
 
   const mdxComponents = buildMdxComponents(exercises);
+  const learningPath = orderLessonsByTrack(metas);
+  const lessonIndex = learningPath.findIndex(
+    (meta) => meta.slug === lessonSlug
+  );
+  const previousLesson =
+    lessonIndex > 0 ? learningPath[lessonIndex - 1] : undefined;
+  const nextLesson =
+    lessonIndex >= 0 && lessonIndex < learningPath.length - 1
+      ? learningPath[lessonIndex + 1]
+      : undefined;
 
   let mdxContent: React.ReactElement;
   if (mdxSource) {
@@ -58,7 +69,12 @@ export default async function PlaygroundLessonPage({ params }: PageProps) {
   }
 
   return (
-    <LessonView lesson={lesson} exercises={exercises}>
+    <LessonView
+      lesson={lesson}
+      exerciseIds={exercises.map((exercise) => exercise.id)}
+      previousLesson={previousLesson}
+      nextLesson={nextLesson}
+    >
       {mdxContent}
     </LessonView>
   );

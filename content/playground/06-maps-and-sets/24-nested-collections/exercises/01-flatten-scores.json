@@ -1,0 +1,14 @@
+{
+  "id": "24-nested-collections/ex-01",
+  "lessonSlug": "24-nested-collections",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Flatten Match Scores",
+  "instructions": "Complete the `flattenScores` function. It takes a `List<List<Int>>` where each inner list contains scores from one match.\n\nReturn a single `List<Int>` containing all the scores combined.\n\nFor example, `flattenScores(listOf(listOf(45, 72), listOf(91, 55)))` should return `[45, 72, 91, 55]`.",
+  "hint": "Use the `.flatten()` method on the outer list to combine all inner lists into one.",
+  "xpReward": 15,
+  "starterCode": "fun flattenScores(matchScores: List<List<Int>>): List<Int> {\n    // Combine all inner lists into one flat list\n    return emptyList()\n}",
+  "solutionCode": "fun flattenScores(matchScores: List<List<Int>>): List<Int> {\n    return matchScores.flatten()\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFlattenTwoLists() {\n        val result = flattenScores(listOf(listOf(45, 72), listOf(91, 55)))\n        Assert.assertEquals(listOf(45, 72, 91, 55), result)\n    }\n\n    @Test\n    fun testFlattenThreeLists() {\n        val result = flattenScores(listOf(listOf(10), listOf(20, 30), listOf(40)))\n        Assert.assertEquals(listOf(10, 20, 30, 40), result)\n    }\n\n    @Test\n    fun testEmptyInnerLists() {\n        val result = flattenScores(listOf(listOf(), listOf(45), listOf()))\n        Assert.assertEquals(listOf(45), result)\n    }\n\n    @Test\n    fun testEmptyOuterList() {\n        val result = flattenScores(listOf())\n        Assert.assertTrue(result.isEmpty())\n    }\n}"
+}

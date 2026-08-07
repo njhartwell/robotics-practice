@@ -7,6 +7,6 @@
   "instructions": "What operator gives you the remainder after division in Kotlin?",
   "xpReward": 10,
   "prompt": "The _____ operator returns the remainder of a division.",
-  "acceptedAnswers": ["%", "modulo", "mod"],
+  "acceptedAnswers": ["%"],
   "explanation": "The % (percent/modulo) operator returns the remainder after division. For example, 10 % 3 equals 1, because 10 divided by 3 is 3 with a remainder of 1."
 }

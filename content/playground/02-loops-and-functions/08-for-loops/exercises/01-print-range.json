@@ -1,0 +1,15 @@
+{
+  "id": "08-for-loops/ex-01",
+  "lessonSlug": "08-for-loops",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Print a Range",
+  "instructions": "Complete the `printRange` function so it prints every number from 1 to `n` (inclusive), each on its own line.\n\nFor example, `printRange(5)` should print:\n```\n1\n2\n3\n4\n5\n```",
+  "hint": "Use a for loop: `for (i in 1..n)` and println(i) inside the loop.",
+  "xpReward": 15,
+  "starterCode": "fun printRange(n: Int) {\n    // Use a for loop to print each number from 1 to n\n}",
+  "solutionCode": "fun printRange(n: Int) {\n    for (i in 1..n) {\n        println(i)\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "1\n2\n3\n4\n5",
+  "hiddenPostamble": "fun main() {\n    printRange(5)\n}"
+}

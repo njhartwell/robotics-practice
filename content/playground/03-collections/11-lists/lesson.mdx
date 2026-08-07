@@ -1,0 +1,150 @@
+# Lists
+
+So far, every variable you have used holds a single value. But what if you need to store a whole set of match scores? Or the names of every motor on your robot? That is where **lists** come in.
+
+A list holds multiple values together, in order. Think of it like a roster of alliance partners for a match.
+
+## Creating a List
+
+Use `listOf()` to create a list:
+
+```kotlin
+fun main() {
+    val scores = listOf(45, 72, 38, 91)
+    println(scores)
+}
+```
+
+This prints: `[45, 72, 38, 91]`
+
+The list keeps the values in the order you gave them. You can store any type in a list — `Int`, `String`, `Double`, `Boolean`, and more.
+
+```kotlin
+fun main() {
+    val motorNames = listOf("Left Drive", "Right Drive", "Intake", "Shooter")
+    println(motorNames)
+}
+```
+
+Lists created with `listOf()` are **immutable**. That means you cannot add or remove items after you create them. You will learn about mutable lists in the next lesson.
+
+## Accessing Elements by Index
+
+Each item in a list has a position number called an **index**. The first item is at index 0, the second at index 1, and so on.
+
+```kotlin
+fun main() {
+    val teams = listOf(4215, 1234, 5678)
+    println(teams[0])  // 4215
+    println(teams[1])  // 1234
+    println(teams[2])  // 5678
+}
+```
+
+Use square brackets `[]` with the index to get an item. Be careful — if you use an index that does not exist, your program will crash with an error.
+
+## Useful List Properties and Functions
+
+Lists come with helpful tools built in:
+
+```kotlin
+fun main() {
+    val scores = listOf(45, 72, 38, 91)
+
+    println(scores.size)    // 4 — how many items
+    println(scores.first()) // 45 — the first item
+    println(scores.last())  // 91 — the last item
+}
+```
+
+- `.size` tells you how many items are in the list.
+- `.first()` gives you the first item.
+- `.last()` gives you the last item.
+
+## Looping Through a List
+
+You can use a `for` loop to go through every item in a list:
+
+```kotlin
+fun main() {
+    val allianceTeams = listOf(4215, 1234, 5678)
+
+    for (team in allianceTeams) {
+        println("Team $team is ready!")
+    }
+}
+```
+
+Output:
+```
+Team 4215 is ready!
+Team 1234 is ready!
+Team 5678 is ready!
+```
+
+Each time through the loop, `team` holds the next value from the list. This is one of the most common things you will do with lists.
+
+## Checking if an Item is in a List
+
+Use the `in` operator to check if a value exists in a list:
+
+```kotlin
+fun main() {
+    val qualifiedTeams = listOf(4215, 1234, 5678, 9999)
+
+    if (4215 in qualifiedTeams) {
+        println("Tribots qualified!")
+    }
+
+    if (7777 !in qualifiedTeams) {
+        println("Team 7777 did not qualify")
+    }
+}
+```
+
+You can also use `.contains()`:
+
+```kotlin
+fun main() {
+    val motorNames = listOf("Left Drive", "Right Drive", "Intake")
+    println(motorNames.contains("Intake"))  // true
+    println(motorNames.contains("Shooter")) // false
+}
+```
+
+## Finding an Item's Position
+
+Use `.indexOf()` to find where an item is in the list. It returns the index, or -1 if the item is not found:
+
+```kotlin
+fun main() {
+    val schedule = listOf("Practice", "Quals", "Playoffs", "Finals")
+    println(schedule.indexOf("Quals"))    // 1
+    println(schedule.indexOf("Lunch"))    // -1
+}
+```
+
+## Checking if a List is Empty
+
+Use `.isEmpty()` to check if a list has no items:
+
+```kotlin
+fun main() {
+    val scores = listOf<Int>()
+    if (scores.isEmpty()) {
+        println("No scores recorded yet")
+    }
+}
+```
+
+Lists are one of the most useful tools in programming. You will use them constantly when writing robot code — storing sensor readings, tracking game pieces, and much more. Great job making it this far!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

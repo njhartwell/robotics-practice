@@ -1,0 +1,156 @@
+# Sets
+
+You have already learned about lists, which store items in order and allow duplicates. Now it is time to meet **sets**.
+
+A **set** is a collection where every element is **unique**. If you try to add a duplicate, the set ignores it. Think of it like a sign-in sheet at a robotics meeting -- each person signs in once, and writing the same name again does not add a second entry.
+
+## Creating a Set
+
+Use `setOf()` to create a set:
+
+```kotlin
+fun main() {
+    val alliancePartners = setOf(4215, 1234, 5678)
+    println(alliancePartners)
+}
+```
+
+This prints: `[4215, 1234, 5678]`
+
+If you include duplicates, they are removed automatically:
+
+```kotlin
+fun main() {
+    val teams = setOf(4215, 1234, 4215, 5678, 1234)
+    println(teams)       // [4215, 1234, 5678]
+    println(teams.size)  // 3
+}
+```
+
+Even though we listed five numbers, the set only keeps three because 4215 and 1234 each appeared more than once.
+
+## Mutable Sets
+
+Sets created with `setOf()` are **immutable** -- you cannot change them. Use `mutableSetOf()` to create a set you can modify:
+
+```kotlin
+fun main() {
+    val roster = mutableSetOf("Alex", "Jordan", "Sam")
+
+    roster.add("Taylor")   // Adds Taylor
+    roster.add("Alex")     // Ignored! Alex is already in the set
+
+    println(roster)        // [Alex, Jordan, Sam, Taylor]
+    println(roster.size)   // 4
+}
+```
+
+The `.add()` method returns `true` if the element was added, or `false` if it was already there:
+
+```kotlin
+fun main() {
+    val roster = mutableSetOf("Alex", "Jordan")
+    println(roster.add("Sam"))   // true (added)
+    println(roster.add("Alex"))  // false (already present)
+}
+```
+
+You can also remove elements:
+
+```kotlin
+fun main() {
+    val roster = mutableSetOf("Alex", "Jordan", "Sam")
+    roster.remove("Jordan")
+    println(roster)  // [Alex, Sam]
+}
+```
+
+## Checking if an Element Exists
+
+Use `.contains()` or the `in` operator to check for an element:
+
+```kotlin
+fun main() {
+    val qualifiedTeams = setOf(4215, 1234, 5678)
+
+    println(qualifiedTeams.contains(4215))  // true
+    println(4215 in qualifiedTeams)         // true
+    println(9999 in qualifiedTeams)         // false
+}
+```
+
+Checking membership in a set is very fast. This is one of the biggest advantages of sets over lists.
+
+## Converting Between Lists and Sets
+
+You can turn a list into a set to remove duplicates:
+
+```kotlin
+fun main() {
+    val allPartners = listOf(4215, 1234, 4215, 5678, 1234, 5678)
+    val uniquePartners = allPartners.toSet()
+    println(uniquePartners)  // [4215, 1234, 5678]
+}
+```
+
+You can also turn a set back into a list:
+
+```kotlin
+fun main() {
+    val uniqueTeams = setOf(4215, 1234, 5678)
+    val teamList = uniqueTeams.toList()
+    println(teamList)  // [4215, 1234, 5678]
+}
+```
+
+## Set Operations
+
+Sets support powerful math-like operations. These let you compare and combine sets.
+
+**Union** gives you all elements from both sets:
+
+```kotlin
+fun main() {
+    val redAlliance = setOf(4215, 1234, 5678)
+    val blueAlliance = setOf(9999, 4215, 7777)
+
+    val allTeams = redAlliance union blueAlliance
+    println(allTeams)  // [4215, 1234, 5678, 9999, 7777]
+}
+```
+
+Notice that 4215 appears only once, even though it was in both sets.
+
+**Intersect** gives you elements that appear in both sets:
+
+```kotlin
+fun main() {
+    val match1Teams = setOf(4215, 1234, 5678)
+    val match2Teams = setOf(5678, 9999, 4215)
+
+    val inBothMatches = match1Teams intersect match2Teams
+    println(inBothMatches)  // [4215, 5678]
+}
+```
+
+**Subtract** gives you elements that are in the first set but not the second:
+
+```kotlin
+fun main() {
+    val allTeams = setOf(4215, 1234, 5678, 9999)
+    val eliminatedTeams = setOf(1234, 9999)
+
+    val remainingTeams = allTeams subtract eliminatedTeams
+    println(remainingTeams)  // [4215, 5678]
+}
+```
+
+These operations are very useful when you need to find what two groups have in common, or what is different between them. Nice work learning about sets -- now let's practice!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

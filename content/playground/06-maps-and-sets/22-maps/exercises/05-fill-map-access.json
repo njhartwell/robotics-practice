@@ -1,0 +1,12 @@
+{
+  "id": "22-maps/ex-05",
+  "lessonSlug": "22-maps",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Map Access Syntax",
+  "instructions": "To get the value for a key in a map, use `map[_____]`.",
+  "xpReward": 10,
+  "prompt": "To get the value for a key in a map, use `map[_____]`.",
+  "acceptedAnswers": ["key", "the key", "a key", "theKey"],
+  "explanation": "You access a map value by putting the key inside square brackets. For example, `teamNames[4215]` returns the value associated with key 4215."
+}

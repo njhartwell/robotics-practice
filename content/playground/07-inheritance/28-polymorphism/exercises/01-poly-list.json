@@ -1,0 +1,15 @@
+{
+  "id": "28-polymorphism/ex-01",
+  "lessonSlug": "28-polymorphism",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Subsystem Status Report",
+  "instructions": "Complete the `printAllStatuses` function. It takes a `List<Subsystem>` and prints the `status()` of each subsystem, one per line.\n\nThe parent class and two child classes are already written for you. Do not change them.\n\nExpected output:\n```\nDrivetrain: 4 motors active\nShooter: ready to launch\nIntake: OK\n```",
+  "hint": "Use a `for` loop to go through each subsystem in the list and call `println(sub.status())` on each one.",
+  "xpReward": 15,
+  "starterCode": "open class Subsystem(val name: String) {\n    open fun status(): String {\n        return \"$name: OK\"\n    }\n}\n\nclass DriveSubsystem : Subsystem(\"Drivetrain\") {\n    override fun status(): String {\n        return \"Drivetrain: 4 motors active\"\n    }\n}\n\nclass ShooterSubsystem : Subsystem(\"Shooter\") {\n    override fun status(): String {\n        return \"Shooter: ready to launch\"\n    }\n}\n\nfun printAllStatuses(subsystems: List<Subsystem>) {\n    // Loop through the list and print each subsystem's status\n}",
+  "solutionCode": "open class Subsystem(val name: String) {\n    open fun status(): String {\n        return \"$name: OK\"\n    }\n}\n\nclass DriveSubsystem : Subsystem(\"Drivetrain\") {\n    override fun status(): String {\n        return \"Drivetrain: 4 motors active\"\n    }\n}\n\nclass ShooterSubsystem : Subsystem(\"Shooter\") {\n    override fun status(): String {\n        return \"Shooter: ready to launch\"\n    }\n}\n\nfun printAllStatuses(subsystems: List<Subsystem>) {\n    for (sub in subsystems) {\n        println(sub.status())\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "Drivetrain: 4 motors active\nShooter: ready to launch\nIntake: OK",
+  "hiddenPostamble": "fun main() {\n    val subsystems: List<Subsystem> = listOf(\n        DriveSubsystem(),\n        ShooterSubsystem(),\n        Subsystem(\"Intake\")\n    )\n    printAllStatuses(subsystems)\n}"
+}

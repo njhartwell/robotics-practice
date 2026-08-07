@@ -1,0 +1,12 @@
+{
+  "id": "25-inheritance-basics/ex-05",
+  "lessonSlug": "25-inheritance-basics",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Override Keyword",
+  "instructions": "To replace a parent's method in a child class, use the _____ keyword before `fun`.",
+  "xpReward": 10,
+  "prompt": "_____ fun status(): String { ... }",
+  "acceptedAnswers": ["override"],
+  "explanation": "The `override` keyword tells Kotlin that you are replacing a method from the parent class with a new version in the child class. The parent method must be marked `open` for this to work."
+}

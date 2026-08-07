@@ -1,0 +1,14 @@
+{
+  "id": "37-companion-objects/ex-04",
+  "lessonSlug": "37-companion-objects",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Instance Counter",
+  "instructions": "Complete the `Subsystem` class so that the companion object tracks how many instances have been created.\n\nThe companion object should have a `var count: Int` that starts at `0`. Every time a new `Subsystem` is created, `count` should increase by 1.\n\nUse an `init` block to increase the count when a new instance is created.",
+  "hint": "Add `var count = 0` inside the companion object. Add an `init { count++ }` block inside the class (but outside the companion object). The init block runs every time an instance is created.",
+  "xpReward": 15,
+  "starterCode": "class Subsystem(val name: String) {\n    companion object {\n        // Add a count variable starting at 0\n    }\n\n    // Add an init block that increases count by 1\n}",
+  "solutionCode": "class Subsystem(val name: String) {\n    companion object {\n        var count = 0\n    }\n\n    init {\n        count++\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testInitialCount() {\n        val startCount = Subsystem.count\n        val s = Subsystem(\"Test\")\n        Assert.assertEquals(startCount + 1, Subsystem.count)\n    }\n\n    @Test\n    fun testMultipleInstances() {\n        val startCount = Subsystem.count\n        val s1 = Subsystem(\"Drive\")\n        val s2 = Subsystem(\"Shooter\")\n        val s3 = Subsystem(\"Intake\")\n        Assert.assertEquals(startCount + 3, Subsystem.count)\n    }\n\n    @Test\n    fun testNameProperty() {\n        val s = Subsystem(\"Arm\")\n        Assert.assertEquals(\"Arm\", s.name)\n    }\n}"
+}

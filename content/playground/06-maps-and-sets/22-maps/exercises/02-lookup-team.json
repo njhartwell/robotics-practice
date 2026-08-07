@@ -1,0 +1,14 @@
+{
+  "id": "22-maps/ex-02",
+  "lessonSlug": "22-maps",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Look Up a Team",
+  "instructions": "Write a function called `lookupTeam` that takes two parameters: `teams` of type `Map<Int, String>` and `number` of type `Int`.\n\nIf the team number exists in the map, return the team name. If it does not exist, return the string \"Unknown\".\n\nFor example:\n- `lookupTeam(mapOf(4215 to \"Tribots\"), 4215)` returns `\"Tribots\"`\n- `lookupTeam(mapOf(4215 to \"Tribots\"), 9999)` returns `\"Unknown\"`",
+  "hint": "Use `teams[number]` to look up the value. If the key is not found, it returns `null`. You can use the `?:` operator (called the Elvis operator) to provide a default: `teams[number] ?: \"Unknown\"`.",
+  "xpReward": 20,
+  "starterCode": "fun lookupTeam(teams: Map<Int, String>, number: Int): String {\n    // Return the team name, or \"Unknown\" if not found\n    return \"\"\n}",
+  "solutionCode": "fun lookupTeam(teams: Map<Int, String>, number: Int): String {\n    return teams[number] ?: \"Unknown\"\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testExistingTeam() {\n        val teams = mapOf(4215 to \"Tribots\", 1234 to \"RoboCats\")\n        Assert.assertEquals(\"Tribots\", lookupTeam(teams, 4215))\n    }\n\n    @Test\n    fun testAnotherExistingTeam() {\n        val teams = mapOf(4215 to \"Tribots\", 1234 to \"RoboCats\")\n        Assert.assertEquals(\"RoboCats\", lookupTeam(teams, 1234))\n    }\n\n    @Test\n    fun testMissingTeam() {\n        val teams = mapOf(4215 to \"Tribots\", 1234 to \"RoboCats\")\n        Assert.assertEquals(\"Unknown\", lookupTeam(teams, 9999))\n    }\n\n    @Test\n    fun testEmptyMap() {\n        val teams = mapOf<Int, String>()\n        Assert.assertEquals(\"Unknown\", lookupTeam(teams, 4215))\n    }\n}"
+}

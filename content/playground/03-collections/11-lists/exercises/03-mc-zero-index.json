@@ -1,0 +1,17 @@
+{
+  "id": "11-lists/ex-03",
+  "lessonSlug": "11-lists",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "First Index",
+  "instructions": "In Kotlin, what is the index of the FIRST element in a list?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "1" },
+    { "id": "b", "text": "0" },
+    { "id": "c", "text": "-1" },
+    { "id": "d", "text": "It depends on the list" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "Lists in Kotlin (and most programming languages) use zero-based indexing. The first element is at index 0, the second at index 1, and so on."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "31-collection-operations/ex-02",
+  "lessonSlug": "31-collection-operations",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "High Scores Only",
+  "instructions": "Write a function called `highScores` that takes two parameters:\n- `scores` of type `List<Int>` -- a list of match scores\n- `minimum` of type `Int` -- the minimum score to keep\n\nThe function should return a new `List<Int>` containing only the scores that are greater than or equal to `minimum`.\n\nUse the `.filter` function.\n\nExamples:\n- `highScores(listOf(45, 72, 38, 91), 50)` returns `[72, 91]`\n- `highScores(listOf(10, 20, 30), 25)` returns `[30]`",
+  "hint": "Use scores.filter { it >= minimum } to keep scores at or above the minimum.",
+  "xpReward": 20,
+  "starterCode": "// Write your highScores function here\n",
+  "solutionCode": "fun highScores(scores: List<Int>, minimum: Int): List<Int> {\n    return scores.filter { it >= minimum }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testHighScoresAbove50() {\n        Assert.assertEquals(listOf(72, 91), highScores(listOf(45, 72, 38, 91), 50))\n    }\n\n    @Test\n    fun testHighScoresAbove25() {\n        Assert.assertEquals(listOf(30), highScores(listOf(10, 20, 30), 25))\n    }\n\n    @Test\n    fun testAllPass() {\n        Assert.assertEquals(listOf(50, 60, 70), highScores(listOf(50, 60, 70), 50))\n    }\n\n    @Test\n    fun testNonePass() {\n        Assert.assertEquals(emptyList<Int>(), highScores(listOf(10, 20, 30), 100))\n    }\n\n    @Test\n    fun testEmptyList() {\n        Assert.assertEquals(emptyList<Int>(), highScores(emptyList(), 50))\n    }\n}"
+}

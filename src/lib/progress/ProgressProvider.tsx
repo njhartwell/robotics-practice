@@ -14,9 +14,8 @@ import { createDefaultProgress } from "./types";
 import { progressReducer } from "./reducer";
 import type { StorageAdapter } from "./storage-adapter";
 import { LocalStorageAdapter } from "./local-storage-adapter";
-import { getLevelForXp } from "@/lib/gamification/levels";
 import { checkBadgeUnlocks } from "@/lib/gamification/badges";
-import { LEVELS } from "@/lib/gamification/levels";
+import { canAccessLesson } from "./lesson-access";
 
 export interface ProgressContextValue {
   progress: UserProgress;
@@ -26,7 +25,10 @@ export interface ProgressContextValue {
   completeLesson: (lessonSlug: string) => void;
   startLesson: (lessonSlug: string, part: Part) => void;
   resetProgress: () => void;
-  isLessonUnlocked: (requiredLevel: number) => boolean;
+  isLessonUnlocked: (
+    requiredLevel: number,
+    previousLessonSlug?: string
+  ) => boolean;
 }
 
 export const ProgressContext = createContext<ProgressContextValue | null>(null);
@@ -52,13 +54,32 @@ export function ProgressProvider({
 
   // Load on mount
   useEffect(() => {
-    storageRef.current.load().then((saved) => {
-      if (saved) {
-        dispatch({ type: "LOAD_PROGRESS", payload: { progress: saved } });
+    let isActive = true;
+
+    async function loadProgress() {
+      try {
+        const saved = await storageRef.current.load();
+        if (isActive && saved) {
+          dispatch({ type: "LOAD_PROGRESS", payload: { progress: saved } });
+        }
+      } catch (error) {
+        console.warn(
+          "Could not load saved tutorial progress; starting with local defaults.",
+          error
+        );
+      } finally {
+        if (isActive) {
+          isLoadedRef.current = true;
+          setIsLoaded(true);
+        }
       }
-      isLoadedRef.current = true;
-      setIsLoaded(true);
-    });
+    }
+
+    void loadProgress();
+
+    return () => {
+      isActive = false;
+    };
   }, []);
 
   // Auto-save on changes (skip initial load)
@@ -96,10 +117,10 @@ export function ProgressProvider({
   }, []);
 
   const isLessonUnlocked = useCallback(
-    (requiredLevel: number) => {
-      return progress.profile.currentLevel >= requiredLevel;
+    (requiredLevel: number, previousLessonSlug?: string) => {
+      return canAccessLesson(progress, requiredLevel, previousLessonSlug);
     },
-    [progress.profile.currentLevel]
+    [progress]
   );
 
   // Check for new badges after state changes
@@ -109,7 +130,7 @@ export function ProgressProvider({
     if (newBadges.length > 0) {
       dispatch({ type: "UNLOCK_BADGES", payload: { badgeIds: newBadges } });
     }
-  }, [progress.profile.exercisesCompleted, progress.profile.lessonsCompleted, progress.profile.currentStreak]);
+  }, [progress]);
 
   const value: ProgressContextValue = {
     progress,

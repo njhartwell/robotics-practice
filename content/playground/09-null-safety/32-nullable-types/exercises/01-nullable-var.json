@@ -1,0 +1,14 @@
+{
+  "id": "32-nullable-types/ex-01",
+  "lessonSlug": "32-nullable-types",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Declare a Nullable Variable",
+  "instructions": "Complete the program below.\n\n1. Declare a nullable `String` variable called `allianceColor` and set it to `\"Red\"`.\n2. Print the value of `allianceColor`.\n3. Set `allianceColor` to `null`.\n4. Print the value of `allianceColor` again.",
+  "hint": "Use `var allianceColor: String?` to declare a nullable String. You can assign null to it because of the `?`.",
+  "xpReward": 15,
+  "starterCode": "fun main() {\n    // 1. Declare a nullable String variable called allianceColor set to \"Red\"\n    \n    // 2. Print allianceColor\n    \n    // 3. Set allianceColor to null\n    \n    // 4. Print allianceColor again\n    \n}",
+  "solutionCode": "fun main() {\n    var allianceColor: String? = \"Red\"\n    println(allianceColor)\n    allianceColor = null\n    println(allianceColor)\n}",
+  "validationMode": "output",
+  "expectedOutput": "Red\nnull"
+}

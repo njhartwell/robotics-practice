@@ -1,0 +1,14 @@
+{
+  "slug": "17-methods",
+  "section": "oop-basics",
+  "sectionTitle": "Object-Oriented Programming",
+  "sectionOrder": 4,
+  "title": "Methods",
+  "description": "Add behavior to your classes with methods",
+  "order": 17,
+  "requiredLevel": 2,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["oop", "methods", "this", "behavior"]
+}

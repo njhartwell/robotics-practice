@@ -1,0 +1,204 @@
+# Try-Catch
+
+Sometimes things go wrong while your program is running. A sensor returns garbage data. Someone types "abc" where a number was expected. Your code tries to access an item that does not exist. These are called **exceptions** -- errors that happen at runtime.
+
+If you do not handle an exception, your program crashes. On an FRC robot, a crash during a match means your robot stops moving. That is bad. Kotlin gives you tools to catch these errors and keep going.
+
+## What Is an Exception?
+
+An **exception** is an error that interrupts the normal flow of your program. Here is a common one:
+
+```kotlin
+fun main() {
+    val text = "not a number"
+    val number = text.toInt() // CRASH! NumberFormatException
+    println(number)
+}
+```
+
+The string `"not a number"` cannot be converted to an `Int`. Kotlin throws a `NumberFormatException` and your program stops.
+
+## Common Exceptions
+
+Here are exceptions you will run into often:
+
+| Exception | When It Happens |
+|-----------|----------------|
+| `NumberFormatException` | Converting a string that is not a valid number |
+| `IndexOutOfBoundsException` | Accessing a list index that does not exist |
+| `ArithmeticException` | Dividing by zero (with integers) |
+| `NullPointerException` | Using a null value where a non-null was expected |
+
+## The try-catch Block
+
+A `try-catch` block lets you attempt risky code and handle any errors that occur. Wrap the risky code in `try`. Put your error-handling code in `catch`.
+
+```kotlin
+fun main() {
+    val sensorReading = "bad data"
+
+    try {
+        val value = sensorReading.toInt()
+        println("Sensor value: $value")
+    } catch (e: NumberFormatException) {
+        println("Invalid sensor data: $sensorReading")
+    }
+
+    println("Program keeps running!")
+}
+```
+
+Output:
+```
+Invalid sensor data: bad data
+Program keeps running!
+```
+
+The program did not crash. The `catch` block ran instead, and then the program continued.
+
+Here is the structure:
+
+```kotlin
+try {
+    // Code that might throw an exception
+} catch (e: ExceptionType) {
+    // Code that runs if that exception happens
+}
+```
+
+The variable `e` holds the exception object. You can use `e.message` to get a description of what went wrong.
+
+<Exercise id="01" />
+
+## Catching Index Errors
+
+When you access a list with an invalid index, Kotlin throws an `IndexOutOfBoundsException`.
+
+```kotlin
+fun main() {
+    val scores = listOf(42, 87, 63)
+
+    try {
+        println(scores[10]) // Index 10 does not exist!
+    } catch (e: IndexOutOfBoundsException) {
+        println("That index does not exist in the list")
+    }
+}
+```
+
+On Team 4215's robot, imagine you have a list of autonomous routines. If someone passes an invalid index, you want to handle it gracefully instead of crashing mid-match.
+
+<Exercise id="02" />
+
+## Multiple catch Blocks
+
+You can catch different types of exceptions with multiple `catch` blocks. Kotlin checks them from top to bottom and runs the first one that matches.
+
+```kotlin
+fun main() {
+    val inputs = listOf("42", "abc", "0")
+
+    for (input in inputs) {
+        try {
+            val number = input.toInt()
+            val result = 100 / number
+            println("100 / $input = $result")
+        } catch (e: NumberFormatException) {
+            println("'$input' is not a valid number")
+        } catch (e: ArithmeticException) {
+            println("Cannot divide by zero")
+        }
+    }
+}
+```
+
+Output:
+```
+100 / 42 = 2
+'abc' is not a valid number
+Cannot divide by zero
+```
+
+Each type of error gets its own response. This is helpful when a single piece of code could fail in different ways.
+
+<Exercise id="03" />
+
+## The finally Block
+
+Sometimes you need code to run no matter what -- whether an exception happened or not. The `finally` block does this.
+
+```kotlin
+fun main() {
+    println("Starting sensor check...")
+
+    try {
+        val reading = "12.5x".toInt()
+        println("Reading: $reading")
+    } catch (e: NumberFormatException) {
+        println("Bad sensor data!")
+    } finally {
+        println("Sensor check complete.")
+    }
+}
+```
+
+Output:
+```
+Starting sensor check...
+Bad sensor data!
+Sensor check complete.
+```
+
+The `finally` block always runs. It runs after `try` if everything went fine. It runs after `catch` if an exception was caught. In FRC code, you might use `finally` to make sure a motor is stopped or a connection is closed, no matter what happened.
+
+## try as an Expression
+
+In Kotlin, `try` can return a value. The last expression in the `try` block becomes the value if no exception occurs. The last expression in the `catch` block becomes the value if an exception is caught.
+
+```kotlin
+fun main() {
+    val input = "not a number"
+
+    val number = try {
+        input.toInt()
+    } catch (e: NumberFormatException) {
+        -1
+    }
+
+    println("Parsed value: $number")
+}
+```
+
+Output:
+```
+Parsed value: -1
+```
+
+This is a clean way to provide a default value when parsing might fail. On Team 4215's robot, you could use this pattern to read sensor data with a safe fallback.
+
+<Exercise id="04" />
+
+## When NOT to Use Exceptions
+
+Exceptions are for unexpected errors, not for normal program flow. Do not use try-catch to replace regular `if` checks.
+
+```kotlin
+// BAD: using exceptions for normal flow
+fun isValidIndex(list: List<Int>, index: Int): Boolean {
+    return try {
+        list[index]
+        true
+    } catch (e: IndexOutOfBoundsException) {
+        false
+    }
+}
+
+// GOOD: use a simple check instead
+fun isValidIndex(list: List<Int>, index: Int): Boolean {
+    return index >= 0 && index < list.size
+}
+```
+
+Use exceptions for things you cannot predict or prevent. Use `if` checks for things you can verify ahead of time.
+
+<Exercise id="05" />

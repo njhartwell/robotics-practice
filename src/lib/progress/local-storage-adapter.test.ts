@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { LocalStorageAdapter, STORAGE_KEY } from "./local-storage-adapter";
 import { createDefaultProgress } from "./types";
 

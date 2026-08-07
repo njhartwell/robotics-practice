@@ -1,0 +1,14 @@
+{
+  "slug": "20-sorting",
+  "section": "algorithms",
+  "sectionTitle": "Algorithms",
+  "sectionOrder": 5,
+  "title": "Sorting",
+  "description": "Order collections with sorting algorithms",
+  "order": 20,
+  "requiredLevel": 3,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["algorithms", "sorting", "bubble-sort", "sorted"]
+}

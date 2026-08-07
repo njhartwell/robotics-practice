@@ -1,0 +1,17 @@
+{
+  "id": "39-custom-exceptions/ex-03",
+  "lessonSlug": "39-custom-exceptions",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Does require() Do?",
+  "instructions": "What does `require(condition)` do if the condition is `false`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "It prints a warning and continues running" },
+    { "id": "b", "text": "It throws an IllegalArgumentException" },
+    { "id": "c", "text": "It throws an IllegalStateException" },
+    { "id": "d", "text": "It returns null" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "`require()` is used to validate function arguments. If the condition is false, it throws an `IllegalArgumentException`. Use `check()` instead when you want to throw an `IllegalStateException` for invalid object state."
+}

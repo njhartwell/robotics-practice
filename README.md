@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FRC Kotlin Tutorial
 
-## Getting Started
+An interactive Kotlin course for high-school students preparing to program a
+FIRST Robotics Competition robot. The app combines browser-based lessons,
+graded exercises, local progress, and guided WPILib projects.
 
-First, run the development server:
+## Course structure
+
+- **Core Kotlin for FRC** is the recommended beginner path: language basics,
+  functions, collections, object-oriented Kotlin, null safety, and the Kotlin
+  features students will encounter in robot code.
+- **Further Kotlin** contains optional algorithms and advanced language topics.
+- **IDE Projects** bridge the browser lessons into a real WPILib project.
+
+Lesson content lives under `content/playground/<section>/<lesson>/`. Each lesson
+contains:
+
+- `meta.json` — title, order, level, XP, timing, and tags.
+- `lesson.mdx` — lesson prose with `<Exercise id="01" />` placeholders.
+- `exercises/*.json` — interactive exercise definitions and private graders.
+
+The test suite scans the complete curriculum. Invalid metadata, duplicate
+exercise IDs, missing graders, or MDX references that do not match exercise
+order fail CI.
+
+## Local development
+
+The recommended setup uses [mise](https://mise.jdx.dev/) to install the pinned
+versions of Bun and Kotlin:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+mise trust
+mise install
+mise run install:frozen
+mise run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you already have Bun installed, `bun install` and `bun run dev` work without
+mise. The committed `bun.lock` is the only JavaScript dependency lockfile.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000). Student progress and code
+drafts are stored in the browser, so no account is required.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the full local verification suite with:
 
-## Learn More
+```bash
+mise run check
+```
 
-To learn more about Next.js, take a look at the following resources:
+Individual checks are also available:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+mise run lint
+mise run typecheck
+mise run test
+mise run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Execute every exercise solution and its hidden grader through the same
+persistent worker used by the app with:
 
-## Deploy on Vercel
+```bash
+mise run test:solutions
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`mise install` provides the Kotlin compiler used by this check. The slower,
+standalone compiler audit remains available as `mise run test:solutions:cli`.
+Set `KOTLINC_BIN=/path/to/kotlinc` only when that audit should use another
+compiler.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run every application check and the complete Kotlin solution audit with:
+
+```bash
+mise run check:all
+```
+
+Use `mise tasks` to see the complete task list and short aliases such as
+`mise run d`, `mise run t`, and `mise run c`.
+
+## Exercise grading
+
+Code exercises are graded through the `POST /api/kotlin` route. The browser
+sends the lesson slug, exercise ID, and student code. The server loads the
+exercise definition and uses a persistent local JVM compiler worker, so hidden
+tests, expected output, and solutions are not serialized into lesson pages.
+
+`mise run dev` builds the worker and Next.js warms it during server startup.
+The compiler stays alive between submissions, while each compiled student
+program runs in a disposable JVM with memory, runtime, and output limits. In
+`auto` mode the JetBrains compiler API remains available as a fallback when the
+local toolchain cannot start.
+
+Configuration is optional:
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `KOTLIN_API_SERVER` | `https://api.kotlinlang.org` | Kotlin compiler service |
+| `KOTLIN_COMPILER_VERSION` | `2.0.21` | Compiler API version |
+| `KOTLIN_API_TIMEOUT_MS` | `15000` | Compiler request timeout |
+| `KOTLIN_EXECUTION_MODE` | `auto` | `auto`, `local`, or `remote` grading |
+| `KOTLIN_LOCAL_COMPILE_TIMEOUT_MS` | `15000` | Local compilation timeout |
+| `KOTLIN_LOCAL_EXECUTION_TIMEOUT_MS` | `3000` | Student program runtime limit |
+| `KOTLIN_VALIDATION_CONCURRENCY` | `4` | Local solution-audit workers |
+| `KOTLIN_VALIDATION_TIMEOUT_MS` | `60000` | Per-process local audit timeout |
+
+Output exercises compare normalized console output. Test exercises require at
+least one reported JUnit test and fail closed when the upstream service returns
+an error or an unexpected response.
+
+The local runner is intended for code written by students using this tutorial.
+Its subprocess limits prevent hangs and runaway output, but it is not an OS
+sandbox for hostile, untrusted programs.
+
+The local solution audit compiles and executes every reference solution. It
+compares output exercises exactly and runs every hidden test method with
+throwing assertions, so a merely compilable but incorrect solution fails.
+
+## Authoring a lesson
+
+1. Copy a nearby lesson directory and give the lesson and every exercise a
+   globally unique ID.
+2. Add each exercise to the MDX in numeric order.
+3. Use output grading for introductory console-output work. Prefer JUnit tests
+   for functions, classes, edge cases, and behavior.
+4. Provide starter code, a working solution, a concise hint, and beginner-safe
+   failure expectations.
+5. Run `mise run check:all` before submitting the change.
+
+Do not put secrets in content files. Solution and test code are kept out of the
+normal browser payload, but this is an educational grader rather than a secure
+code-execution sandbox.

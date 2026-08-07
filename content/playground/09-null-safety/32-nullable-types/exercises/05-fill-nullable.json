@@ -1,0 +1,12 @@
+{
+  "id": "32-nullable-types/ex-05",
+  "lessonSlug": "32-nullable-types",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Nullable Type Syntax",
+  "instructions": "To make a type nullable in Kotlin, add _____ after the type name.",
+  "xpReward": 10,
+  "prompt": "To make a type nullable in Kotlin, add _____ after the type name.",
+  "acceptedAnswers": ["?", "a ?", "a question mark", "question mark", "the ? symbol"],
+  "explanation": "Adding a `?` after a type name makes it nullable. For example, `String?` can hold a String or null, while `String` can only hold a non-null String."
+}

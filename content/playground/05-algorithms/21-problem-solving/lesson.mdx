@@ -1,0 +1,141 @@
+# Problem Solving Patterns
+
+You have learned loops, functions, lists, and classes. Now it is time to put it all together. Good programmers do not memorize solutions. They learn **patterns** -- common strategies that work for many different problems.
+
+## Break the Problem Down
+
+Big problems are hard. Small problems are easy. The trick is to turn a big problem into several small ones.
+
+Imagine you need to figure out which robot on your alliance scored the most points. That sounds complicated. But you can break it into steps:
+
+1. Go through each robot's score
+2. Keep track of the highest score so far
+3. When you are done, the highest score is the answer
+
+Each step on its own is something you already know how to do.
+
+## Pattern: The Accumulator
+
+An **accumulator** is a variable that builds up a result as you loop through data. You have already used this pattern without knowing its name.
+
+```kotlin
+fun totalPoints(scores: List<Int>): Int {
+    var total = 0
+    for (score in scores) {
+        total += score
+    }
+    return total
+}
+
+fun main() {
+    val matchScores = listOf(45, 72, 38, 91)
+    println("Total: ${totalPoints(matchScores)}")
+}
+```
+
+The variable `total` is the accumulator. It starts at 0, and each time through the loop it grows by adding the next score.
+
+Accumulators are not always numbers. You can accumulate a string, a list, or even a Boolean:
+
+```kotlin
+fun hasHighScore(scores: List<Int>): Boolean {
+    var found = false
+    for (score in scores) {
+        if (score >= 90) {
+            found = true
+        }
+    }
+    return found
+}
+
+fun main() {
+    println(hasHighScore(listOf(45, 72, 91)))  // true
+    println(hasHighScore(listOf(45, 72, 38)))   // false
+}
+```
+
+Here the accumulator is a Boolean called `found`. It starts as `false` and flips to `true` when the condition is met.
+
+## Pattern: Filter and Transform
+
+Sometimes you need to go through a list and keep only the items that match a condition. This is called **filtering**.
+
+```kotlin
+fun qualifiedTeams(scores: List<Int>, minScore: Int): List<Int> {
+    val result = mutableListOf<Int>()
+    for (score in scores) {
+        if (score >= minScore) {
+            result.add(score)
+        }
+    }
+    return result
+}
+
+fun main() {
+    val scores = listOf(45, 72, 38, 91, 55)
+    val qualified = qualifiedTeams(scores, 50)
+    println(qualified)  // [72, 91, 55]
+}
+```
+
+You can also **transform** items as you go. For example, converting all scores to percentages:
+
+```kotlin
+fun toPercentages(scores: List<Int>, maxScore: Int): List<Double> {
+    val percentages = mutableListOf<Double>()
+    for (score in scores) {
+        percentages.add(score.toDouble() / maxScore * 100)
+    }
+    return percentages
+}
+
+fun main() {
+    val scores = listOf(75, 50, 100)
+    println(toPercentages(scores, 100))  // [75.0, 50.0, 100.0]
+}
+```
+
+## Pattern: Comparing Pairs
+
+Some problems need you to compare items in a list with each other. For example, checking if any two scores add up to a target number.
+
+```kotlin
+fun hasPairWithSum(numbers: List<Int>, target: Int): Boolean {
+    for (i in 0 until numbers.size) {
+        for (j in i + 1 until numbers.size) {
+            if (numbers[i] + numbers[j] == target) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+fun main() {
+    val scores = listOf(10, 25, 30, 15)
+    println(hasPairWithSum(scores, 40))  // true (10 + 30)
+    println(hasPairWithSum(scores, 99))  // false
+}
+```
+
+The outer loop picks one item. The inner loop picks a second item that comes after the first. This way you check every possible pair without repeating any.
+
+## Tips for Solving Problems
+
+Here are five steps that work for any coding problem:
+
+1. **Read carefully.** Make sure you understand what the problem is asking.
+2. **Try examples by hand.** Pick small inputs and work through them on paper.
+3. **Spot the pattern.** Is this an accumulator? A filter? A pair comparison?
+4. **Write the code.** Start with the pattern and fill in the details.
+5. **Test with edge cases.** What happens with an empty list? A single element? All the same values?
+
+You are building real problem-solving skills. These patterns will help you in robotics, in school, and beyond. Keep practicing!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

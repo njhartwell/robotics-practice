@@ -1,0 +1,197 @@
+# Collection Operations
+
+You have learned about lambdas and higher-order functions. Now it is time to see them in action with Kotlin's built-in **collection operations**. These are powerful functions that let you transform, filter, and combine data in just a few lines of code.
+
+## The Old Way vs. The New Way
+
+Let's say you have a list of match scores and you want to double each one. Here is how you might do it with a loop:
+
+```kotlin
+val scores = listOf(45, 72, 38, 91)
+val doubled = mutableListOf<Int>()
+for (score in scores) {
+    doubled.add(score * 2)
+}
+println(doubled) // [90, 144, 76, 182]
+```
+
+That works, but it takes four lines. With collection operations, you can do the same thing in one line:
+
+```kotlin
+val scores = listOf(45, 72, 38, 91)
+val doubled = scores.map { it * 2 }
+println(doubled) // [90, 144, 76, 182]
+```
+
+Let's learn each operation one at a time.
+
+## `.map {}` -- Transform Every Element
+
+`.map` creates a new list by applying a lambda to every element. The lambda describes how to transform each item.
+
+```kotlin
+val teamNumbers = listOf(4215, 254, 1678, 971)
+val labels = teamNumbers.map { "Team $it" }
+println(labels) // [Team 4215, Team 254, Team 1678, Team 971]
+```
+
+Each number gets turned into a string. The original list is not changed -- `.map` always returns a brand new list.
+
+```kotlin
+val speeds = listOf(0.5, 0.8, 0.3, 1.0)
+val percentages = speeds.map { (it * 100).toInt() }
+println(percentages) // [50, 80, 30, 100]
+```
+
+## `.filter {}` -- Keep Elements That Match
+
+`.filter` creates a new list containing only the elements where the lambda returns `true`.
+
+```kotlin
+val scores = listOf(45, 72, 38, 91, 55, 12)
+val highScores = scores.filter { it >= 50 }
+println(highScores) // [72, 91, 55]
+```
+
+Only scores of 50 or above made it into the new list. The rest were filtered out.
+
+```kotlin
+val teamNumbers = listOf(4215, 254, 1678, 971, 118)
+val fourDigit = teamNumbers.filter { it >= 1000 }
+println(fourDigit) // [4215, 1678]
+```
+
+<Callout type="info">
+Both `.map` and `.filter` return new lists. They never modify the original list. This makes your code safer and easier to reason about.
+</Callout>
+
+## `.forEach {}` -- Do Something With Each Element
+
+`.forEach` runs a lambda on each element but does not create a new list. Use it when you want to perform an action (like printing) rather than create new data.
+
+```kotlin
+val alliance = listOf("Team 4215", "Team 254", "Team 1678")
+alliance.forEach { println("$it is ready!") }
+```
+
+Output:
+```
+Team 4215 is ready!
+Team 254 is ready!
+Team 1678 is ready!
+```
+
+`.forEach` is similar to a `for` loop, but it fits neatly into a chain of operations.
+
+## Chaining Operations
+
+One of the best things about collection operations is that you can **chain** them together. The output of one operation becomes the input of the next.
+
+```kotlin
+val scores = listOf(45, 72, 38, 91, 55, 12)
+val result = scores
+    .filter { it >= 50 }    // keep scores 50 and above: [72, 91, 55]
+    .map { it * 2 }         // double each one: [144, 182, 110]
+println(result) // [144, 182, 110]
+```
+
+Read this chain from top to bottom: first filter, then map. Each step creates a new list that feeds into the next step.
+
+Here is another example. Get the names of teams with numbers above 1000:
+
+```kotlin
+val teams = listOf(
+    Pair(4215, "Tribots"),
+    Pair(254, "Cheesy Poofs"),
+    Pair(1678, "Citrus Circuits"),
+    Pair(118, "Robonauts")
+)
+
+val result = teams
+    .filter { it.first >= 1000 }
+    .map { it.second }
+println(result) // [Tribots, Citrus Circuits]
+```
+
+## `.reduce {}` -- Combine All Elements Into One Value
+
+`.reduce` takes all the elements in a list and combines them into a single value. It works by applying a lambda to pairs of elements, accumulating a result.
+
+```kotlin
+val scores = listOf(45, 72, 38, 91)
+val total = scores.reduce { acc, score -> acc + score }
+println(total) // 246
+```
+
+Here is how it works step by step:
+1. Start with the first element: `acc = 45`
+2. Add the next: `45 + 72 = 117`
+3. Add the next: `117 + 38 = 155`
+4. Add the next: `155 + 91 = 246`
+
+The parameter `acc` (short for "accumulator") holds the running result. The second parameter is the current element.
+
+<Callout type="warning">
+`.reduce` will crash if the list is empty because it needs at least one element to start with. If your list might be empty, use `.fold` instead.
+</Callout>
+
+## `.fold {}` -- Like Reduce, but With a Starting Value
+
+`.fold` works like `.reduce` but lets you provide an initial value. This makes it safe to use with empty lists.
+
+```kotlin
+val scores = listOf(45, 72, 38, 91)
+val total = scores.fold(0) { acc, score -> acc + score }
+println(total) // 246
+```
+
+The `0` is the starting value for the accumulator. If the list were empty, `.fold` would return `0` instead of crashing.
+
+## `.count {}` -- Count Matching Elements
+
+`.count` with a lambda returns how many elements match a condition.
+
+```kotlin
+val scores = listOf(45, 72, 38, 91, 55, 12)
+val highCount = scores.count { it >= 50 }
+println(highCount) // 3
+```
+
+Three scores are 50 or above. This is shorter than filtering and then checking the size.
+
+## `.groupBy {}` -- Organize Elements Into Groups
+
+`.groupBy` splits a list into a map where each key is a group label and each value is a list of elements in that group.
+
+```kotlin
+val scores = listOf(45, 72, 38, 91, 55, 12)
+val grouped = scores.groupBy { if (it >= 50) "high" else "low" }
+println(grouped)
+// {low=[45, 38, 12], high=[72, 91, 55]}
+```
+
+This is great for categorizing data. For example, you could group match results by alliance color or group sensors by type.
+
+## Quick Reference
+
+| Operation | What It Does | Returns |
+|-----------|-------------|---------|
+| `.map { }` | Transform each element | New list |
+| `.filter { }` | Keep elements matching condition | New list |
+| `.forEach { }` | Run action on each element | Nothing (Unit) |
+| `.reduce { }` | Combine all elements into one | Single value |
+| `.fold(init) { }` | Combine with a starting value | Single value |
+| `.count { }` | Count matching elements | Int |
+| `.groupBy { }` | Split into groups | Map |
+
+These operations will save you a lot of code compared to writing loops by hand. You will use them constantly in real projects. Fantastic work learning functional Kotlin!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

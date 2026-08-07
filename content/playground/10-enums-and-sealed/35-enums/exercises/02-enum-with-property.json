@@ -1,0 +1,14 @@
+{
+  "id": "35-enums/ex-02",
+  "lessonSlug": "35-enums",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Game Piece Points",
+  "instructions": "Write an `enum class GamePiece` with a property `val points: Int`. It should have three constants:\n- `CONE` worth 3 points\n- `CUBE` worth 4 points\n- `NONE` worth 0 points\n\nThen write a function called `totalPoints` that takes a `List<GamePiece>` parameter and returns the total points as an `Int`.\n\nFor example, `totalPoints(listOf(GamePiece.CONE, GamePiece.CUBE))` should return `7`.",
+  "hint": "Define the enum as `enum class GamePiece(val points: Int)` and pass the point value for each constant like `CONE(3)`. In totalPoints, you can use a for loop or `.sumOf { it.points }` to add up the points.",
+  "xpReward": 20,
+  "starterCode": "// Write your GamePiece enum class here\n\n\n// Write your totalPoints function here\n",
+  "solutionCode": "enum class GamePiece(val points: Int) {\n    CONE(3),\n    CUBE(4),\n    NONE(0)\n}\n\nfun totalPoints(pieces: List<GamePiece>): Int {\n    var total = 0\n    for (piece in pieces) {\n        total += piece.points\n    }\n    return total\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testConePoints() {\n        Assert.assertEquals(3, GamePiece.CONE.points)\n    }\n\n    @Test\n    fun testCubePoints() {\n        Assert.assertEquals(4, GamePiece.CUBE.points)\n    }\n\n    @Test\n    fun testNonePoints() {\n        Assert.assertEquals(0, GamePiece.NONE.points)\n    }\n\n    @Test\n    fun testTotalPointsMixed() {\n        val pieces = listOf(GamePiece.CONE, GamePiece.CUBE, GamePiece.CONE)\n        Assert.assertEquals(10, totalPoints(pieces))\n    }\n\n    @Test\n    fun testTotalPointsEmpty() {\n        Assert.assertEquals(0, totalPoints(emptyList()))\n    }\n\n    @Test\n    fun testTotalPointsWithNone() {\n        val pieces = listOf(GamePiece.CONE, GamePiece.NONE, GamePiece.CUBE)\n        Assert.assertEquals(7, totalPoints(pieces))\n    }\n}"
+}

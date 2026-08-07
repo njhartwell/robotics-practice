@@ -1,0 +1,17 @@
+{
+  "id": "17-methods/ex-03",
+  "lessonSlug": "17-methods",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Method vs Function",
+  "instructions": "What is the difference between a method and a function?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Methods are faster than functions" },
+    { "id": "b", "text": "Methods belong to a class, functions do not" },
+    { "id": "c", "text": "Functions can have parameters, methods cannot" },
+    { "id": "d", "text": "There is no difference" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "A method is a function that is defined inside a class. It can access the class's properties and acts on a specific object. A regular function stands on its own and is not tied to any class."
+}

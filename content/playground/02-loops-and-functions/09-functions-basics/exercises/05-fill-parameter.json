@@ -1,0 +1,12 @@
+{
+  "id": "09-functions-basics/ex-05",
+  "lessonSlug": "09-functions-basics",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Parameter Type",
+  "instructions": "To define a function that takes a whole number parameter called `count`, you write: `fun repeat(count: _____)`. What type goes in the blank?",
+  "xpReward": 10,
+  "prompt": "fun repeat(count: _____)",
+  "acceptedAnswers": ["Int"],
+  "explanation": "`Int` is the Kotlin type for whole numbers (integers). So the full definition would be `fun repeat(count: Int)`."
+}

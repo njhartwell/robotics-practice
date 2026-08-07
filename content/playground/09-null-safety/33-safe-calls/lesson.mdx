@@ -1,0 +1,140 @@
+# Safe Calls and Elvis
+
+In the last lesson, you learned that Kotlin stops you from calling methods on nullable types. You saw how to use `if` checks to handle null. But writing `if` checks everywhere gets repetitive.
+
+Kotlin has two special operators that make null handling much cleaner: the **safe call operator** (`?.`) and the **Elvis operator** (`?:`).
+
+## The Safe Call Operator: `?.`
+
+The safe call operator lets you call a method on a nullable variable. If the variable is not null, the method runs normally. If the variable is null, the entire expression returns null instead of crashing.
+
+```kotlin
+fun main() {
+    val sensorReading: String? = "42.5 degrees"
+    val noReading: String? = null
+
+    println(sensorReading?.length)  // Prints: 12
+    println(noReading?.length)      // Prints: null
+}
+```
+
+Here is what happens step by step:
+
+1. `sensorReading?.length` -- `sensorReading` is not null, so `.length` runs and returns `12`.
+2. `noReading?.length` -- `noReading` is null, so Kotlin skips `.length` and returns `null`.
+
+No crash. No exception. The `?.` operator handles both cases safely.
+
+Think of `?.` as asking a polite question: "If you have a value, what is your length?" If there is no value, the answer is null.
+
+## The Elvis Operator: `?:`
+
+Sometimes you do not want null as a result. You want a default value instead. The **Elvis operator** (`?:`) lets you provide a fallback value when the left side is null.
+
+```kotlin
+fun main() {
+    val connectedSensor: String? = "Gyroscope"
+    val disconnectedSensor: String? = null
+
+    val name1 = connectedSensor ?: "No sensor"
+    val name2 = disconnectedSensor ?: "No sensor"
+
+    println(name1)  // Prints: Gyroscope
+    println(name2)  // Prints: No sensor
+}
+```
+
+The `?:` operator works like this:
+
+- If the left side is **not null**, use the left side.
+- If the left side **is null**, use the right side (the default).
+
+<Callout type="tip">
+The operator is called "Elvis" because if you tilt your head to the left, `?:` looks like a pair of eyes and a pompadour hairstyle, similar to the singer Elvis Presley.
+</Callout>
+
+## Combining Safe Calls and Elvis
+
+These two operators work great together. Use `?.` to safely access a property, then `?:` to provide a default if the result is null.
+
+```kotlin
+fun getReadingLength(reading: String?): Int {
+    return reading?.length ?: 0
+}
+
+fun main() {
+    println(getReadingLength("42.5"))   // Prints: 3
+    println(getReadingLength(null))     // Prints: 0
+}
+```
+
+This is a very common pattern in Kotlin code. You will see it all the time in FRC robot programs.
+
+## Chaining Safe Calls
+
+You can chain multiple safe calls together. If any step in the chain is null, the whole chain returns null.
+
+```kotlin
+data class Sensor(val name: String, val reading: String?)
+data class Subsystem(val sensor: Sensor?)
+
+fun getSensorReadingLength(subsystem: Subsystem?): Int {
+    return subsystem?.sensor?.reading?.length ?: 0
+}
+
+fun main() {
+    val driveSubsystem = Subsystem(Sensor("Encoder", "1500"))
+    val emptySubsystem = Subsystem(null)
+
+    println(getSensorReadingLength(driveSubsystem))  // Prints: 4
+    println(getSensorReadingLength(emptySubsystem))  // Prints: 0
+    println(getSensorReadingLength(null))             // Prints: 0
+}
+```
+
+Each `?.` in the chain is a safety checkpoint. If the subsystem is null, stop. If the sensor is null, stop. If the reading is null, stop. Otherwise, get the length.
+
+## Using `?.let {}` to Run Code When Not Null
+
+Sometimes you want to run a block of code only when a value is not null. The `?.let {}` pattern does this.
+
+```kotlin
+fun main() {
+    val sensorReading: String? = "42.5"
+    val noReading: String? = null
+
+    sensorReading?.let { reading ->
+        println("Got a reading: $reading")
+        println("Length: ${reading.length}")
+    }
+
+    noReading?.let { reading ->
+        println("This will NOT print")
+    }
+
+    println("Done!")
+}
+```
+
+Output:
+```
+Got a reading: 42.5
+Length: 4
+Done!
+```
+
+Inside the `let` block, the variable `reading` is guaranteed to be non-null. The block only runs if the original value is not null.
+
+<Callout type="info">
+You will learn more about `let` and other useful patterns in the next lesson. For now, know that `?.let` is a handy way to run code only when you have a real value.
+</Callout>
+
+You are doing great! Safe calls and the Elvis operator make null handling in Kotlin smooth and readable. Let's practice using them.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

@@ -4,12 +4,11 @@
   "type": "write-from-scratch",
   "order": 4,
   "title": "Driver Profile",
-  "instructions": "Write a function called `driverProfile` that takes two parameters: `name` (String) and `teamNumber` (Int). It should return a string in this exact format:\n\n\"Driver: {name}, Team #{teamNumber}\"\n\nFor example, `driverProfile(\"Alex\", 4215)` should return `\"Driver: Alex, Team #4215\"`.",
-  "hint": "Use string templates: \"Driver: $name, Team #$teamNumber\"",
-  "xpReward": 15,
-  "starterCode": "fun driverProfile(name: String, teamNumber: Int): String {\n    // Return formatted string like \"Driver: Alex, Team #4215\"\n    return \"\"\n}",
-  "solutionCode": "fun driverProfile(name: String, teamNumber: Int): String {\n    return \"Driver: $name, Team #$teamNumber\"\n}",
+  "instructions": "Write a complete program with `fun main()`. Inside it, create `name` with the value `\"Alex\"` and `teamNumber` with the value `4215`. Then use a string template to print exactly:\n\n`Driver: Alex, Team #4215`",
+  "hint": "Inside `main`, declare the two values with `val`, then print `\"Driver: $name, Team #$teamNumber\"`.",
+  "xpReward": 20,
+  "starterCode": "fun main() {\n    // Create name and teamNumber variables\n    // Print the driver profile with a string template\n}",
+  "solutionCode": "fun main() {\n    val name = \"Alex\"\n    val teamNumber = 4215\n    println(\"Driver: $name, Team #$teamNumber\")\n}",
   "validationMode": "output",
-  "expectedOutput": "Driver: Alex, Team #4215\nDriver: Jordan, Team #254",
-  "hiddenPostamble": "fun main() {\n    println(driverProfile(\"Alex\", 4215))\n    println(driverProfile(\"Jordan\", 254))\n}"
+  "expectedOutput": "Driver: Alex, Team #4215"
 }

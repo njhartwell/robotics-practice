@@ -1,0 +1,14 @@
+{
+  "id": "36-sealed-classes/ex-04",
+  "lessonSlug": "36-sealed-classes",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Sensor Reading",
+  "instructions": "Complete the sealed class for sensor readings and the `report` function.\n\nThe `SensorReading` sealed class should have three subclasses:\n- `Connected` with a `val value: Double` property\n- `Disconnected` with no data (use `object`)\n- `Error` with a `val message: String` property\n\nThe `report` function should return:\n- `\"Reading: X\"` for Connected (where X is the value)\n- `\"No sensor connected\"` for Disconnected\n- `\"Sensor error: M\"` for Error (where M is the message)",
+  "hint": "Use `class Connected(val value: Double) : SensorReading()` for subclasses with data and `object Disconnected : SensorReading()` for the one without data. Remember to use `is` in the when branches.",
+  "xpReward": 15,
+  "starterCode": "sealed class SensorReading {\n    // Add Connected with value: Double\n    // Add Disconnected (no data)\n    // Add Error with message: String\n}\n\nfun report(reading: SensorReading): String {\n    return when (reading) {\n        // Handle all three types\n    }\n}",
+  "solutionCode": "sealed class SensorReading {\n    class Connected(val value: Double) : SensorReading()\n    object Disconnected : SensorReading()\n    class Error(val message: String) : SensorReading()\n}\n\nfun report(reading: SensorReading): String {\n    return when (reading) {\n        is SensorReading.Connected -> \"Reading: ${reading.value}\"\n        is SensorReading.Disconnected -> \"No sensor connected\"\n        is SensorReading.Error -> \"Sensor error: ${reading.message}\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testConnected() {\n        Assert.assertEquals(\"Reading: 42.5\", report(SensorReading.Connected(42.5)))\n    }\n\n    @Test\n    fun testDisconnected() {\n        Assert.assertEquals(\"No sensor connected\", report(SensorReading.Disconnected))\n    }\n\n    @Test\n    fun testError() {\n        Assert.assertEquals(\"Sensor error: Timeout\", report(SensorReading.Error(\"Timeout\")))\n    }\n\n    @Test\n    fun testConnectedZero() {\n        Assert.assertEquals(\"Reading: 0.0\", report(SensorReading.Connected(0.0)))\n    }\n\n    @Test\n    fun testErrorDifferentMessage() {\n        Assert.assertEquals(\"Sensor error: Out of range\", report(SensorReading.Error(\"Out of range\")))\n    }\n}"
+}

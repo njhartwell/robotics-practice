@@ -1,0 +1,17 @@
+{
+  "id": "15-classes/ex-03",
+  "lessonSlug": "15-classes",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Class vs Object",
+  "instructions": "What is the relationship between a class and an object?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "They are the same thing" },
+    { "id": "b", "text": "A class is a blueprint; an object is created from that blueprint" },
+    { "id": "c", "text": "An object is a blueprint; a class is created from it" },
+    { "id": "d", "text": "Classes can only have functions, objects can only have properties" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "A class defines what properties and behavior something has — like a design plan. An object (also called an instance) is a specific thing built from that plan. You can create many objects from one class, each with its own property values."
+}

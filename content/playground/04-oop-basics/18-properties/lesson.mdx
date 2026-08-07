@@ -1,0 +1,145 @@
+# Properties and Data Classes
+
+In the last lesson you learned how to add methods to your classes. Now let's look at two more powerful Kotlin features: custom properties and data classes.
+
+## Custom Getters
+
+Sometimes a property's value is not stored directly. Instead, it is **computed** from other properties each time you access it.
+
+```kotlin
+class Battery(val voltage: Double) {
+    val isLow: Boolean
+        get() = voltage < 11.0
+}
+
+fun main() {
+    val battery = Battery(10.5)
+    println(battery.isLow) // true
+
+    val fullBattery = Battery(12.6)
+    println(fullBattery.isLow) // false
+}
+```
+
+The `isLow` property does not store its own value. Every time you read `battery.isLow`, Kotlin runs the code after `get() =` to calculate the answer. This is called a **custom getter**.
+
+Custom getters are great for checks that depend on other values. In FRC, you might use them to check if a motor is stalled, if a sensor reading is in range, or if the battery is low.
+
+## Custom Setters
+
+You can also control what happens when a property is changed. This is called a **custom setter**.
+
+```kotlin
+class Motor(val name: String) {
+    var speed: Double = 0.0
+        set(value) {
+            field = if (value > 1.0) 1.0
+                    else if (value < -1.0) -1.0
+                    else value
+        }
+}
+
+fun main() {
+    val motor = Motor("Left Drive")
+    motor.speed = 1.5
+    println(motor.speed) // 1.0 (clamped!)
+    motor.speed = -2.0
+    println(motor.speed) // -1.0 (clamped!)
+}
+```
+
+Inside a setter, the special word `field` refers to the property's stored value. The `value` parameter is what someone tried to set it to. Here we clamp the speed to stay between -1.0 and 1.0, no matter what value is passed in.
+
+## The `toString()` Method
+
+When you print an object, Kotlin calls its `toString()` method. By default, it prints something like `Motor@3a71f4dd`, which is not very helpful.
+
+You can override `toString()` to make it print something useful:
+
+```kotlin
+class Sensor(val name: String, val reading: Double) {
+    override fun toString(): String {
+        return "Sensor(name=$name, reading=$reading)"
+    }
+}
+
+fun main() {
+    val sensor = Sensor("Gyro", 45.2)
+    println(sensor) // Sensor(name=Gyro, reading=45.2)
+}
+```
+
+The `override` keyword tells Kotlin you are replacing the default `toString()` with your own version.
+
+## Data Classes
+
+Writing `toString()`, `equals()`, and other standard methods by hand gets tedious. Kotlin has a shortcut: **data classes**.
+
+```kotlin
+data class SensorReading(
+    val sensorName: String,
+    val value: Double,
+    val timestamp: Long
+)
+
+fun main() {
+    val reading = SensorReading("Gyro", 45.2, 1000)
+    println(reading)
+    // SensorReading(sensorName=Gyro, value=45.2, timestamp=1000)
+}
+```
+
+Adding the `data` keyword before `class` gives you all of these for free:
+- A nice `toString()` that shows all property values
+- An `equals()` that compares property values (not memory addresses)
+- A `copy()` method to create modified copies
+
+## Copying Data Classes
+
+The `copy()` method lets you make a new object with some values changed:
+
+```kotlin
+data class MatchScore(val teamNumber: Int, val autoPoints: Int, val teleopPoints: Int)
+
+fun main() {
+    val score = MatchScore(4215, 20, 45)
+    val updated = score.copy(teleopPoints = 60)
+    println(score)   // MatchScore(teamNumber=4215, autoPoints=20, teleopPoints=45)
+    println(updated) // MatchScore(teamNumber=4215, autoPoints=20, teleopPoints=60)
+}
+```
+
+The original `score` stays the same. The `copy()` method creates a brand new object.
+
+## Destructuring
+
+You can pull the values out of a data class into separate variables:
+
+```kotlin
+data class Alliance(val color: String, val team1: Int, val team2: Int, val team3: Int)
+
+fun main() {
+    val alliance = Alliance("Red", 4215, 1234, 5678)
+    val (color, t1, t2, t3) = alliance
+    println("$color Alliance: $t1, $t2, $t3")
+    // Red Alliance: 4215, 1234, 5678
+}
+```
+
+This is called **destructuring**. The variables are assigned in the same order as the properties in the data class definition.
+
+## When to Use Data Classes
+
+Use a **data class** when the object's purpose is to hold data — sensor readings, match scores, team info, configuration values.
+
+Use a **regular class** when the object has complex behavior, internal state that changes, or logic that goes beyond storing values — like a motor controller or a drive subsystem.
+
+You are doing great! Try these exercises to practice.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

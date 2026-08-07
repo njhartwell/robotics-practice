@@ -1,0 +1,15 @@
+{
+  "id": "07-while-loops/ex-04",
+  "lessonSlug": "07-while-loops",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Sensor Check",
+  "instructions": "Complete the `checkSensors` function using a `do-while` loop. It should print `\"Checking sensors...\"` exactly `times` times. If `times` is 0 or negative, it should print nothing.\n\nFor example, `checkSensors(3)` should print:\n```\nChecking sensors...\nChecking sensors...\nChecking sensors...\n```",
+  "hint": "Return early when `times <= 0`. Otherwise, use a counter starting at 0, print inside the `do` block, increase the counter, and continue while the counter is less than `times`.",
+  "xpReward": 15,
+  "starterCode": "fun checkSensors(times: Int) {\n    if (times <= 0) return\n\n    var count = 0\n    do {\n        // Print \"Checking sensors...\" and increase count\n    } while (count < times)\n}",
+  "solutionCode": "fun checkSensors(times: Int) {\n    if (times <= 0) return\n\n    var count = 0\n    do {\n        println(\"Checking sensors...\")\n        count = count + 1\n    } while (count < times)\n}",
+  "validationMode": "output",
+  "expectedOutput": "Checking sensors...\nChecking sensors...\nChecking sensors...",
+  "hiddenPostamble": "fun main() {\n    checkSensors(0)\n    checkSensors(-2)\n    checkSensors(3)\n}"
+}

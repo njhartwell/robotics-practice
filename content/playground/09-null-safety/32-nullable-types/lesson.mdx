@@ -1,0 +1,145 @@
+# Nullable Types
+
+Imagine your robot has a sensor plugged into it. Your code asks the sensor for a reading. But what if the sensor is not connected? What value does your code get back?
+
+In many programming languages, the answer is **null**. Null means "no value." It is not zero. It is not an empty string. It is the complete absence of a value.
+
+## The Problem with Null
+
+Null has caused more bugs than almost anything else in programming history. In Java (which many FRC teams use), you can write code that looks correct but crashes at runtime because a variable was null when you did not expect it.
+
+```kotlin
+// This is what happens in Java-style code (NOT Kotlin!)
+// If sensorReading is null, this line crashes
+val length = sensorReading.length  // CRASH! NullPointerException
+```
+
+This kind of crash is called a **NullPointerException**. It is one of the most common errors in Java programs. It can happen during a match, which is the worst possible time for your robot code to crash.
+
+## Kotlin's Solution: Nullable Types
+
+Kotlin solves this problem with a clever type system. In Kotlin, variables cannot hold null by default. If you try to assign null to a regular variable, the compiler stops you before you can even run the program.
+
+```kotlin
+var teamName: String = "Tribots"
+teamName = null  // ERROR! Won't compile
+```
+
+This is a **non-nullable** type. A `String` variable will always hold a real string. You never have to worry about it being null.
+
+## Making a Type Nullable
+
+Sometimes you genuinely need a variable that might not have a value. For example, a sensor that might not be connected. To allow null, add a **question mark** (`?`) after the type name.
+
+```kotlin
+var sensorReading: String? = "42.5 degrees"
+sensorReading = null  // This is fine!
+```
+
+The `?` tells Kotlin: "This variable can hold a `String` or it can hold `null`."
+
+Here is the key difference:
+
+| Type      | Can hold a value? | Can hold null? |
+|-----------|-------------------|----------------|
+| `String`  | Yes               | No             |
+| `String?` | Yes               | Yes            |
+| `Int`     | Yes               | No             |
+| `Int?`    | Yes               | Yes            |
+
+You can make any type nullable by adding `?` to it.
+
+## Declaring Nullable Variables
+
+Let's look at some examples with FRC-themed code.
+
+```kotlin
+fun main() {
+    // Non-nullable: always has a value
+    val teamNumber: Int = 4215
+    val teamName: String = "Tribots"
+
+    // Nullable: might be null
+    var alliancePartner: String? = null
+    var matchScore: Int? = null
+
+    println("Team: $teamNumber $teamName")
+    println("Alliance partner: $alliancePartner")
+    println("Match score: $matchScore")
+
+    // Later, we get the data
+    alliancePartner = "Team 1234"
+    matchScore = 42
+    println("Alliance partner: $alliancePartner")
+    println("Match score: $matchScore")
+}
+```
+
+Output:
+```
+Team: 4215 Tribots
+Alliance partner: null
+Match score: null
+Alliance partner: Team 1234
+Match score: 42
+```
+
+When you print a nullable variable that holds null, Kotlin prints the word "null".
+
+## You Cannot Call Methods on Nullable Types Directly
+
+Here is the important part. If a variable might be null, Kotlin will not let you call methods on it directly. This prevents NullPointerException crashes.
+
+```kotlin
+val teamName: String = "Tribots"
+println(teamName.length)  // Works! teamName is never null
+
+val sensorData: String? = null
+println(sensorData.length)  // ERROR! Won't compile
+```
+
+The compiler knows that `sensorData` might be null. Calling `.length` on null would crash, so Kotlin stops you. You will learn how to safely handle nullable values in the next lesson.
+
+## Null Checks with if
+
+One way to work with nullable values is to check for null using an `if` statement. Inside the `if` block, Kotlin knows the value is not null.
+
+```kotlin
+fun describeSensor(reading: String?): String {
+    if (reading != null) {
+        // Inside here, Kotlin knows reading is NOT null
+        return "Sensor says: $reading (${reading.length} characters)"
+    } else {
+        return "No sensor reading available"
+    }
+}
+
+fun main() {
+    println(describeSensor("42.5"))
+    println(describeSensor(null))
+}
+```
+
+Output:
+```
+Sensor says: 42.5 (4 characters)
+No sensor reading available
+```
+
+This is called a **smart cast**. Kotlin is smart enough to know that after you check `reading != null`, the variable must contain a real value. So it lets you call `.length` on it inside that block.
+
+<Callout type="tip">
+Think of the `?` as a reminder. Every time you see `String?` in your code, it is Kotlin reminding you: "Hey, this could be null. Handle it before you use it!"
+</Callout>
+
+Great work making it this far! You now understand one of Kotlin's most powerful features. Null safety catches bugs at compile time instead of crashing during a match. Time to practice!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

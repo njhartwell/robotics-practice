@@ -1,0 +1,15 @@
+{
+  "id": "08-for-loops/ex-02",
+  "lessonSlug": "08-for-loops",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Print Even Numbers",
+  "instructions": "Write a function called `printEvenNumbers` that takes an `Int` parameter `n` and prints all even numbers from 2 to `n` (inclusive if `n` is even), each on its own line.\n\nFor example, `printEvenNumbers(10)` should print:\n```\n2\n4\n6\n8\n10\n```",
+  "hint": "Try using `step`: `for (i in 2..n step 2)`. Or loop through 1..n and use an if to check `i % 2 == 0`.",
+  "xpReward": 20,
+  "starterCode": "fun printEvenNumbers(n: Int) {\n    // Print all even numbers from 2 to n\n}",
+  "solutionCode": "fun printEvenNumbers(n: Int) {\n    for (i in 2..n step 2) {\n        println(i)\n    }\n}",
+  "validationMode": "output",
+  "expectedOutput": "2\n4\n6\n8\n10",
+  "hiddenPostamble": "fun main() {\n    printEvenNumbers(10)\n}"
+}

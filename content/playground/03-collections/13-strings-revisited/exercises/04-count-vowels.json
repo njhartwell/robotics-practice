@@ -1,0 +1,14 @@
+{
+  "id": "13-strings-revisited/ex-04",
+  "lessonSlug": "13-strings-revisited",
+  "type": "code-completion",
+  "order": 4,
+  "title": "Count the Vowels",
+  "instructions": "Complete the `countVowels` function. It takes a `text` parameter of type `String` and returns an `Int` — the number of vowels (a, e, i, o, u) in the string.\n\nThe check should be case-insensitive, so both `'A'` and `'a'` count as vowels.",
+  "hint": "Convert the text to lowercase first, then loop through each character and check if it is in \"aeiou\".",
+  "xpReward": 15,
+  "starterCode": "fun countVowels(text: String): Int {\n    var count = 0\n    // Loop through each character and count vowels\n    return count\n}",
+  "solutionCode": "fun countVowels(text: String): Int {\n    var count = 0\n    for (ch in text.lowercase()) {\n        if (ch in \"aeiou\") {\n            count++\n        }\n    }\n    return count\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testTribots() {\n        Assert.assertEquals(2, countVowels(\"Tribots\"))\n    }\n\n    @Test\n    fun testHello() {\n        Assert.assertEquals(2, countVowels(\"HELLO\"))\n    }\n\n    @Test\n    fun testNoVowels() {\n        Assert.assertEquals(0, countVowels(\"xyz\"))\n    }\n}"
+}

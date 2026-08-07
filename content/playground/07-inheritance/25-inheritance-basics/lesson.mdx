@@ -1,0 +1,186 @@
+# Inheritance Basics
+
+You have already learned how to create classes. But what happens when you have several classes that share a lot of the same code? Copying and pasting the same methods into every class would be messy and hard to maintain. **Inheritance** solves this problem.
+
+## What Is Inheritance?
+
+Inheritance lets you create a new class based on an existing one. The new class gets all the properties and methods of the original class. Then you can add new features or change existing behavior.
+
+Think about an FRC robot. Every subsystem on the robot shares some common behavior. Each one has a name, and each one can be initialized. But a drive subsystem moves wheels, while a shooter subsystem launches game pieces. They share a foundation but do different things.
+
+The original class is called the **parent class** (or superclass). The new class is called the **child class** (or subclass).
+
+## The open Keyword
+
+In Kotlin, classes are **closed by default**. That means no other class can inherit from them unless you give permission. You give permission with the `open` keyword.
+
+```kotlin
+open class Subsystem(val name: String) {
+    fun initialize() {
+        println("$name initialized")
+    }
+}
+```
+
+Without `open`, no class could extend `Subsystem`. This is different from many other languages, and it is one of Kotlin's safety features.
+
+## Creating a Child Class
+
+To create a class that inherits from another, use a colon `:` after the class name:
+
+```kotlin
+open class Subsystem(val name: String) {
+    fun initialize() {
+        println("$name initialized")
+    }
+}
+
+class DriveSubsystem : Subsystem("Drivetrain") {
+    fun drive(speed: Double) {
+        println("Driving at $speed")
+    }
+}
+
+fun main() {
+    val drive = DriveSubsystem()
+    drive.initialize()  // Inherited from Subsystem
+    drive.drive(0.75)   // Defined in DriveSubsystem
+}
+```
+
+Output:
+```
+Drivetrain initialized
+Driving at 0.75
+```
+
+`DriveSubsystem` gets the `initialize()` method for free because it inherits from `Subsystem`. It also has its own `drive()` method that only drive subsystems have.
+
+## Passing Constructor Parameters
+
+A child class can accept its own parameters and pass values to the parent constructor:
+
+```kotlin
+open class Subsystem(val name: String) {
+    fun initialize() {
+        println("$name initialized")
+    }
+}
+
+class ShooterSubsystem(val motorCount: Int) : Subsystem("Shooter") {
+    fun shoot() {
+        println("Shooting with $motorCount motors!")
+    }
+}
+
+fun main() {
+    val shooter = ShooterSubsystem(2)
+    shooter.initialize()
+    shooter.shoot()
+}
+```
+
+Output:
+```
+Shooter initialized
+Shooting with 2 motors!
+```
+
+The child class `ShooterSubsystem` has its own `motorCount` property. It passes `"Shooter"` to the parent class constructor.
+
+## Overriding Methods
+
+Sometimes a child class needs to change a method it inherited. This is called **overriding**. Both the parent method and the child method need special keywords.
+
+The parent must mark the method as `open`. The child uses `override`:
+
+```kotlin
+open class Subsystem(val name: String) {
+    open fun status(): String {
+        return "$name is ready"
+    }
+}
+
+class DriveSubsystem : Subsystem("Drivetrain") {
+    var speed = 0.0
+
+    override fun status(): String {
+        return "$name is driving at $speed"
+    }
+}
+
+fun main() {
+    val drive = DriveSubsystem()
+    println(drive.status())
+    drive.speed = 0.5
+    println(drive.status())
+}
+```
+
+Output:
+```
+Drivetrain is driving at 0.0
+Drivetrain is driving at 0.5
+```
+
+The child class replaced the parent's `status()` method with its own version. The method must have the same name, parameters, and return type.
+
+## Calling super
+
+Sometimes you want to keep the parent's behavior and add to it. Use the `super` keyword to call the parent's version of a method:
+
+```kotlin
+open class Subsystem(val name: String) {
+    open fun reset() {
+        println("$name: resetting subsystem")
+    }
+}
+
+class ArmSubsystem : Subsystem("Arm") {
+    var angle = 0.0
+
+    override fun reset() {
+        super.reset()  // Call the parent's reset first
+        angle = 0.0
+        println("Arm angle set to 0.0")
+    }
+}
+
+fun main() {
+    val arm = ArmSubsystem()
+    arm.angle = 45.0
+    println("Arm angle: ${arm.angle}")
+    arm.reset()
+    println("Arm angle: ${arm.angle}")
+}
+```
+
+Output:
+```
+Arm angle: 45.0
+Arm: resetting subsystem
+Arm angle set to 0.0
+Arm angle: 0.0
+```
+
+`super.reset()` runs the parent class's `reset()` method first. Then the child class adds its own behavior after that.
+
+## Why Inheritance Matters in FRC
+
+In FRC robot code, inheritance is everywhere. The WPILib framework (the library used to program FRC robots) uses inheritance heavily:
+
+- All subsystems extend a base `SubsystemBase` class
+- All commands extend a base `Command` class
+- Motor controllers share a common parent class
+
+Learning inheritance now will prepare you for real FRC programming. You are making great progress!
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />
+
+<Exercise id="05" />

@@ -1,0 +1,14 @@
+{
+  "id": "11-lists/ex-02",
+  "lessonSlug": "11-lists",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Get Team at Index",
+  "instructions": "Write a function called `getTeamAt` that takes two parameters: `teams` of type `List<Int>` and `index` of type `Int`. It should return the element at the given index.\n\nFor example, given `listOf(4215, 1234, 5678)` and index `0`, it should return `4215`.",
+  "hint": "Use square brackets to access a list element: `teams[index]`.",
+  "xpReward": 20,
+  "starterCode": "fun getTeamAt(teams: List<Int>, index: Int): Int {\n    // Return the team at the given index\n    return 0\n}",
+  "solutionCode": "fun getTeamAt(teams: List<Int>, index: Int): Int {\n    return teams[index]\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testFirstElement() {\n        val teams = listOf(4215, 1234, 5678)\n        Assert.assertEquals(4215, getTeamAt(teams, 0))\n    }\n\n    @Test\n    fun testSecondElement() {\n        val teams = listOf(4215, 1234, 5678)\n        Assert.assertEquals(1234, getTeamAt(teams, 1))\n    }\n\n    @Test\n    fun testThirdElement() {\n        val teams = listOf(4215, 1234, 5678)\n        Assert.assertEquals(5678, getTeamAt(teams, 2))\n    }\n}"
+}

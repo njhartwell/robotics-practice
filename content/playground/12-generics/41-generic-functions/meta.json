@@ -1,0 +1,14 @@
+{
+  "slug": "41-generic-functions",
+  "section": "generics",
+  "sectionTitle": "Generics",
+  "sectionOrder": 12,
+  "title": "Generic Functions",
+  "description": "Write functions that work with any type using type parameters, type inference, and constraints",
+  "order": 41,
+  "requiredLevel": 10,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["generics", "generic-functions", "type-inference", "constraints"]
+}

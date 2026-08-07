@@ -1,0 +1,14 @@
+{
+  "slug": "09-functions-basics",
+  "section": "loops-and-functions",
+  "sectionTitle": "Loops and Functions",
+  "sectionOrder": 2,
+  "title": "Functions: The Basics",
+  "description": "Define and call your own functions",
+  "order": 9,
+  "requiredLevel": 0,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["functions", "parameters", "return-types", "unit"]
+}

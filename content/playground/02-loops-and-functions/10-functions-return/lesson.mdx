@@ -1,0 +1,148 @@
+# Return Values
+
+So far, our functions have printed things to the screen. But functions can also **give back** a value. This is called **returning** a value. Returning values makes functions much more useful because you can use the result in other parts of your code.
+
+## Declaring a Return Type
+
+When a function gives back a value, you need to tell Kotlin what type of value it returns. You do this by adding a colon and the type after the parentheses:
+
+```kotlin
+fun teamNumber(): Int {
+    return 4215
+}
+
+fun main() {
+    println(teamNumber())
+}
+```
+
+The `: Int` after the parentheses means this function returns an integer. The `return` keyword sends that value back to wherever the function was called.
+
+## Using Returned Values
+
+You can store a returned value in a variable. You can also print it or pass it to another function.
+
+```kotlin
+fun doubled(n: Int): Int {
+    return n * 2
+}
+
+fun main() {
+    val result = doubled(5)
+    println(result)         // 10
+    println(doubled(8))     // 16
+}
+```
+
+In the first line inside `main()`, we call `doubled(5)`. The function returns `10`, and we store that in `result`. In the next line, we pass the return value directly to `println`.
+
+## Different Return Types
+
+Functions can return any type: `Int`, `Double`, `String`, `Boolean`, and more.
+
+```kotlin
+fun motorLabel(port: Int): String {
+    return "Motor on port $port"
+}
+
+fun batteryPercentage(voltage: Double): Double {
+    return (voltage / 12.6) * 100.0
+}
+
+fun main() {
+    println(motorLabel(3))
+    println(batteryPercentage(11.5))
+}
+```
+
+`motorLabel` returns a `String`. `batteryPercentage` returns a `Double`. The return type must match the type of the value you actually return.
+
+## Single-Expression Functions
+
+When a function body is a single expression, you can use a shorthand. Instead of curly braces and `return`, use an equals sign:
+
+```kotlin
+fun triple(n: Int): Int = n * 3
+
+fun main() {
+    println(triple(4)) // 12
+}
+```
+
+This does the same thing as writing:
+
+```kotlin
+fun triple(n: Int): Int {
+    return n * 3
+}
+```
+
+The short form is handy for small functions. Use whichever form feels clearer to you.
+
+## Boolean-Returning Functions
+
+Functions that return `Boolean` are great for checking conditions. In FRC, you might check whether a battery is low, whether a sensor detects a target, or whether a motor is running too fast.
+
+```kotlin
+fun isBatteryLow(voltage: Double): Boolean {
+    return voltage < 11.0
+}
+
+fun isSpeedSafe(speed: Double): Boolean = speed <= 1.0
+
+fun main() {
+    println(isBatteryLow(10.5))  // true
+    println(isBatteryLow(12.4))  // false
+    println(isSpeedSafe(0.8))    // true
+}
+```
+
+You can use these functions directly in `if` statements:
+
+```kotlin
+fun isBatteryLow(voltage: Double): Boolean {
+    return voltage < 11.0
+}
+
+fun main() {
+    val voltage = 10.2
+    if (isBatteryLow(voltage)) {
+        println("Warning: battery is low!")
+    }
+}
+```
+
+## Functions Calling Other Functions
+
+Functions can call other functions. This lets you build up complex behavior from smaller, simpler pieces.
+
+```kotlin
+fun clamp(value: Double, min: Double, max: Double): Double {
+    if (value < min) return min
+    if (value > max) return max
+    return value
+}
+
+fun setMotorPower(rawPower: Double): String {
+    val safePower = clamp(rawPower, -1.0, 1.0)
+    return "Motor set to $safePower"
+}
+
+fun main() {
+    println(setMotorPower(0.75))
+    println(setMotorPower(2.5))
+    println(setMotorPower(-1.8))
+}
+```
+
+`setMotorPower` calls `clamp` to make sure the power stays between -1.0 and 1.0. Breaking your code into small functions like this makes it easier to read and test.
+
+You are doing great! Try the exercises below to practice writing functions that return values.
+
+<Exercise id="01" />
+
+<Exercise id="02" />
+
+<Exercise id="03" />
+
+<Exercise id="04" />

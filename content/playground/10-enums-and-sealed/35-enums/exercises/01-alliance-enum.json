@@ -1,0 +1,14 @@
+{
+  "id": "35-enums/ex-01",
+  "lessonSlug": "35-enums",
+  "type": "code-completion",
+  "order": 1,
+  "title": "Alliance Enum",
+  "instructions": "Complete the `Alliance` enum class so it has two constants: `RED` and `BLUE`.\n\nThen complete the `describeAlliance` function. It should use a `when` expression to return:\n- `\"Red Alliance: Go score some points!\"` when the alliance is `RED`\n- `\"Blue Alliance: Let's win this match!\"` when the alliance is `BLUE`",
+  "hint": "Put RED and BLUE inside the enum body separated by a comma. In the when expression, match on Alliance.RED and Alliance.BLUE.",
+  "xpReward": 15,
+  "starterCode": "enum class Alliance {\n    // Add RED and BLUE here\n}\n\nfun describeAlliance(alliance: Alliance): String {\n    return when (alliance) {\n        // Return the correct description for each alliance\n    }\n}",
+  "solutionCode": "enum class Alliance {\n    RED,\n    BLUE\n}\n\nfun describeAlliance(alliance: Alliance): String {\n    return when (alliance) {\n        Alliance.RED -> \"Red Alliance: Go score some points!\"\n        Alliance.BLUE -> \"Blue Alliance: Let's win this match!\"\n    }\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testRedAlliance() {\n        Assert.assertEquals(\"Red Alliance: Go score some points!\", describeAlliance(Alliance.RED))\n    }\n\n    @Test\n    fun testBlueAlliance() {\n        Assert.assertEquals(\"Blue Alliance: Let's win this match!\", describeAlliance(Alliance.BLUE))\n    }\n\n    @Test\n    fun testEnumValues() {\n        val values = Alliance.values()\n        Assert.assertEquals(2, values.size)\n    }\n}"
+}

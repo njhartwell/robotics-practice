@@ -1,0 +1,15 @@
+{
+  "id": "09-functions-basics/ex-04",
+  "lessonSlug": "09-functions-basics",
+  "type": "fix-the-bug",
+  "order": 4,
+  "title": "Fix the Missing Parameter",
+  "instructions": "This code has a bug. The `announceTeam` function is called with a team number, but the function definition is missing its parameter. Fix the function so it accepts a `teamNumber` of type `Int` and prints `Go Team {teamNumber}!`.",
+  "hint": "Add `teamNumber: Int` inside the parentheses of the function definition.",
+  "xpReward": 20,
+  "starterCode": "fun announceTeam() {\n    println(\"Go Team $teamNumber!\")\n}",
+  "solutionCode": "fun announceTeam(teamNumber: Int) {\n    println(\"Go Team $teamNumber!\")\n}",
+  "validationMode": "output",
+  "expectedOutput": "Go Team 4215!",
+  "hiddenPostamble": "fun main() {\n    announceTeam(4215)\n}"
+}

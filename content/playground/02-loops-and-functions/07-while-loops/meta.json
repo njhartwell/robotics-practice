@@ -1,0 +1,14 @@
+{
+  "slug": "07-while-loops",
+  "section": "loops-and-functions",
+  "sectionTitle": "Loops and Functions",
+  "sectionOrder": 2,
+  "title": "While Loops",
+  "description": "Repeat actions with while and do-while loops",
+  "order": 7,
+  "requiredLevel": 0,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["loops", "while", "do-while", "repetition"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "35-enums/ex-05",
+  "lessonSlug": "35-enums",
+  "type": "fill-in-the-blank",
+  "order": 5,
+  "title": "Enum Keyword",
+  "instructions": "To define a fixed set of named constants in Kotlin, use _____ class.",
+  "xpReward": 10,
+  "prompt": "To define a fixed set of named constants in Kotlin, use _____ class.",
+  "acceptedAnswers": ["enum"],
+  "explanation": "The `enum` keyword before `class` tells Kotlin that this class represents a fixed set of named constants. For example, `enum class Alliance { RED, BLUE }` defines exactly two possible alliance values."
+}

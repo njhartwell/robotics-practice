@@ -1,0 +1,14 @@
+{
+  "slug": "19-searching",
+  "section": "algorithms",
+  "sectionTitle": "Algorithms",
+  "sectionOrder": 5,
+  "title": "Searching",
+  "description": "Find elements in collections with linear and binary search",
+  "order": 19,
+  "requiredLevel": 3,
+  "xpReward": 70,
+  "estimatedMinutes": 14,
+  "exerciseCount": 5,
+  "tags": ["algorithms", "linear-search", "binary-search", "finding"]
+}

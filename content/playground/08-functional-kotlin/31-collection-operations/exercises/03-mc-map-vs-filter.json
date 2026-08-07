@@ -1,0 +1,17 @@
+{
+  "id": "31-collection-operations/ex-03",
+  "lessonSlug": "31-collection-operations",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "Map vs. Filter",
+  "instructions": "What is the difference between `.map` and `.filter`?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": ".map keeps elements matching a condition, .filter transforms each element" },
+    { "id": "b", "text": ".map transforms each element, .filter keeps elements matching a condition" },
+    { "id": "c", "text": ".map and .filter do the same thing" },
+    { "id": "d", "text": ".map removes elements, .filter adds new elements" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "`.map` transforms each element in the list by applying a lambda to it (for example, doubling every number). `.filter` keeps only the elements where the lambda returns true (for example, keeping numbers above 50). They do different jobs and are often chained together."
+}

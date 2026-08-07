@@ -1,0 +1,14 @@
+{
+  "id": "34-null-patterns/ex-02",
+  "lessonSlug": "34-null-patterns",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Require Not Null",
+  "instructions": "Write a function called `initializeMotor` that takes a parameter `motorName` of type `String?` and returns a `String`.\n\nUse `requireNotNull` to ensure the motor name is not null. Provide the error message `\"Motor name is required\"` in the requireNotNull call.\n\nIf the name is not null, return `\"Motor initialized: {name}\"` where `{name}` is the motor name.\n\nFor example:\n- `initializeMotor(\"SparkMAX\")` returns `\"Motor initialized: SparkMAX\"`\n- `initializeMotor(null)` throws an IllegalArgumentException with the message `\"Motor name is required\"`",
+  "hint": "Use `val name = requireNotNull(motorName) { \"Motor name is required\" }` to get a non-null value. Then return the formatted string using `name`.",
+  "xpReward": 20,
+  "starterCode": "fun initializeMotor(motorName: String?): String {\n    // Use requireNotNull to ensure motorName is not null\n    // Provide the message \"Motor name is required\"\n    // Return \"Motor initialized: {name}\"\n    return \"\"\n}",
+  "solutionCode": "fun initializeMotor(motorName: String?): String {\n    val name = requireNotNull(motorName) { \"Motor name is required\" }\n    return \"Motor initialized: $name\"\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testWithSparkMAX() {\n        Assert.assertEquals(\"Motor initialized: SparkMAX\", initializeMotor(\"SparkMAX\"))\n    }\n\n    @Test\n    fun testWithTalonSRX() {\n        Assert.assertEquals(\"Motor initialized: TalonSRX\", initializeMotor(\"TalonSRX\"))\n    }\n\n    @Test\n    fun testWithNull() {\n        try {\n            initializeMotor(null)\n            Assert.fail(\"Should have thrown an exception\")\n        } catch (e: IllegalArgumentException) {\n            Assert.assertEquals(\"Motor name is required\", e.message)\n        }\n    }\n}"
+}

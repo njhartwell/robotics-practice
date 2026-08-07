@@ -1,0 +1,17 @@
+{
+  "id": "18-properties/ex-03",
+  "lessonSlug": "18-properties",
+  "type": "multiple-choice",
+  "order": 3,
+  "title": "What Does data Do?",
+  "instructions": "What does the `data` keyword add to a class in Kotlin?",
+  "xpReward": 10,
+  "options": [
+    { "id": "a", "text": "Makes the class run faster" },
+    { "id": "b", "text": "Adds automatic toString, equals, and copy methods" },
+    { "id": "c", "text": "Makes all properties mutable" },
+    { "id": "d", "text": "Allows it to store data in a database" }
+  ],
+  "correctOptionId": "b",
+  "explanation": "The `data` keyword tells Kotlin to automatically generate useful methods like toString() (for printing), equals() (for comparing), hashCode(), and copy() (for creating modified copies). This saves you from writing those methods by hand."
+}

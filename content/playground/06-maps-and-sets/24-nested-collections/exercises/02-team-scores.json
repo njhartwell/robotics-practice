@@ -1,0 +1,14 @@
+{
+  "id": "24-nested-collections/ex-02",
+  "lessonSlug": "24-nested-collections",
+  "type": "write-from-scratch",
+  "order": 2,
+  "title": "Average Scores per Team",
+  "instructions": "Write a function called `averageScores` that takes a `Map<String, List<Int>>` where each key is a team name and each value is a list of that team's match scores.\n\nReturn a `Map<String, Double>` where each key is the team name and each value is the average of that team's scores.\n\nFor example:\n- `averageScores(mapOf(\"Tribots\" to listOf(40, 60)))` returns `{Tribots=50.0}`\n- `averageScores(mapOf(\"Tribots\" to listOf(45, 72, 38)))` returns `{Tribots=51.666666666666664}`",
+  "hint": "Create a mutable map for results. Loop through each entry in the input map. For each team, calculate the average by calling `.sum()` on the scores list, converting to `Double` with `.toDouble()`, and dividing by `.size`.",
+  "xpReward": 20,
+  "starterCode": "fun averageScores(teamScores: Map<String, List<Int>>): Map<String, Double> {\n    // Calculate the average score for each team\n    return emptyMap()\n}",
+  "solutionCode": "fun averageScores(teamScores: Map<String, List<Int>>): Map<String, Double> {\n    val result = mutableMapOf<String, Double>()\n    for ((team, scores) in teamScores) {\n        result[team] = scores.sum().toDouble() / scores.size\n    }\n    return result\n}",
+  "validationMode": "test",
+  "testCode": "import org.junit.Test\nimport org.junit.Assert\n\nclass Tests {\n    @Test\n    fun testSingleTeam() {\n        val result = averageScores(mapOf(\"Tribots\" to listOf(40, 60)))\n        Assert.assertEquals(50.0, result[\"Tribots\"]!!, 0.001)\n    }\n\n    @Test\n    fun testMultipleTeams() {\n        val result = averageScores(mapOf(\n            \"Tribots\" to listOf(45, 72, 38),\n            \"RoboCats\" to listOf(91, 55)\n        ))\n        Assert.assertEquals(51.666, result[\"Tribots\"]!!, 0.01)\n        Assert.assertEquals(73.0, result[\"RoboCats\"]!!, 0.001)\n    }\n\n    @Test\n    fun testSingleScore() {\n        val result = averageScores(mapOf(\"Tribots\" to listOf(100)))\n        Assert.assertEquals(100.0, result[\"Tribots\"]!!, 0.001)\n    }\n\n    @Test\n    fun testEmptyMap() {\n        val result = averageScores(emptyMap())\n        Assert.assertTrue(result.isEmpty())\n    }\n}"
+}

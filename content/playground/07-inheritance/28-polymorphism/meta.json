@@ -1,0 +1,14 @@
+{
+  "slug": "28-polymorphism",
+  "section": "inheritance",
+  "sectionTitle": "Inheritance",
+  "sectionOrder": 7,
+  "title": "Polymorphism",
+  "description": "Treat different types through a common interface",
+  "order": 28,
+  "requiredLevel": 5,
+  "xpReward": 55,
+  "estimatedMinutes": 12,
+  "exerciseCount": 4,
+  "tags": ["polymorphism", "is", "as", "smart-cast"]
+}
