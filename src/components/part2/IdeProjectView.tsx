@@ -5,13 +5,15 @@ import { useProgress } from "@/lib/progress/useProgress";
 import type { LessonMeta } from "@/lib/progress/types";
 import Link from "next/link";
 import { ChevronLeft, Download } from "lucide-react";
+import { LessonStepper } from "@/components/lesson/LessonStepper";
+import type { LessonStep } from "@/lib/content/lesson-steps";
 
 interface IdeProjectViewProps {
   lesson: LessonMeta;
-  children: React.ReactNode;
+  steps: LessonStep[];
 }
 
-export function IdeProjectView({ lesson, children }: IdeProjectViewProps) {
+export function IdeProjectView({ lesson, steps }: IdeProjectViewProps) {
   const { startLesson } = useProgress();
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export function IdeProjectView({ lesson, children }: IdeProjectViewProps) {
         </button>
       </div>
 
-      <div className="prose prose-sm max-w-none">{children}</div>
+      <LessonStepper lessonKey={lesson.slug} steps={steps} />
     </div>
   );
 }

@@ -8,6 +8,10 @@ import {
 import { IdeProjectView } from "@/components/part2/IdeProjectView";
 import { buildMdxComponents } from "@/lib/content/mdx-components";
 import remarkGfm from "remark-gfm";
+import {
+  splitLessonIntoSteps,
+  type LessonStep,
+} from "@/lib/content/lesson-steps";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
@@ -40,21 +44,22 @@ export default async function IdeProjectLessonPage({ params }: PageProps) {
   const mdxSource = await getLessonMdx("ide-projects", lessonSlug, CONTENT_DIR);
   const mdxComponents = buildMdxComponents([]);
 
-  let mdxContent: React.ReactElement;
+  let steps: LessonStep[];
   if (mdxSource) {
-    const { content } = await compileMDX({
-      source: mdxSource,
-      components: mdxComponents,
-      options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
-    });
-    mdxContent = content;
+    const stepSources = splitLessonIntoSteps(mdxSource);
+    steps = await Promise.all(
+      stepSources.map(async ({ source, ...step }) => {
+        const { content } = await compileMDX({
+          source,
+          components: mdxComponents,
+          options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
+        });
+        return { ...step, content };
+      })
+    );
   } else {
-    mdxContent = <p className="text-muted">No content yet.</p>;
+    steps = [];
   }
 
-  return (
-    <IdeProjectView lesson={lesson}>
-      {mdxContent}
-    </IdeProjectView>
-  );
+  return <IdeProjectView lesson={lesson} steps={steps} />;
 }

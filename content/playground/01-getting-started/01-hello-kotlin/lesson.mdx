@@ -8,6 +8,27 @@ Kotlin is a modern programming language that runs on the Java Virtual Machine (J
 
 If you have seen Java before, Kotlin will feel familiar but with far less boilerplate. If Kotlin is your first language, you are starting with a great one.
 
+## From Source Code to a Running Program
+
+The text you write in a `.kt` file is **source code**. A compiler checks that
+source code and turns it into instructions for the JVM. Then the JVM runs those
+instructions, starting at `main` and moving through its statements in order.
+
+```kotlin
+fun main() {
+    println("First")
+    println("Second")
+}
+```
+
+This program always prints `First` before `Second` because statements normally
+run from top to bottom.
+
+The compiler catches problems such as a missing quote or a misspelled function
+before the program can run. Those are **compile errors**. A program that runs
+but produces the wrong answer has a **logic error**. Error messages are not a
+verdict on your ability—they are clues that help you find the next thing to fix.
+
 ## The Entry Point: `fun main()`
 
 Every Kotlin program needs a starting point. That starting point is a function called `main`. When you run your program, Kotlin looks for `main` and begins executing the code inside it.
@@ -24,7 +45,9 @@ fun main() {
 
 ## Printing to the Console
 
-To display text you use `println()` or `print()`.
+To display text you use `println()` or `print()`. These are function calls. The
+value between the parentheses is the function's **argument**—the information
+you are asking it to print.
 
 ```kotlin
 fun main() {
@@ -65,6 +88,8 @@ You will use strings constantly -- for logging sensor values, displaying match d
 
 <Exercise id="02" />
 
+<Exercise id="03" />
+
 ## Comments
 
 Comments let you leave notes in your code that Kotlin ignores when running the program. They are essential for explaining *why* your code does something, especially on a team where multiple students work on the same codebase.
@@ -86,10 +111,21 @@ fun main() {
 
 Use single-line comments (`//`) for short notes. Use multi-line comments (`/* */`) when you need several lines of explanation.
 
-<Exercise id="03" />
-
 ## Putting It All Together
 
 You now know how to create a `main` function, print output with `println` and `print`, write string literals, and add comments. That is everything you need to write simple Kotlin programs. In the next exercise you will combine `println` calls to produce multi-line output.
 
 <Exercise id="04" />
+
+## Programming Affects People
+
+Software quietly controls communication, transportation, health services, and
+the robots around us. That gives programmers real responsibility. In FRC, a
+small software mistake can move a mechanism unexpectedly or make the robot
+harder for a teammate to operate.
+
+Good robot programmers think beyond “does it compile?” They choose safe
+defaults, test around people carefully, protect any personal data they collect,
+write controls that different teammates can use, and explain important choices
+so the whole team can maintain the code. Programming is both a technical skill
+and a way of taking care of the people affected by your work.

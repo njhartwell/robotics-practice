@@ -4,11 +4,11 @@
   "type": "code-completion",
   "order": 2,
   "title": "Double a Sensor Reading",
-  "instructions": "The `reading` variable represents a value received from a sensor. Complete the program so it prints the reading multiplied by 2. The output should be `48`.",
-  "hint": "Use the multiplication operator inside `println`: `println(reading * 2)`.",
+  "instructions": "The `inputText` variable represents text entered in a console. Convert it to an `Int`, store the result in `reading`, and print the reading multiplied by 2. The output should be `48`.",
+  "hint": "Use `inputText.toInt()` to create `reading`, then print `reading * 2`.",
   "xpReward": 15,
-  "starterCode": "fun main() {\n    val reading = 24\n    // Print reading multiplied by 2\n}",
-  "solutionCode": "fun main() {\n    val reading = 24\n    println(reading * 2)\n}",
+  "starterCode": "fun main() {\n    val inputText = \"24\"\n    // Convert inputText to an Int, then print it multiplied by 2\n}",
+  "solutionCode": "fun main() {\n    val inputText = \"24\"\n    val reading = inputText.toInt()\n    println(reading * 2)\n}",
   "validationMode": "output",
   "expectedOutput": "48"
 }

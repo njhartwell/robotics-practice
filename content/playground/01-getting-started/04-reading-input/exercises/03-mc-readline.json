@@ -4,13 +4,13 @@
   "type": "multiple-choice",
   "order": 3,
   "title": "Simulated Input",
-  "instructions": "Why do these playground exercises use sample values stored in variables instead of `readLine()`?",
+  "instructions": "Why do these playground exercises use sample values stored in variables instead of `readln()`?",
   "xpReward": 10,
   "options": [
-    { "id": "a", "text": "readLine() doesn't exist in Kotlin" },
+    { "id": "a", "text": "readln() doesn't exist in Kotlin" },
     { "id": "b", "text": "The playground cannot pause for interactive console input, so variables stand in for incoming values" },
     { "id": "c", "text": "Variables are slower but more accurate" },
-    { "id": "d", "text": "readLine() only works with numbers, not strings" }
+    { "id": "d", "text": "readln() only works with numbers, not strings" }
   ],
   "correctOptionId": "b",
   "explanation": "The playground cannot pause and wait for interactive console input. A sample variable lets you practice processing a value that could later come from a person, sensor, controller, or function parameter."

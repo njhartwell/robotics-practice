@@ -6,13 +6,15 @@ import type { LessonMeta } from "@/lib/progress/types";
 import { calculateXpAward } from "@/lib/gamification/xp";
 import Link from "next/link";
 import { ChevronLeft, CheckCircle, Lock } from "lucide-react";
+import { LessonStepper } from "./LessonStepper";
+import type { LessonStep } from "@/lib/content/lesson-steps";
 
 interface LessonViewProps {
   lesson: LessonMeta;
   exerciseIds: string[];
   previousLesson?: Pick<LessonMeta, "slug" | "part" | "title">;
   nextLesson?: Pick<LessonMeta, "slug" | "part" | "title">;
-  children: React.ReactNode;
+  steps: LessonStep[];
 }
 
 export function LessonView({
@@ -20,7 +22,7 @@ export function LessonView({
   exerciseIds,
   previousLesson,
   nextLesson,
-  children,
+  steps,
 }: LessonViewProps) {
   const {
     progress,
@@ -48,6 +50,9 @@ export function LessonView({
       Boolean(lessonProgress?.exercises[exerciseId]?.completed)
     );
   const isLessonDone = lessonProgress?.completed ?? false;
+  const completedExerciseIds = exerciseIds.filter((exerciseId) =>
+    Boolean(lessonProgress?.exercises[exerciseId]?.completed)
+  );
 
   useEffect(() => {
     if (isLoaded && isUnlocked && allCompleted && !isLessonDone) {
@@ -111,57 +116,64 @@ export function LessonView({
         <p className="text-muted mt-1">{lesson.description}</p>
       </div>
 
-      <div className="prose prose-sm max-w-none">{children}</div>
+      <LessonStepper
+        lessonKey={lesson.slug}
+        steps={steps}
+        completedExerciseIds={completedExerciseIds}
+        footer={
+          <>
+            {isLessonDone && (
+              <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
+                <div className="mb-2 flex items-center justify-center gap-2 text-lg font-bold text-green-800">
+                  <CheckCircle size={24} /> Lesson Complete!
+                </div>
+                <p className="text-sm text-green-700">
+                  You earned {lesson.xpReward} XP for completing this lesson.
+                </p>
+                {nextLesson ? (
+                  <Link
+                    href={`/${nextLesson.part}/${nextLesson.slug}`}
+                    className="mt-4 inline-block rounded-lg bg-primary px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-light"
+                  >
+                    Next: {nextLesson.title}
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/${lesson.part}`}
+                    className="mt-4 inline-block rounded-lg bg-primary px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-light"
+                  >
+                    Back to Lessons
+                  </Link>
+                )}
+              </div>
+            )}
 
-      {isLessonDone && (
-        <div className="mt-8 bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-          <div className="flex items-center justify-center gap-2 text-green-800 font-bold text-lg mb-2">
-            <CheckCircle size={24} /> Lesson Complete!
-          </div>
-          <p className="text-green-700 text-sm">
-            You earned {lesson.xpReward} XP for completing this lesson.
-          </p>
-          {nextLesson ? (
-            <Link
-              href={`/${nextLesson.part}/${nextLesson.slug}`}
-              className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition-colors"
+            <nav
+              aria-label="Lesson navigation"
+              className="mt-5 flex items-center justify-between gap-4 text-sm"
             >
-              Next: {nextLesson.title}
-            </Link>
-          ) : (
-            <Link
-              href={`/${lesson.part}`}
-              className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition-colors"
-            >
-              Back to Lessons
-            </Link>
-          )}
-        </div>
-      )}
-
-      <nav
-        aria-label="Lesson navigation"
-        className="mt-8 flex items-center justify-between gap-4 border-t border-border pt-5 text-sm"
-      >
-        {previousLesson ? (
-          <Link
-            href={`/${previousLesson.part}/${previousLesson.slug}`}
-            className="text-primary hover:underline"
-          >
-            ← {previousLesson.title}
-          </Link>
-        ) : (
-          <span />
-        )}
-        {nextLesson && isLessonDone && (
-          <Link
-            href={`/${nextLesson.part}/${nextLesson.slug}`}
-            className="ml-auto text-right text-primary hover:underline"
-          >
-            {nextLesson.title} →
-          </Link>
-        )}
-      </nav>
+              {previousLesson ? (
+                <Link
+                  href={`/${previousLesson.part}/${previousLesson.slug}`}
+                  className="text-primary hover:underline"
+                >
+                  ← {previousLesson.title}
+                </Link>
+              ) : (
+                <span />
+              )}
+              {nextLesson && isLessonDone && (
+                <Link
+                  href={`/${nextLesson.part}/${nextLesson.slug}`}
+                  className="ml-auto text-right text-primary hover:underline"
+                >
+                  {nextLesson.title} →
+                </Link>
+              )}
+            </nav>
+          </>
+        }
+      />
     </div>
   );
 }

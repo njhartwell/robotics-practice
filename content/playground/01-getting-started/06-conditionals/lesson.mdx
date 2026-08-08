@@ -20,6 +20,11 @@ fun main() {
 }
 ```
 
+Only one branch in an `if` / `else if` / `else` chain runs. As soon as Kotlin
+finds a true condition, it skips the remaining branches.
+
+<Exercise id="01" />
+
 ## Comparison Operators
 
 Use these to compare values:
@@ -32,6 +37,9 @@ Use these to compare values:
 | `>` | Greater than |
 | `<=` | Less than or equal |
 | `>=` | Greater than or equal |
+
+Strings use the same `==` and `!=` operators. Kotlin compares their contents,
+so `alliance == "red"` asks whether the text stored in `alliance` is `"red"`.
 
 ## Logical Operators
 
@@ -52,6 +60,10 @@ fun main() {
 }
 ```
 
+Parentheses can make combined conditions clearer. For example,
+`isEnabled && (leftSpeed > 0.5 || rightSpeed > 0.5)` requires the robot to be
+enabled and at least one side to be moving quickly.
+
 ## if as an Expression
 
 In Kotlin, `if` can return a value -- this is a powerful feature not found in Java:
@@ -63,6 +75,8 @@ fun main() {
     println(rank) // Silver
 }
 ```
+
+<Exercise id="02" />
 
 ## when Expression
 
@@ -96,18 +110,29 @@ fun main() {
 }
 ```
 
-## FRC Decision Making
-
-Conditionals are everywhere in robot code -- checking sensor readings, selecting autonomous routines, and controlling mechanisms based on game state.
-
-<Exercise id="01" />
-
-<Exercise id="02" />
-
 <Exercise id="03" />
+
+## Condition Order Matters
+
+In a chain of overlapping conditions, check the most specific condition first.
+If `score >= 40` comes before `score >= 80`, a score of 90 matches the first
+branch and Kotlin never reaches the `>= 80` branch.
+
+```kotlin
+val rating = when {
+    score >= 80 -> "Excellent"
+    score >= 60 -> "Good"
+    score >= 40 -> "Average"
+    else -> "Keep practicing"
+}
+```
 
 <Exercise id="04" />
 
 <Exercise id="05" />
+
+## FRC Decision Making
+
+Conditionals are everywhere in robot code -- checking sensor readings, selecting autonomous routines, and controlling mechanisms based on game state.
 
 <Exercise id="06" />

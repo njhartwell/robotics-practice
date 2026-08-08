@@ -4,13 +4,27 @@ Programs become useful when they work with values from outside the program. A
 console app might receive text typed by a person. An FRC robot receives joystick
 positions, button presses, sensor readings, and messages from the Driver Station.
 
-Kotlin can read typed console input with `readLine()`:
+## Reading Text in a Console
+
+Kotlin reads one line of typed console input with `readln()`:
 
 ```kotlin
 fun main() {
     print("Enter your team number: ")
-    val teamNumber = readLine()
+    val teamNumber = readln()
     println("Go team $teamNumber!")
+}
+```
+
+When execution reaches `readln()`, the program pauses until the user enters a
+line. The returned value is a `String`. Calling `readln()` again reads the next
+line, so a program can collect several values:
+
+```kotlin
+fun main() {
+    val driverName = readln()
+    val robotName = readln()
+    println("$driverName is driving $robotName")
 }
 ```
 
@@ -36,19 +50,26 @@ practice processing input with the variables and types you already know.
 
 <Exercise id="01" />
 
-## Transforming Numeric Input
+## Converting Text Input
 
-You can use arithmetic on a numeric input just like any other number:
+Console input starts as text, even when the user types digits. Convert the text
+before doing arithmetic:
 
 ```kotlin
 fun main() {
-    val joystickPercent = 40
+    val inputText = "40" // imagine this came from readln()
+    val joystickPercent = inputText.toInt()
     val doubled = joystickPercent * 2
     println(doubled)
 }
 ```
 
-The variable represents the incoming value, and the expression transforms it.
+Use `.toInt()` for whole numbers, `.toDouble()` for decimal numbers, and
+`.toBooleanStrict()` for the exact text `"true"` or `"false"`. In a console app,
+the direct version would look like `val teamNumber = readln().toInt()`.
+
+These conversions expect valid text. Later, after learning about nullable
+values, you will use helpers such as `toIntOrNull()` when bad input is possible.
 
 <Exercise id="02" />
 
@@ -60,6 +81,11 @@ an interactive terminal.
 
 <Exercise id="03" />
 
-Now combine multiple simulated inputs in one formatted status message.
+## Combining Multiple Inputs
+
+Real programs often combine several incoming values into one useful result. A
+Driver Station display might show a driver's name, team number, sensor value,
+and robot state in a single status message. Store each value separately, then
+use a string template to make the output readable.
 
 <Exercise id="04" />

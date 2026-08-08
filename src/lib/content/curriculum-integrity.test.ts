@@ -6,6 +6,7 @@ import {
   getLessonMdx,
 } from "./fs-loader";
 import { isCodeExercise, toClientExercise } from "./client-exercise";
+import { splitLessonIntoSteps } from "./lesson-steps";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
@@ -35,6 +36,21 @@ describe("complete curriculum integrity", () => {
       expect(referencedOrders, `${lesson.slug} MDX exercise references`).toEqual(
         exercises.map((exercise) => exercise.order)
       );
+
+      const lessonSteps = splitLessonIntoSteps(mdx, exercises);
+      const practiceSteps = lessonSteps.filter(
+        (step) => step.kind === "practice"
+      );
+      expect(lessonSteps.length, `${lesson.slug} lesson screens`).toBeGreaterThan(
+        1
+      );
+      expect(practiceSteps, `${lesson.slug} practice screens`).toHaveLength(
+        exercises.length
+      );
+      expect(
+        practiceSteps.flatMap((step) => step.exerciseIds),
+        `${lesson.slug} exercises assigned to screens`
+      ).toEqual(exercises.map((exercise) => exercise.id));
 
       for (const exercise of exercises) {
         expect(exercise.lessonSlug).toBe(lesson.slug);

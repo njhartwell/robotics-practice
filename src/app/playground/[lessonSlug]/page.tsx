@@ -10,6 +10,10 @@ import { LessonView } from "@/components/lesson/LessonView";
 import { buildMdxComponents } from "@/lib/content/mdx-components";
 import remarkGfm from "remark-gfm";
 import { orderLessonsByTrack } from "@/lib/content/curriculum-track";
+import {
+  splitLessonIntoSteps,
+  type LessonStep,
+} from "@/lib/content/lesson-steps";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
@@ -56,16 +60,21 @@ export default async function PlaygroundLessonPage({ params }: PageProps) {
       ? learningPath[lessonIndex + 1]
       : undefined;
 
-  let mdxContent: React.ReactElement;
+  let steps: LessonStep[];
   if (mdxSource) {
-    const { content } = await compileMDX({
-      source: mdxSource,
-      components: mdxComponents,
-      options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
-    });
-    mdxContent = content;
+    const stepSources = splitLessonIntoSteps(mdxSource, exercises);
+    steps = await Promise.all(
+      stepSources.map(async ({ source, ...step }) => {
+        const { content } = await compileMDX({
+          source,
+          components: mdxComponents,
+          options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
+        });
+        return { ...step, content };
+      })
+    );
   } else {
-    mdxContent = <p className="text-muted">No content yet.</p>;
+    steps = [];
   }
 
   return (
@@ -74,8 +83,7 @@ export default async function PlaygroundLessonPage({ params }: PageProps) {
       exerciseIds={exercises.map((exercise) => exercise.id)}
       previousLesson={previousLesson}
       nextLesson={nextLesson}
-    >
-      {mdxContent}
-    </LessonView>
+      steps={steps}
+    />
   );
 }

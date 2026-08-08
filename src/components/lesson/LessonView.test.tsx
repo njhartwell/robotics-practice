@@ -7,6 +7,7 @@ import {
 import { canAccessLesson } from "@/lib/progress/lesson-access";
 import { createDefaultProgress, type LessonMeta } from "@/lib/progress/types";
 import { LessonView } from "./LessonView";
+import type { LessonStep } from "@/lib/content/lesson-steps";
 
 const lesson: LessonMeta = {
   slug: "15-classes",
@@ -36,6 +37,16 @@ const nextLesson = {
   title: "Constructors",
 };
 
+const steps: LessonStep[] = [
+  {
+    id: "concept-1",
+    title: "Classes are blueprints",
+    kind: "concept",
+    exerciseIds: [],
+    content: <p>Private lesson material</p>,
+  },
+];
+
 function contextValue(
   configure?: (progress: ReturnType<typeof createDefaultProgress>) => void
 ): ProgressContextValue {
@@ -63,9 +74,8 @@ function renderLesson(value: ProgressContextValue) {
         exerciseIds={["15-classes/ex-01"]}
         previousLesson={previousLesson}
         nextLesson={nextLesson}
-      >
-        <p>Private lesson material</p>
-      </LessonView>
+        steps={steps}
+      />
     </ProgressContext.Provider>
   );
 }
