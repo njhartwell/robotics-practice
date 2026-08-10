@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ChevronLeft, CheckCircle, Lock } from "lucide-react";
 import { LessonStepper } from "./LessonStepper";
 import type { LessonStep } from "@/lib/content/lesson-steps";
+import { LessonFeedback } from "@/components/feedback/LessonFeedback";
 
 interface LessonViewProps {
   lesson: LessonMeta;
@@ -120,6 +121,7 @@ export function LessonView({
         lessonKey={lesson.slug}
         steps={steps}
         completedExerciseIds={completedExerciseIds}
+        feedbackContext={{ lessonSlug: lesson.slug, part: lesson.part }}
         footer={
           <>
             {isLessonDone && (
@@ -146,6 +148,10 @@ export function LessonView({
                   </Link>
                 )}
               </div>
+            )}
+
+            {isLessonDone && (
+              <LessonFeedback lessonSlug={lesson.slug} part={lesson.part} />
             )}
 
             <nav

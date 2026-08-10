@@ -18,6 +18,8 @@ KOTLIN_VALIDATION_TIMEOUT_MS = { default = "60000" }
 DATABASE_URL = { default = "file:./data/tutorial.db" }
 BETTER_AUTH_URL = { default = "http://localhost:3000" }
 BETTER_AUTH_SECRET = { default = "local-development-secret-change-before-deploying" }
+BETTER_AUTH_TRUSTED_ORIGINS = { default = "http://localhost:3000,http://127.0.0.1:3000,http://192.168.1.19:3000" }
+DEV_ALLOWED_ORIGINS = { default = "127.0.0.1,192.168.1.19" }
 
 [tasks.install]
 alias = "i"

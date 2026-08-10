@@ -137,11 +137,44 @@ export const invitation = sqliteTable(
   ]
 );
 
+export const feedback = sqliteTable(
+  "feedback",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    lessonSlug: text("lesson_slug").notNull(),
+    part: text("part", { enum: ["playground", "ide-projects"] }).notNull(),
+    stepId: text("step_id"),
+    kind: text("kind", { enum: ["lesson", "inline"] }).notNull(),
+    rating: integer("rating"),
+    comment: text("comment"),
+    status: text("status", { enum: ["new", "reviewed", "resolved"] })
+      .default("new")
+      .notNull(),
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
+      .default(currentTimestamp)
+      .notNull(),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
+      .default(currentTimestamp)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("feedback_user_id_idx").on(table.userId),
+    index("feedback_lesson_slug_idx").on(table.lessonSlug),
+    index("feedback_status_idx").on(table.status),
+    index("feedback_created_at_idx").on(table.createdAt),
+  ]
+);
+
 export const userRelations = relations(user, ({ many, one }) => ({
   sessions: many(session),
   accounts: many(account),
   progress: one(userProgress),
   invitations: many(invitation),
+  feedback: many(feedback),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -168,6 +201,13 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
 export const invitationRelations = relations(invitation, ({ one }) => ({
   inviter: one(user, {
     fields: [invitation.invitedBy],
+    references: [user.id],
+  }),
+}));
+
+export const feedbackRelations = relations(feedback, ({ one }) => ({
+  user: one(user, {
+    fields: [feedback.userId],
     references: [user.id],
   }),
 }));

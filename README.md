@@ -53,11 +53,18 @@ is deliberately no default administrator identity.
 Local development uses Better Auth email/password accounts and a libSQL file at
 `data/tutorial.db`. Copy `.env.example` to `.env.local` when you need to
 override mise defaults or enable GitHub, Google, or Microsoft sign-in.
+When the tutorial is opened through another LAN hostname, add its full origin
+to `BETTER_AUTH_TRUSTED_ORIGINS` and its hostname to `DEV_ALLOWED_ORIGINS`.
 
 Administrators can open `/admin/access` to create seven-day, one-time
 invitation links and approve or reject accounts in the access queue. Invitation
 tokens are stored as SHA-256 hashes; the shareable token is only returned when
 an invitation is created or replaced.
+
+Every lesson step includes a feedback button for in-context comments and an
+optional 1–5 rating. Completed lessons also prompt for a lesson-level review.
+Administrators can triage the latest submissions at `/admin/feedback`; feedback
+is stored alongside user and lesson context in the same database.
 
 The same Drizzle schema works with hosted Turso/libSQL: set `DATABASE_URL` and
 `DATABASE_AUTH_TOKEN`, then run `mise run db:migrate`. Common database tasks:

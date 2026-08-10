@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ChevronLeft, Download } from "lucide-react";
 import { LessonStepper } from "@/components/lesson/LessonStepper";
 import type { LessonStep } from "@/lib/content/lesson-steps";
+import { LessonFeedback } from "@/components/feedback/LessonFeedback";
 
 interface IdeProjectViewProps {
   lesson: LessonMeta;
@@ -41,7 +42,12 @@ export function IdeProjectView({ lesson, steps }: IdeProjectViewProps) {
         </button>
       </div>
 
-      <LessonStepper lessonKey={lesson.slug} steps={steps} />
+      <LessonStepper
+        lessonKey={lesson.slug}
+        steps={steps}
+        feedbackContext={{ lessonSlug: lesson.slug, part: lesson.part }}
+        footer={<LessonFeedback lessonSlug={lesson.slug} part={lesson.part} />}
+      />
     </div>
   );
 }

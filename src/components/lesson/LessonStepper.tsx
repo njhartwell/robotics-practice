@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
 import type { LessonStep } from "@/lib/content/lesson-steps";
+import type { Part } from "@/lib/progress/types";
+import { FeedbackDialog } from "@/components/feedback/FeedbackDialog";
 
 interface LessonStepperProps {
   lessonKey: string;
   steps: LessonStep[];
   completedExerciseIds?: string[];
   footer?: ReactNode;
+  feedbackContext?: { lessonSlug: string; part: Part };
 }
 
 const STEP_LABELS = {
@@ -22,6 +25,7 @@ export function LessonStepper({
   steps,
   completedExerciseIds = [],
   footer,
+  feedbackContext,
 }: LessonStepperProps) {
   return (
     <LessonStepperContent
@@ -29,6 +33,7 @@ export function LessonStepper({
       steps={steps}
       completedExerciseIds={completedExerciseIds}
       footer={footer}
+      feedbackContext={feedbackContext}
     />
   );
 }
@@ -37,6 +42,7 @@ function LessonStepperContent({
   steps,
   completedExerciseIds = [],
   footer,
+  feedbackContext,
 }: Omit<LessonStepperProps, "lessonKey">) {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -107,11 +113,20 @@ function LessonStepperContent({
           >
             {activeStep.title}
           </h2>
-          {activePracticeComplete && (
-            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700">
-              <CheckCircle2 size={14} /> Complete
-            </span>
-          )}
+          <div className="flex shrink-0 flex-col items-end gap-2 sm:flex-row sm:items-center">
+            {activePracticeComplete && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700">
+                <CheckCircle2 size={14} /> Complete
+              </span>
+            )}
+            {feedbackContext && (
+              <FeedbackDialog
+                lessonSlug={feedbackContext.lessonSlug}
+                part={feedbackContext.part}
+                stepId={activeStep.id}
+              />
+            )}
+          </div>
         </div>
 
         <div className="prose prose-sm max-w-none" key={activeStep.id}>
