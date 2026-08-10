@@ -13,7 +13,7 @@ import type { Part, UserProgress } from "./types";
 import { createDefaultProgress } from "./types";
 import { progressReducer } from "./reducer";
 import type { StorageAdapter } from "./storage-adapter";
-import { LocalStorageAdapter } from "./local-storage-adapter";
+import { ApiStorageAdapter } from "./api-storage-adapter";
 import { checkBadgeUnlocks } from "@/lib/gamification/badges";
 import { canAccessLesson } from "./lesson-access";
 
@@ -43,7 +43,7 @@ export function ProgressProvider({
   adapter,
 }: ProgressProviderProps) {
   const storageRef = useRef<StorageAdapter>(
-    adapter ?? new LocalStorageAdapter()
+    adapter ?? new ApiStorageAdapter()
   );
   const [progress, dispatch] = useReducer(
     progressReducer,
@@ -85,7 +85,9 @@ export function ProgressProvider({
   // Auto-save on changes (skip initial load)
   useEffect(() => {
     if (isLoadedRef.current) {
-      storageRef.current.save(progress);
+      void storageRef.current.save(progress).catch((error) => {
+        console.warn("Could not save tutorial progress.", error);
+      });
     }
   }, [progress]);
 
@@ -113,7 +115,9 @@ export function ProgressProvider({
 
   const resetProgress = useCallback(() => {
     dispatch({ type: "RESET_PROGRESS" });
-    storageRef.current.clear();
+    void storageRef.current.clear().catch((error) => {
+      console.warn("Could not clear tutorial progress.", error);
+    });
   }, []);
 
   const isLessonUnlocked = useCallback(

@@ -15,6 +15,9 @@ KOTLIN_LOCAL_COMPILE_TIMEOUT_MS = { default = "15000" }
 KOTLIN_LOCAL_EXECUTION_TIMEOUT_MS = { default = "3000" }
 KOTLIN_VALIDATION_CONCURRENCY = { default = "4" }
 KOTLIN_VALIDATION_TIMEOUT_MS = { default = "60000" }
+DATABASE_URL = { default = "file:./data/tutorial.db" }
+BETTER_AUTH_URL = { default = "http://localhost:3000" }
+BETTER_AUTH_SECRET = { default = "local-development-secret-change-before-deploying" }
 
 [tasks.install]
 alias = "i"
@@ -29,12 +32,24 @@ run = "bun install --frozen-lockfile"
 [tasks.dev]
 alias = "d"
 description = "Start the Next.js development server"
-depends = ["kotlin:worker:build"]
+depends = ["db:migrate", "kotlin:worker:build"]
 run = "bun run dev"
 
 [tasks."kotlin:worker:build"]
 description = "Build the persistent local Kotlin compiler worker"
 run = "bun run kotlin:worker:build"
+
+[tasks."db:generate"]
+description = "Generate a Drizzle migration after changing the schema"
+run = "bun run db:generate"
+
+[tasks."db:migrate"]
+description = "Apply database migrations"
+run = "bun run db:migrate"
+
+[tasks."db:studio"]
+description = "Open Drizzle Studio for the configured database"
+run = "bun run db:studio"
 
 [tasks.start]
 description = "Start the production server"

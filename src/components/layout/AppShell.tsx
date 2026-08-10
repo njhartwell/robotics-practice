@@ -4,6 +4,7 @@ import { ProgressProvider } from "@/lib/progress/ProgressProvider";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 import type { LessonMeta } from "@/lib/progress/types";
+import { usePathname } from "next/navigation";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -16,6 +17,11 @@ export function AppShell({
   playgroundLessons,
   ideLessons,
 }: AppShellProps) {
+  const pathname = usePathname();
+  if (pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up")) {
+    return children;
+  }
+
   return (
     <ProgressProvider>
       <div className="flex h-screen overflow-hidden">

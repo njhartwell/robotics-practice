@@ -8,6 +8,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Home, BookOpen, Wrench, User } from "lucide-react";
+import { UserMenu } from "@/components/auth/UserMenu";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: Home },
@@ -39,6 +40,7 @@ export function TopBar() {
         <div className="flex items-center gap-3">
           <XpBar />
           <LevelBadge />
+          <UserMenu />
         </div>
       </div>
       {mobileMenuOpen && (

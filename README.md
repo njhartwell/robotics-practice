@@ -38,8 +38,25 @@ mise run dev
 If you already have Bun installed, `bun install` and `bun run dev` work without
 mise. The committed `bun.lock` is the only JavaScript dependency lockfile.
 
-Open [http://localhost:3000](http://localhost:3000). Student progress and code
-drafts are stored in the browser, so no account is required.
+Open [http://localhost:3000](http://localhost:3000). Create a local account on
+the sign-up screen. Existing browser progress is imported into the account the
+first time it signs in, then stored in the configured SQLite-compatible
+database.
+
+## Authentication and database
+
+Local development uses Better Auth email/password accounts and a libSQL file at
+`data/tutorial.db`. Copy `.env.example` to `.env.local` when you need to
+override mise defaults or enable GitHub, Google, or Microsoft sign-in.
+
+The same Drizzle schema works with hosted Turso/libSQL: set `DATABASE_URL` and
+`DATABASE_AUTH_TOKEN`, then run `mise run db:migrate`. Common database tasks:
+
+```bash
+mise run db:generate
+mise run db:migrate
+mise run db:studio
+```
 
 Run the full local verification suite with:
 
