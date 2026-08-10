@@ -43,11 +43,21 @@ the sign-up screen. Existing browser progress is imported into the account the
 first time it signs in, then stored in the configured SQLite-compatible
 database.
 
+New accounts are pending until an administrator approves them. Bootstrap the
+first administrator by setting `BOOTSTRAP_ADMIN_EMAILS` to that person’s email
+address before they sign up. Multiple addresses may be comma-separated. There
+is deliberately no default administrator identity.
+
 ## Authentication and database
 
 Local development uses Better Auth email/password accounts and a libSQL file at
 `data/tutorial.db`. Copy `.env.example` to `.env.local` when you need to
 override mise defaults or enable GitHub, Google, or Microsoft sign-in.
+
+Administrators can open `/admin/access` to create seven-day, one-time
+invitation links and approve or reject accounts in the access queue. Invitation
+tokens are stored as SHA-256 hashes; the shareable token is only returned when
+an invitation is created or replaced.
 
 The same Drizzle schema works with hosted Turso/libSQL: set `DATABASE_URL` and
 `DATABASE_AUTH_TOKEN`, then run `mise run db:migrate`. Common database tasks:

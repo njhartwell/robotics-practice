@@ -4,6 +4,7 @@ import { FormEvent, Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { safeNextPath } from "@/lib/access";
 
 const SOCIAL_PROVIDERS = [
   { id: "github", label: "GitHub", enabled: process.env.NEXT_PUBLIC_GITHUB_AUTH === "true" },
@@ -26,7 +27,8 @@ function SignInForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const destination = searchParams.get("next") || "/";
+  const destination = safeNextPath(searchParams.get("next"));
+  const invitationToken = searchParams.get("invite");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,6 +39,18 @@ function SignInForm() {
     if (result.error) {
       setError(result.error.message || "Could not sign in.");
       return;
+    }
+    if (invitationToken) {
+      const claim = await fetch("/api/invitations/claim", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token: invitationToken }),
+      });
+      if (!claim.ok) {
+        router.push("/pending?claim=failed");
+        router.refresh();
+        return;
+      }
     }
     router.push(destination);
     router.refresh();
@@ -100,7 +114,17 @@ function SignInForm() {
         )}
 
         <p className="mt-6 text-center text-sm text-muted">
-          Need an account? <Link href="/sign-up" className="text-primary hover:underline">Create one</Link>
+          Need an account?{" "}
+          <Link
+            href={
+              invitationToken
+                ? `/sign-up?invite=${encodeURIComponent(invitationToken)}`
+                : "/sign-up"
+            }
+            className="text-primary hover:underline"
+          >
+            Create one
+          </Link>
         </p>
       </div>
     </main>

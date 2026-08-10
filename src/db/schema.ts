@@ -1,5 +1,11 @@
 import { relations, sql } from "drizzle-orm";
-import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  integer,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
 
 const currentTimestamp = sql`(cast(unixepoch('subsecond') * 1000 as integer))`;
 
@@ -17,7 +23,7 @@ export const user = sqliteTable("user", {
   accessStatus: text("access_status", {
     enum: ["pending", "approved", "rejected"],
   })
-    .default("approved")
+    .default("pending")
     .notNull(),
   createdAt: integer("created_at", { mode: "timestamp_ms" })
     .default(currentTimestamp)
@@ -100,10 +106,42 @@ export const userProgress = sqliteTable("user_progress", {
     .notNull(),
 });
 
+export const invitation = sqliteTable(
+  "invitation",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull(),
+    tokenHash: text("token_hash").notNull(),
+    invitedBy: text("invited_by")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    status: text("status", {
+      enum: ["pending", "accepted", "revoked", "expired"],
+    })
+      .default("pending")
+      .notNull(),
+    expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
+    acceptedAt: integer("accepted_at", { mode: "timestamp_ms" }),
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
+      .default(currentTimestamp)
+      .notNull(),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
+      .default(currentTimestamp)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex("invitation_email_idx").on(table.email),
+    uniqueIndex("invitation_token_hash_idx").on(table.tokenHash),
+    index("invitation_status_idx").on(table.status),
+  ]
+);
+
 export const userRelations = relations(user, ({ many, one }) => ({
   sessions: many(session),
   accounts: many(account),
   progress: one(userProgress),
+  invitations: many(invitation),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -123,6 +161,13 @@ export const accountRelations = relations(account, ({ one }) => ({
 export const userProgressRelations = relations(userProgress, ({ one }) => ({
   user: one(user, {
     fields: [userProgress.userId],
+    references: [user.id],
+  }),
+}));
+
+export const invitationRelations = relations(invitation, ({ one }) => ({
+  inviter: one(user, {
+    fields: [invitation.invitedBy],
     references: [user.id],
   }),
 }));

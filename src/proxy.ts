@@ -1,7 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
+import { isApproved } from "@/lib/access";
 
 const PUBLIC_PATHS = ["/sign-in", "/sign-up"];
+const PENDING_PATHS = ["/pending", "/api/invitations/claim"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -18,6 +20,18 @@ export async function proxy(request: NextRequest) {
     const signInUrl = new URL("/sign-in", request.url);
     signInUrl.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(signInUrl);
+  }
+
+  const isPendingPath = PENDING_PATHS.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`)
+  );
+  if (!isApproved(session)) {
+    if (isPendingPath) return NextResponse.next();
+    return NextResponse.redirect(new URL("/pending", request.url));
+  }
+
+  if (pathname === "/pending") {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();

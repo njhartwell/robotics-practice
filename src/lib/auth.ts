@@ -33,6 +33,15 @@ function optionalSocialProviders() {
   };
 }
 
+function bootstrapAdminEmails() {
+  return new Set(
+    (process.env.BOOTSTRAP_ADMIN_EMAILS ?? "")
+      .split(",")
+      .map((email) => email.trim().toLowerCase())
+      .filter(Boolean)
+  );
+}
+
 export const auth = betterAuth({
   appName: "FRC Kotlin Tutorial",
   baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
@@ -47,6 +56,23 @@ export const auth = betterAuth({
     enabled: true,
     minPasswordLength: 8,
   },
+  databaseHooks: {
+    user: {
+      create: {
+        async before(newUser) {
+          if (!bootstrapAdminEmails().has(newUser.email.toLowerCase())) return;
+
+          return {
+            data: {
+              ...newUser,
+              role: "admin",
+              accessStatus: "approved",
+            },
+          };
+        },
+      },
+    },
+  },
   socialProviders: optionalSocialProviders(),
   user: {
     additionalFields: {
@@ -59,7 +85,7 @@ export const auth = betterAuth({
       accessStatus: {
         type: "string",
         required: true,
-        defaultValue: "approved",
+        defaultValue: "pending",
         input: false,
       },
     },
