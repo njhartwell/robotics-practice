@@ -67,7 +67,11 @@ Administrators can triage the latest submissions at `/admin/feedback`; feedback
 is stored alongside user and lesson context in the same database.
 
 The same Drizzle schema works with hosted Turso/libSQL: set `DATABASE_URL` and
-`DATABASE_AUTH_TOKEN`, then run `mise run db:migrate`. Common database tasks:
+`DATABASE_AUTH_TOKEN` (or `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`), then run
+`mise run db:migrate`. Both the app and migrations support these names;
+non-empty `DATABASE_*` values take precedence over their `TURSO_*` equivalents.
+Remove any local `DATABASE_URL=file:...` override when using `TURSO_*`.
+Common database tasks:
 
 ```bash
 mise run db:generate
@@ -110,6 +114,60 @@ mise run check:all
 
 Use `mise tasks` to see the complete task list and short aliases such as
 `mise run d`, `mise run t`, and `mise run c`.
+
+## Deploying to Vercel + Turso
+
+1. Create a Turso database and generate its credentials:
+
+   ```bash
+   turso db create robotics-practice
+   turso db show robotics-practice --url
+   turso db tokens create robotics-practice
+   ```
+
+2. Import this repository into Vercel. The committed `vercel.json` installs
+   with the frozen Bun lockfile and builds Next.js without a Kotlin/JVM setup.
+   Configure these environment variables before the first deployment:
+
+   | Variable | Value |
+   | --- | --- |
+   | `DATABASE_URL` | Turso's `libsql://...` URL |
+   | `DATABASE_AUTH_TOKEN` | Database token from Turso |
+   | `BETTER_AUTH_URL` | Exact public HTTPS origin, e.g. `https://learn.example.com` |
+   | `BETTER_AUTH_SECRET` | Random secret of at least 32 characters (`openssl rand -hex 32`) |
+   | `BOOTSTRAP_ADMIN_EMAILS` | Comma-separated emails to make administrators on signup |
+
+   Optional OAuth credentials and `NEXT_PUBLIC_*_AUTH` flags work as described
+   in `.env.example`. Register each provider's callback as
+   `https://<your-host>/api/auth/callback/<provider>` (github, google, or microsoft).
+   Add any additional allowed origins to `BETTER_AUTH_TRUSTED_ORIGINS`.
+
+3. Apply the committed migrations before serving traffic. From a local checkout,
+   set `DATABASE_URL` and `DATABASE_AUTH_TOKEN` to the target Turso credentials,
+   then run `bun run db:migrate`. Drizzle also reads `.env.local`; exported
+   environment variables take precedence. Use `bun run db:generate` only when
+   changing the schema. Migrations deliberately run separately from Vercel
+   builds so preview builds cannot migrate the production database accidentally.
+
+4. Deploy, sign up with a bootstrap administrator email, and verify sign-in,
+   lesson loading, code grading, progress persistence, and the admin access page.
+
+Use a separate Turso database and auth secret for Preview deployments, migrate
+that database separately, and set `BETTER_AUTH_URL` to the exact preview origin
+(a stable preview domain is easiest). Avoid sharing production credentials with
+previews. Redeploy after changing environment variables; public OAuth flags
+are embedded at build time.
+
+On Vercel the app requires hosted database credentials and explicit auth
+settings. Lesson files are included in server function traces. Kotlin grading
+always uses the remote compiler service, skips JVM warmup, and has a 60-second
+function budget. You can configure `KOTLIN_API_SERVER`,
+`KOTLIN_COMPILER_VERSION`, and `KOTLIN_API_TIMEOUT_MS` for your compiler service;
+grading requires that service to be reachable from Vercel.
+
+See the [Vercel Next.js guide](https://vercel.com/docs/frameworks/nextjs),
+[function duration configuration](https://vercel.com/docs/functions/configuring-functions/duration),
+and [Drizzle's Turso guide](https://orm.drizzle.team/docs/tutorials/drizzle-with-turso).
 
 ## Exercise grading
 

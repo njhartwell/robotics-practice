@@ -23,11 +23,13 @@ describe("Kotlin executor", () => {
   const originalMode = process.env.KOTLIN_EXECUTION_MODE;
 
   beforeEach(() => {
+    vi.stubEnv("VERCEL", "0");
     vi.clearAllMocks();
     delete process.env.KOTLIN_EXECUTION_MODE;
   });
 
   afterEach(() => {
+    vi.unstubAllEnvs();
     if (originalMode === undefined) {
       delete process.env.KOTLIN_EXECUTION_MODE;
     } else {
@@ -41,6 +43,20 @@ describe("Kotlin executor", () => {
 
     await expect(runKotlin("code")).resolves.toEqual(localResult);
     expect(mocks.remoteRun).not.toHaveBeenCalled();
+  });
+
+  it("uses remote execution on Vercel even when local mode is configured", async () => {
+    vi.stubEnv("VERCEL", "1");
+    process.env.KOTLIN_EXECUTION_MODE = "local";
+    const result = { output: "ok", errors: [], success: true };
+    mocks.remoteRun.mockResolvedValue(result);
+    mocks.remoteTests.mockResolvedValue({ passed: true, tests: [], errors: [] });
+
+    await expect(runKotlin("code")).resolves.toEqual(result);
+    await runKotlinTests("code", "tests");
+    expect(mocks.remoteTests).toHaveBeenCalledWith("code", "tests");
+    expect(mocks.localRun).not.toHaveBeenCalled();
+    expect(mocks.localTests).not.toHaveBeenCalled();
   });
 
   it("falls back to the remote runner when local infrastructure fails", async () => {

@@ -3,6 +3,15 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
 
+if (process.env.VERCEL === "1") {
+  if (!process.env.BETTER_AUTH_URL?.startsWith("https://")) {
+    throw new Error("Set BETTER_AUTH_URL to this deployment's HTTPS origin.");
+  }
+  if (!process.env.BETTER_AUTH_SECRET || process.env.BETTER_AUTH_SECRET.length < 32) {
+    throw new Error("Set BETTER_AUTH_SECRET to at least 32 random characters on Vercel.");
+  }
+}
+
 function optionalSocialProviders() {
   return {
     ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET

@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   // Next.js blocks dev-only assets from non-localhost origins unless they are
   // explicitly trusted.
   allowedDevOrigins,
+  // Lesson paths are constructed dynamically, including in the grading API.
+  outputFileTracingIncludes: {
+    "/*": ["./content/**/*"],
+  },
 };
 
 export default nextConfig;

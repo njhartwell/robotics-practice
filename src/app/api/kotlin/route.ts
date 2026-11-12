@@ -4,6 +4,9 @@ import { isCodeExercise } from "@/lib/content/client-exercise";
 import { gradeKotlinExercise } from "@/lib/kotlin-grader";
 import type { KotlinExerciseRequest } from "@/lib/kotlin-grader-types";
 
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
 const MAX_CODE_LENGTH = 50_000;
 

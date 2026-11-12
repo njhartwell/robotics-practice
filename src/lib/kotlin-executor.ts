@@ -11,6 +11,8 @@ import {
 type ExecutionMode = "auto" | "local" | "remote";
 
 function executionMode(): ExecutionMode {
+  // Serverless deployments do not provide the persistent JVM worker.
+  if (process.env.VERCEL === "1") return "remote";
   const configured = process.env.KOTLIN_EXECUTION_MODE;
   return configured === "local" || configured === "remote"
     ? configured

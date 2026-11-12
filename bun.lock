@@ -7,6 +7,7 @@
       "dependencies": {
         "@codemirror/lang-java": "^6.0.2",
         "@libsql/client": "^0.17.4",
+        "@next/env": "16.2.2",
         "@tailwindcss/typography": "^0.5.19",
         "@uiw/react-codemirror": "^4.25.9",
         "better-auth": "^1.6.26",
